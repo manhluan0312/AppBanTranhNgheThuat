@@ -1,6 +1,7 @@
 package com.example.myapplication.Activity;
 
 import android.os.Bundle;
+import android.view.Menu;
 import android.view.MenuItem;
 
 import androidx.annotation.NonNull;
@@ -80,4 +81,6 @@ public class MainActivity extends AppCompatActivity {
         bottomNavigationView = findViewById(R.id.bottom_nav);
         viewPager = findViewById(R.id.viewpapar);
     }
+
+
 }

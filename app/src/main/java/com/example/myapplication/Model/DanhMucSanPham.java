@@ -1,4 +1,6 @@
 package com.example.myapplication.Model;
 
-public class DanhMucSanPham {
+import java.io.Serializable;
+
+public class DanhMucSanPham implements Serializable {
 }

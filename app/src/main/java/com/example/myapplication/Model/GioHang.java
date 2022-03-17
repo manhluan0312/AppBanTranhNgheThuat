@@ -1,4 +1,6 @@
 package com.example.myapplication.Model;
 
-public class GioHang {
+import java.io.Serializable;
+
+public class GioHang implements Serializable {
 }

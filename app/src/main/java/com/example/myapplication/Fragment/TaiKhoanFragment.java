@@ -13,10 +13,13 @@ import com.example.myapplication.R;
 
 public class TaiKhoanFragment extends Fragment {
 
+    private View mView;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_tai_khoan, container, false);
+        mView= inflater.inflate(R.layout.fragment_tai_khoan, container, false);
+        return mView;
     }
 }

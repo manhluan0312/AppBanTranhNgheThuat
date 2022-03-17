@@ -12,10 +12,13 @@ import com.example.myapplication.R;
 
 public class DanhMucSanPhamFragment extends Fragment {
 
+    private View mView;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_danh_muc_san_pham, container, false);
+        mView=inflater.inflate(R.layout.fragment_danh_muc_san_pham, container, false);
+        return mView;
     }
 }
