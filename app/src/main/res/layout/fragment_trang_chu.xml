@@ -16,7 +16,7 @@
             android:id="@+id/toobar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/purple_500"
+            android:background="@drawable/custum_toolbar"
             app:titleTextColor="@color/white"
             app:title="@string/app_name" />
 
@@ -65,7 +65,7 @@
                 android:layout_weight="1"
                 android:drawableRight="@drawable/ic_next"
                 android:gravity="end"
-                android:text="Xem thêm"
+                android:text="@string/tv_xemthemsanphammoinhat"
                 android:textColor="@color/purple_500"
                 android:textSize="18sp"
                 android:textStyle="bold" />
@@ -100,7 +100,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="5dp"
                 android:layout_weight="2.5"
-                android:text="SẢN PHẨM NỔI BẬT"
+                android:text="@string/tieu_de_san_pham_noi_bat"
                 android:textColor="@color/black"
                 android:textSize="18sp"
                 android:textStyle="bold" />
@@ -112,7 +112,7 @@
                 android:layout_weight="1"
                 android:drawableRight="@drawable/ic_next"
                 android:gravity="end"
-                android:text="Xem thêm"
+                android:text="@string/tv_xemthemsanpham_noi_bat"
                 android:textColor="@color/purple_500"
                 android:textSize="18sp"
                 android:textStyle="bold" />

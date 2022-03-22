@@ -19,6 +19,10 @@ public class DanhMucSanPhamFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         mView=inflater.inflate(R.layout.fragment_danh_muc_san_pham, container, false);
+        AnhXa();
         return mView;
+    }
+
+    private void AnhXa() {
     }
 }

@@ -6,4 +6,9 @@
     <string name="danh_muc_san_pham">Danh mục sản phẩm</string>
     <string name="taikhoan">Tài khoản</string>
     <string name="tieu_de_san_moi_nhat">SẢN PHẨM MỚI NHẤT</string>
+    <string name="tv_xemthemsanphammoinhat">Xem thêm</string>
+    <string name="tieu_de_san_pham_noi_bat">SẢN PHẨM NỔI BẬT</string>
+    <string name="tv_xemthemsanpham_noi_bat">Xem thêm</string>
+    <string name="menu_timkiem">Tìm kiếm</string>
+    <string name="menutoobar_giohang">Giỏ Hàng</string>
 </resources>

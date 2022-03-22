@@ -11,5 +11,9 @@ public class SanPhamActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_san_pham);
+        AnhXa();
+    }
+
+    private void AnhXa() {
     }
 }

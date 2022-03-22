@@ -20,6 +20,10 @@ public class TaiKhoanFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         mView= inflater.inflate(R.layout.fragment_tai_khoan, container, false);
+        AnhXa();
         return mView;
+    }
+
+    private void AnhXa() {
     }
 }

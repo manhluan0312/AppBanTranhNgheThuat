@@ -5,13 +5,13 @@
     <item
         android:id="@+id/item_serch"
         android:icon="@drawable/ic_search"
-        android:title="Tìm kiếm"
+        android:title="@string/menu_timkiem"
         app:showAsAction="always" />
 
     <item
         android:id="@+id/item_cart"
         android:icon="@drawable/ic_cart"
-        android:title="Giỏ Hàng"
+        android:title="@string/menutoobar_giohang"
         app:showAsAction="always" />
 
 </menu>
