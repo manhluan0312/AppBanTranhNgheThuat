@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
-    tools:context=".Fragment.TrangChuFragment">
+    tools:context=".Fragment.HomeFragment">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -15,10 +15,9 @@
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toobar"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="?attr/actionBarSize"
             android:background="@drawable/custum_toolbar"
-            app:titleTextColor="@color/white"
-            app:title="@string/app_name" />
+            app:titleTextColor="@color/white" />
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -59,6 +58,7 @@
                 android:textStyle="bold" />
 
             <TextView
+                android:id="@+id/xemthemspmn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="20dp"
@@ -78,6 +78,7 @@
             android:paddingTop="10dp">
 
             <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rcv_spmn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
@@ -106,6 +107,7 @@
                 android:textStyle="bold" />
 
             <TextView
+                android:id="@+id/xemthemspnb"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="20dp"
@@ -126,6 +128,7 @@
             android:paddingTop="10dp">
 
             <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rcv_spnb"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
