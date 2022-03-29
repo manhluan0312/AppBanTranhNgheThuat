@@ -1,32 +1,37 @@
-package com.example.myapplication.Activity;
+package com.example.myapplication.Activity.Custumer;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.TextView;
 
 import com.example.myapplication.R;
 
-public class ViewInfoActivity extends AppCompatActivity {
+public class HighlightsProcductsActivity extends AppCompatActivity {
 
     Toolbar toolbar;
+    TextView mTitle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_view_info);
+        setContentView(R.layout.activity_highlights_procducts);
         AnhXa();
         setToolbar();
     }
+
     private void AnhXa() {
         toolbar = findViewById(R.id.toobar);
+        mTitle = (TextView) toolbar.findViewById(R.id.toolbar_title);
     }
 
-    private void setToolbar(){
+    private void setToolbar() {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setTitle("Thông tin cá nhân");
+        mTitle.setText("Sản phẩm nổi bật");
+        getSupportActionBar().setDisplayShowTitleEnabled(false);//khong hien thi titile ma cdinh cua toorbar
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

@@ -5,14 +5,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".Activity.Custumer.GioHangActivity">
+    tools:context=".Activity.Custumer.HighlightsProcductsActivity">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toobar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:background="@drawable/custum_toolbar"
-        android:gravity="center_horizontal"
         app:titleTextColor="@color/white" >
 
         <TextView

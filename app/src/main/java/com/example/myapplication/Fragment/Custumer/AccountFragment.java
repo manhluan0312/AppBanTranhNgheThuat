@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.AppCompatButton;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 
@@ -16,12 +17,15 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 
-import com.example.myapplication.Activity.GioHangActivity;
+import com.example.myapplication.Activity.ChangePasswordActivity;
+import com.example.myapplication.Activity.Custumer.GioHangActivity;
+import com.example.myapplication.Activity.LoginActivity;
 import com.example.myapplication.Activity.MainActivity;
 import com.example.myapplication.Activity.TimKiemActivity;
-import com.example.myapplication.Activity.ViewInfoActivity;
+import com.example.myapplication.Activity.Custumer.UpdateInfoProfileActivity;
 import com.example.myapplication.R;
 
 
@@ -29,8 +33,10 @@ public class AccountFragment extends Fragment {
 
     private View mView;
     MainActivity mainActivity;
-    LinearLayout linearLayoutlogout,linearLayoutviewinfo;
+    LinearLayout linearLayoutlogout,linearLayoutviewinfo,linearLayoutchangepass;
     Toolbar toolbar;
+    TextView mTitle;
+    AppCompatButton btn_no,btn_yes;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -39,6 +45,7 @@ public class AccountFragment extends Fragment {
         mView = inflater.inflate(R.layout.fragment_tai_khoan, container, false);
         AnhXa();
         setToolbar();
+
         //bat su kien khi an vao nut dang xuat
 
         linearLayoutlogout.setOnClickListener(new View.OnClickListener() {
@@ -48,6 +55,8 @@ public class AccountFragment extends Fragment {
             }
         });
 
+        //bat su kien khi an vao nut xem thong tin ca nhan
+
         linearLayoutviewinfo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -55,25 +64,64 @@ public class AccountFragment extends Fragment {
             }
         });
 
+        //bat su kien khi an vao thay doi mat khau
+
+        linearLayoutchangepass.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ChangePassWord();
+            }
+        });
+
         return mView;
+    }
+
+    private void ChangePassWord() {
+        Intent intent=new Intent(mainActivity, ChangePasswordActivity.class);
+        startActivity(intent);
+
     }
 
     private void setToolbar(){
         mainActivity = (MainActivity) getActivity();//ep kieu bien moi truong
         mainActivity.setSupportActionBar(toolbar);
-        mainActivity.getSupportActionBar().setTitle("Tài khoản");
+        mTitle.setText("Tài khoản");
+        mainActivity.getSupportActionBar().setDisplayShowTitleEnabled(false);//khong hien thi titile ma cdinh cua toorbar
     }
     private void AnhXa() {
         linearLayoutlogout = mView.findViewById(R.id.linner_dangxuat);
         linearLayoutviewinfo=mView.findViewById(R.id.linner_xemthongtincanhan);
         toolbar = mView.findViewById(R.id.toobar);
+        mTitle = (TextView) toolbar.findViewById(R.id.toolbar_title);
+        linearLayoutchangepass=mView.findViewById(R.id.linner_doimatkhau);
     }
 
     private void OpenDilog() {
         final Dialog dialog = new Dialog(getContext());
         dialog.setContentView(R.layout.layout_dialog);
-        dialog.show();
         dialog.setCanceledOnTouchOutside(false);//click ra ngoai dilog ko an dc
+        dialog.show();
+
+        btn_no=dialog.findViewById(R.id.btn_no);
+        btn_yes=dialog.findViewById(R.id.btn_yes);
+
+        btn_no.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+               dialog.dismiss();
+            }
+        });
+
+        btn_yes.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent =new Intent(mainActivity, LoginActivity.class);
+                startActivity(intent);
+                dialog.dismiss();
+                mainActivity.finish();
+
+            }
+        });
     }
 
     @Override
@@ -107,7 +155,7 @@ public class AccountFragment extends Fragment {
     }
 
     private void Viewinfo() {
-        Intent intent =new Intent(mainActivity, ViewInfoActivity.class);
+        Intent intent =new Intent(mainActivity, UpdateInfoProfileActivity.class);
         startActivity(intent);
     }
 }

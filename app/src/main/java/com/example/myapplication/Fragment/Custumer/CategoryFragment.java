@@ -13,9 +13,9 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
+import android.widget.TextView;
 
-import com.example.myapplication.Activity.GioHangActivity;
+import com.example.myapplication.Activity.Custumer.GioHangActivity;
 import com.example.myapplication.Activity.MainActivity;
 import com.example.myapplication.Activity.TimKiemActivity;
 import com.example.myapplication.R;
@@ -25,6 +25,7 @@ public class CategoryFragment extends Fragment {
     private View mView;
     MainActivity mainActivity;
     Toolbar toolbar;
+    TextView mTitle;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -38,25 +39,28 @@ public class CategoryFragment extends Fragment {
 
     private void AnhXa() {
         toolbar = mView.findViewById(R.id.toobar);
+        mTitle = (TextView) toolbar.findViewById(R.id.toolbar_title);
     }
 
     private void setToolbar(){
         mainActivity = (MainActivity) getActivity();//ep kieu bien moi truong
         mainActivity.setSupportActionBar(toolbar);
-        mainActivity.getSupportActionBar().setTitle("Danh mục");
+        mTitle.setText("Danh mục");
+        mainActivity.getSupportActionBar().setDisplayShowTitleEnabled(false);//khong hien thi titile ma cdinh cua toorbar
     }
 
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setHasOptionsMenu(true);//Add this sentence to the menu
-    }
 
     //ham khoi tao menu toobar
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.menu_toobar, menu);
         super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);//Add this sentence to the menu
     }
 
     //ham xu ly su kien khi chon vao tung item menu

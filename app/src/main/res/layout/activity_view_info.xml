@@ -4,34 +4,49 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context=".Activity.ViewInfoActivity">
+    android:orientation="vertical">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toobar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:background="@drawable/custum_toolbar"
-        android:gravity="center_horizontal"
-        app:titleTextColor="@color/white" />
+        app:titleTextColor="@color/white">
+
+        <TextView
+            android:id="@+id/toolbar_title"
+            style="@style/TextAppearance.AppCompat.Widget.ActionBar.Title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:textColor="@color/white" />
+
+    </androidx.appcompat.widget.Toolbar>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
         android:orientation="vertical">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp"
+            android:scaleType="centerCrop"
+            android:src="@mipmap/ic_launcher" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/textinput_email"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="32dp"
-            android:layout_marginTop="32dp"
-            android:layout_marginRight="32dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="10dp"
             app:endIconMode="clear_text"
             app:helperText="*Nội dung bắt buộc phải điền"
-            app:helperTextTextColor="@color/red"
+            app:helperTextTextColor="@color/purple_500"
             app:startIconDrawable="@drawable/ic_email">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -48,7 +63,7 @@
                 android:layout_marginTop="10dp"
                 app:endIconMode="clear_text"
                 app:helperText="*Nội dung bắt buộc phải điền"
-                app:helperTextTextColor="@color/red"
+                app:helperTextTextColor="@color/purple_500"
                 app:startIconDrawable="@drawable/user">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -65,7 +80,7 @@
                 android:layout_marginTop="10dp"
                 app:endIconMode="clear_text"
                 app:helperText="*Nội dung bắt buộc phải điền"
-                app:helperTextTextColor="@color/red"
+                app:helperTextTextColor="@color/purple_500"
                 app:startIconDrawable="@drawable/ic_phone">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -83,7 +98,7 @@
                     android:layout_marginTop="10dp"
                     app:endIconMode="clear_text"
                     app:helperText="*Nội dung bắt buộc phải điền"
-                    app:helperTextTextColor="@color/red"
+                    app:helperTextTextColor="@color/purple_500"
                     app:startIconDrawable="@drawable/ic_location">
 
                     <com.google.android.material.textfield.TextInputEditText
@@ -99,14 +114,11 @@
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btn_chinhsua"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:textColor="@color/white"
-            android:layout_marginTop="10dp"
+            android:layout_margin="15dp"
             android:background="@drawable/custum_button"
             android:text="Chỉnh sửa"
-
-            />
+            android:textColor="@color/white" />
     </LinearLayout>
 </LinearLayout>

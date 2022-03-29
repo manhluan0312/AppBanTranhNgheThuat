@@ -14,10 +14,14 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MyApplication"
         android:usesCleartextTraffic="true">
-        <activity android:name=".Activity.ViewInfoActivity"></activity>
+        <activity android:name=".Activity.Custumer.HighlightsProcductsActivity"></activity>
+        <activity android:name=".Activity.Custumer.NewProductsActivity" />
+        <activity android:name=".Activity.ChangePasswordActivity" />
+        <activity android:name=".Activity.LoginActivity" />
+        <activity android:name=".Activity.Custumer.UpdateInfoProfileActivity" />
         <activity android:name=".Activity.TimKiemActivity" />
         <activity android:name=".Activity.MainActivity" />
-        <activity android:name=".Activity.GioHangActivity" />
+        <activity android:name=".Activity.Custumer.GioHangActivity" />
         <activity android:name=".Activity.ChiTietSanPhamActivity" />
         <activity android:name=".Activity.SanPhamActivity" />
         <activity android:name=".Activity.SplashActivity">

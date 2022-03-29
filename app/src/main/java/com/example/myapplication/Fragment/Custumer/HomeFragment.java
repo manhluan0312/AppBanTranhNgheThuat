@@ -14,8 +14,11 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
-import com.example.myapplication.Activity.GioHangActivity;
+import com.example.myapplication.Activity.Custumer.GioHangActivity;
+import com.example.myapplication.Activity.Custumer.HighlightsProcductsActivity;
+import com.example.myapplication.Activity.Custumer.NewProductsActivity;
 import com.example.myapplication.Activity.MainActivity;
 import com.example.myapplication.Activity.TimKiemActivity;
 import com.example.myapplication.R;
@@ -26,6 +29,7 @@ public class HomeFragment extends Fragment {
     private View mView;
     MainActivity mainActivity;
     Toolbar toolbar;
+    TextView mTitle,xemthemspmn,xemthemspnb;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -34,18 +38,39 @@ public class HomeFragment extends Fragment {
         mView = inflater.inflate(R.layout.fragment_trang_chu, container, false);
         AnhXa();
         setToolbar();
+
+        xemthemspmn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent =new Intent(mainActivity, NewProductsActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        xemthemspnb.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent =new Intent(mainActivity, HighlightsProcductsActivity.class);
+                startActivity(intent);
+            }
+        });
+
         return mView;
     }
 
     //ham anh xa view tu file xml sang file java
     private void AnhXa() {
         toolbar = mView.findViewById(R.id.toobar);
+        mTitle = (TextView) toolbar.findViewById(R.id.toolbar_title);
+        xemthemspmn=mView.findViewById(R.id.tv_xemthemspmn);
+        xemthemspnb=mView.findViewById(R.id.tv_xemthemspnb);
     }
 
     private void setToolbar(){
         mainActivity = (MainActivity) getActivity();//ep kieu bien moi truong
         mainActivity.setSupportActionBar(toolbar);
-        mainActivity.getSupportActionBar().setTitle("Trang chủ");
+        mTitle.setText("Trang chủ");
+        mainActivity.getSupportActionBar().setDisplayShowTitleEnabled(false);//khong hien thi titile ma cdinh cua toorbar
     }
 
     @Override
