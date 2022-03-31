@@ -29,14 +29,14 @@ import com.example.myapplication.Activity.Custumer.UpdateInfoProfileActivity;
 import com.example.myapplication.R;
 
 
-public class AccountFragment extends Fragment {
+public class AccountFragment extends Fragment implements View.OnClickListener {
 
     private View mView;
     MainActivity mainActivity;
-    LinearLayout linearLayoutlogout,linearLayoutviewinfo,linearLayoutchangepass;
+    LinearLayout linearLayoutlogout, linearLayoutviewinfo, linearLayoutchangepass,linearLayoutlíchsu;
     Toolbar toolbar;
     TextView mTitle;
-    AppCompatButton btn_no,btn_yes;
+    AppCompatButton btn_no, btn_yes;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -45,55 +45,33 @@ public class AccountFragment extends Fragment {
         mView = inflater.inflate(R.layout.fragment_tai_khoan, container, false);
         AnhXa();
         setToolbar();
-
-        //bat su kien khi an vao nut dang xuat
-
-        linearLayoutlogout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                OpenDilog();
-            }
-        });
-
-        //bat su kien khi an vao nut xem thong tin ca nhan
-
-        linearLayoutviewinfo.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Viewinfo();
-            }
-        });
-
-        //bat su kien khi an vao thay doi mat khau
-
-        linearLayoutchangepass.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                ChangePassWord();
-            }
-        });
-
+        linearLayoutlogout.setOnClickListener(this);
+        linearLayoutviewinfo.setOnClickListener(this);
+        linearLayoutchangepass.setOnClickListener(this);
+        linearLayoutlíchsu.setOnClickListener(this);
         return mView;
     }
 
     private void ChangePassWord() {
-        Intent intent=new Intent(mainActivity, ChangePasswordActivity.class);
+        Intent intent = new Intent(mainActivity, ChangePasswordActivity.class);
         startActivity(intent);
 
     }
 
-    private void setToolbar(){
+    private void setToolbar() {
         mainActivity = (MainActivity) getActivity();//ep kieu bien moi truong
         mainActivity.setSupportActionBar(toolbar);
         mTitle.setText("Tài khoản");
         mainActivity.getSupportActionBar().setDisplayShowTitleEnabled(false);//khong hien thi titile ma cdinh cua toorbar
     }
+
     private void AnhXa() {
         linearLayoutlogout = mView.findViewById(R.id.linner_dangxuat);
-        linearLayoutviewinfo=mView.findViewById(R.id.linner_xemthongtincanhan);
+        linearLayoutviewinfo = mView.findViewById(R.id.linner_xemthongtincanhan);
         toolbar = mView.findViewById(R.id.toobar);
         mTitle = (TextView) toolbar.findViewById(R.id.toolbar_title);
-        linearLayoutchangepass=mView.findViewById(R.id.linner_doimatkhau);
+        linearLayoutchangepass = mView.findViewById(R.id.linner_doimatkhau);
+        linearLayoutlíchsu=mView.findViewById(R.id.linner_lichsudonhang);
     }
 
     private void OpenDilog() {
@@ -102,20 +80,20 @@ public class AccountFragment extends Fragment {
         dialog.setCanceledOnTouchOutside(false);//click ra ngoai dilog ko an dc
         dialog.show();
 
-        btn_no=dialog.findViewById(R.id.btn_no);
-        btn_yes=dialog.findViewById(R.id.btn_yes);
+        btn_no = dialog.findViewById(R.id.btn_no);
+        btn_yes = dialog.findViewById(R.id.btn_yes);
 
         btn_no.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-               dialog.dismiss();
+                dialog.dismiss();
             }
         });
 
         btn_yes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent =new Intent(mainActivity, LoginActivity.class);
+                Intent intent = new Intent(mainActivity, LoginActivity.class);
                 startActivity(intent);
                 dialog.dismiss();
                 mainActivity.finish();
@@ -155,7 +133,34 @@ public class AccountFragment extends Fragment {
     }
 
     private void Viewinfo() {
-        Intent intent =new Intent(mainActivity, UpdateInfoProfileActivity.class);
+        Intent intent = new Intent(mainActivity, UpdateInfoProfileActivity.class);
         startActivity(intent);
+    }
+
+    //ham bat su kien cho tung view
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()) {
+            //bat su kien khi an vao nut dang xuat
+            case R.id.linner_dangxuat:
+                OpenDilog();
+                break;
+            //bat su kien khi an vao nut xem thong tin ca nhan
+            case R.id.linner_xemthongtincanhan:
+                Viewinfo();
+                break;
+            //bat su kien khi an vao thay doi mat khau
+            case R.id.linner_doimatkhau:
+                ChangePassWord();
+                break;
+            //bat su kien khi an vao xem lich su don hang
+            case R.id.linner_lichsudonhang:
+                HistoryOrder();
+                break;
+        }
+    }
+
+    private void HistoryOrder() {
+
     }
 }

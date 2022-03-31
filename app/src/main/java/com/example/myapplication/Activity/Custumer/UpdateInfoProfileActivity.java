@@ -16,7 +16,7 @@ public class UpdateInfoProfileActivity extends AppCompatActivity {
 
     Toolbar toolbar;
     TextView mTitle;
-    TextInputLayout textInpuEmail,textInpuhoten,textInpusodienthoai,textInpudiachi;
+    TextInputLayout textInpuEmail, textInpuhoten, textInpusodienthoai, textInpudiachi;
     AppCompatButton btn_chinhsua;
 
     @Override
@@ -33,17 +33,18 @@ public class UpdateInfoProfileActivity extends AppCompatActivity {
             }
         });
     }
+
     private void AnhXa() {
         toolbar = findViewById(R.id.toobar);
         mTitle = (TextView) toolbar.findViewById(R.id.toolbar_title);
-        textInpuEmail=findViewById(R.id.textinput_email);
-        textInpuhoten=findViewById(R.id.textinput_hoten);
-        textInpusodienthoai=findViewById(R.id.textinput_sdt);
-        textInpudiachi=findViewById(R.id.textinput_diachi);
-        btn_chinhsua=findViewById(R.id.btn_chinhsua);
+        textInpuEmail = findViewById(R.id.textinput_email);
+        textInpuhoten = findViewById(R.id.textinput_hoten);
+        textInpusodienthoai = findViewById(R.id.textinput_sdt);
+        textInpudiachi = findViewById(R.id.textinput_diachi);
+        btn_chinhsua = findViewById(R.id.btn_chinhsua);
     }
 
-    private void setToolbar(){
+    private void setToolbar() {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         mTitle.setText("Thông tin cá nhân");
@@ -58,68 +59,78 @@ public class UpdateInfoProfileActivity extends AppCompatActivity {
 
     //ham check du lieu email khong de dc trong
 
-    private  boolean validateEmail(){
-        String email=textInpuEmail.getEditText().getText().toString().trim();
-        if(email.isEmpty()){
+    private boolean validateEmail() {
+        String email = textInpuEmail.getEditText().getText().toString().trim();
+        if (email.isEmpty()) {
             textInpuEmail.setError("Email không để trống");
             return false;
-        }else {
+        } else {
             textInpuEmail.setError(null);
             textInpuEmail.setErrorEnabled(false);
+            textInpuEmail.setHelperTextEnabled(false);//dong goi y se bien mat neu co nhap du lieu
             return true;
         }
     }
 
     //ham check du lieu hoten khong de dc trong
 
-    private  boolean validateHoten(){
-        String hoten=textInpuhoten.getEditText().getText().toString().trim();
-        if(hoten.isEmpty()){
+    private boolean validateHoten() {
+        String hoten = textInpuhoten.getEditText().getText().toString().trim();
+        if (hoten.isEmpty()) {
             textInpuhoten.setError("Họ tên không để trống");
             return false;
-        }else {
+        } else {
             textInpuhoten.setError(null);
             textInpuhoten.setErrorEnabled(false);
+            textInpuhoten.setHelperTextEnabled(false);//dong goi y se bien mat neu co nhap du lieu
             return true;
         }
     }
 
     //ham check du lieu sdt khong de dc trong
 
-    private  boolean validateSdt(){
-        String sdt=textInpusodienthoai.getEditText().getText().toString().trim();
-        if(sdt.isEmpty()){
+    private boolean validateSdt() {
+        String sdt = textInpusodienthoai.getEditText().getText().toString().trim();
+        if (sdt.isEmpty()) {
             textInpusodienthoai.setError("Số điện thoại không để trống");
             return false;
-        }else {
+        } else if (sdt.length() > 10) {
+            textInpusodienthoai.setError("Số điện thoại không dài hơn 10 chữ số");
+            return false;
+        } else {
             textInpusodienthoai.setError(null);
             textInpusodienthoai.setErrorEnabled(false);
+            textInpusodienthoai.setHelperTextEnabled(false);//dong goi y se bien mat neu co nhap du lieu
             return true;
         }
     }
 
     //ham check du lieu dia chi khong de dc trong
 
-    private  boolean validateDiachi(){
-        String diachi=textInpudiachi.getEditText().getText().toString().trim();
-        if(diachi.isEmpty()){
+    private boolean validateDiachi() {
+        String diachi = textInpudiachi.getEditText().getText().toString().trim();
+        if (diachi.isEmpty()) {
             textInpudiachi.setError("Địa chỉ không để trống");
             return false;
-        }else {
+        } else {
             textInpudiachi.setError(null);
             textInpudiachi.setErrorEnabled(false);
+            textInpudiachi.setHelperTextEnabled(false);//dong goi y se bien mat neu co nhap du lieu
             return true;
         }
     }
 
     //ham check du lieu trong khi nhan button cap nhat
 
-    public void confỉmInput(){
-         if(!validateSdt()|!validateEmail()|validateDiachi()|validateHoten())//du lieu khong con trong
-         {
-             return;
-         }
+    public void confỉmInput() {
+        if (!validateSdt() | !validateEmail() | validateDiachi() | validateHoten())//du lieu khong con trong
+        {
+            return;
+        }
+        UpdateInfoProfile();
     }
 
+    private void UpdateInfoProfile() {
 
+    }
 }

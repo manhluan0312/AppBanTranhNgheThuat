@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/menu_trangchu"
+        android:title="@string/menu_nvai_trangchu" />
+
+    <item
+        android:id="@+id/menu_sanpham"
+        android:title="@string/menu_navi_sanpham">
+
+        <menu>
+            <item
+                android:id="@+id/menu_xemsanpham"
+                android:title="@string/menu_navi_xemsanpham" />
+
+            <item
+                android:id="@+id/menu_themsanpham"
+                android:title="@string/menu_navi_themsanpham" />
+        </menu>
+
+    </item>
+
+    <item
+        android:id="@+id/menu_dmsanpham"
+        android:title="@string/menu_navi_danhmucsanpham">
+
+        <menu>
+
+            <item
+                android:id="@+id/menu_xemdmsanpham"
+                android:title="@string/menu_navi_xemdmsanpham" />
+
+            <item
+                android:id="@+id/menu_themdmsanpham"
+                android:title="@string/menu_navi_themdmsanpham" />
+
+        </menu>
+    </item>
+
+  <item android:title="@string/menu_navi_quanlydonhang">
+
+    <menu>
+        <item
+            android:id="@+id/menu_tiepnhan_xulydonhang"
+            android:title="@string/menu_navi_tiepnhanxulydonhang" />
+    </menu>
+</item>
+
+    <item
+        android:id="@+id/menu_taikhoan"
+        android:title="@string/menu_navi_taikhoan">
+        <menu>
+            <item
+                android:id="@+id/menu_xemthongtincanhan"
+                android:title="@string/menu_navi_xemthongtincanhan" />
+
+            <item
+                android:id="@+id/menu_dangxuat"
+                android:title="@string/menu_navi_danngxuat" />
+
+            <item
+                android:id="@+id/menu_doimatkhau"
+                android:title="@string/menu_navi_doimatkhau" />
+        </menu>
+    </item>
+</menu>
+

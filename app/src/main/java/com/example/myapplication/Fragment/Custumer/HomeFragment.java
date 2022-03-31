@@ -21,6 +21,7 @@ import com.example.myapplication.Activity.Custumer.HighlightsProcductsActivity;
 import com.example.myapplication.Activity.Custumer.NewProductsActivity;
 import com.example.myapplication.Activity.MainActivity;
 import com.example.myapplication.Activity.TimKiemActivity;
+import com.example.myapplication.Activity.admin.AdminActivity;
 import com.example.myapplication.R;
 
 

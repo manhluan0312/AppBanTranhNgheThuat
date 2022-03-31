@@ -11,4 +11,22 @@
     <string name="tv_xemthemsanpham_noi_bat">Xem thêm</string>
     <string name="menu_timkiem">Tìm kiếm</string>
     <string name="menutoobar_giohang">Giỏ Hàng</string>
+
+    <string name="menu_nvai_trangchu">Trang chủ</string>
+    <string name="menu_navi_sanpham">Sản phẩm</string>
+    <string name="menu_navi_xemsanpham">Xem sản phẩm</string>
+    <string name="menu_navi_themsanpham">Thêm sản phẩm</string>
+    <string name="menu_navi_danhmucsanpham">Danh mục Sản phẩm</string>
+    <string name="menu_navi_xemdmsanpham">Xem danh mục sản phẩm</string>
+    <string name="menu_navi_themdmsanpham">Thêm danh mục sản phẩm</string>
+    <string name="menu_navi_tiepnhanxulydonhang">Tiếp nhận và xử lý đơn hàng</string>
+    <string name="menu_navi_xemthongtincanhan">Xem thông tin cá nhân</string>
+    <string name="menu_navi_taikhoan">Tài khoản</string>
+    <string name="menu_navi_danngxuat">Đăng xuất</string>
+    <string name="menu_navi_doimatkhau">Đổi mật khẩu</string>
+    <string name="menu_navi_quanlydonhang">Quản lý đơn hàng</string>
+
+    <string name="Open_navi">Open</string>
+    <string name="Close_navi">Close</string>
+
 </resources>
