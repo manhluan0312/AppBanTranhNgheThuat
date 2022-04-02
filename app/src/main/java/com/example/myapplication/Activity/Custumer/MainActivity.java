@@ -60,16 +60,16 @@ public class MainActivity extends AppCompatActivity {
             public void onPageSelected(int position) {
                 switch (position) {
                     case 0:
-                        bottomNavigationView.getMenu().findItem(R.id.action_home).setChecked(true);//tra ve vi tri tung  item trong botttom navigation
+                        bottomNavigationView.getMenu().findItem(R.id.action_home).setChecked(true);//tra ve vi tri tung  item trong botttom navigation và sáng icon
                         break;
 
                     case 1:
-                        bottomNavigationView.getMenu().findItem(R.id.action_doanhmucsanpham).setChecked(true);//tra ve vi tri tung item trong botttom navigation
+                        bottomNavigationView.getMenu().findItem(R.id.action_doanhmucsanpham).setChecked(true);//tra ve vi tri tung item trong botttom navigation và sáng icon
                         break;
 
 
                     case 2:
-                        bottomNavigationView.getMenu().findItem(R.id.action_user).setChecked(true);//tra ve vi tri item tung trong botttom navigation
+                        bottomNavigationView.getMenu().findItem(R.id.action_user).setChecked(true);//tra ve vi tri item tung trong botttom navigation và sáng icon
                         break;
                 }
             }

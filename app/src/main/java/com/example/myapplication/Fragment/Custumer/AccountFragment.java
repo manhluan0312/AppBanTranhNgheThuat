@@ -74,7 +74,7 @@ public class AccountFragment extends Fragment implements View.OnClickListener {
         linearLayoutlíchsu=mView.findViewById(R.id.linner_lichsudonhang);
     }
 
-    private void OpenDilog() {
+    public void OpenDilog() {
         final Dialog dialog = new Dialog(getContext());
         dialog.setContentView(R.layout.layout_dialog);
         dialog.setCanceledOnTouchOutside(false);//click ra ngoai dilog ko an dc

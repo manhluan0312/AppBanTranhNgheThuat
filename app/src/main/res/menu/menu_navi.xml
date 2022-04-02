@@ -1,22 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-
-    <item
-        android:id="@+id/menu_trangchu"
-        android:title="@string/menu_nvai_trangchu" />
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/menu_trangchu"
+            android:icon="@drawable/home"
+            android:title="@string/menu_nvai_trangchu" />
+    </group>
 
     <item
         android:id="@+id/menu_sanpham"
         android:title="@string/menu_navi_sanpham">
 
         <menu>
-            <item
-                android:id="@+id/menu_xemsanpham"
-                android:title="@string/menu_navi_xemsanpham" />
+            <group android:checkableBehavior="single">
+                <item
+                    android:id="@+id/menu_xemsanpham"
+                    android:icon="@drawable/product_view"
+                    android:title="@string/menu_navi_xemsanpham" />
 
-            <item
-                android:id="@+id/menu_themsanpham"
-                android:title="@string/menu_navi_themsanpham" />
+                <item
+                    android:id="@+id/menu_themsanpham"
+                    android:icon="@drawable/add_product"
+                    android:title="@string/menu_navi_themsanpham" />
+            </group>
         </menu>
 
     </item>
@@ -26,42 +32,53 @@
         android:title="@string/menu_navi_danhmucsanpham">
 
         <menu>
+            <group android:checkableBehavior="single">
+                <item
+                    android:id="@+id/menu_xemdmsanpham"
+                    android:icon="@drawable/category_view"
+                    android:title="@string/menu_navi_xemdmsanpham" />
 
-            <item
-                android:id="@+id/menu_xemdmsanpham"
-                android:title="@string/menu_navi_xemdmsanpham" />
-
-            <item
-                android:id="@+id/menu_themdmsanpham"
-                android:title="@string/menu_navi_themdmsanpham" />
-
+                <item
+                    android:id="@+id/menu_themdmsanpham"
+                    android:icon="@drawable/add_propert"
+                    android:title="@string/menu_navi_themdmsanpham" />
+            </group>
         </menu>
     </item>
 
-  <item android:title="@string/menu_navi_quanlydonhang">
+    <item android:title="@string/menu_navi_quanlydonhang">
 
-    <menu>
-        <item
-            android:id="@+id/menu_tiepnhan_xulydonhang"
-            android:title="@string/menu_navi_tiepnhanxulydonhang" />
-    </menu>
-</item>
+        <menu>
+            <group android:checkableBehavior="single">
+                <item
+                    android:id="@+id/menu_tiepnhan_xulydonhang"
+                    android:icon="@drawable/mange_order"
+                    android:title="@string/menu_navi_tiepnhanxulydonhang" />
+            </group>
+        </menu>
+    </item>
 
     <item
         android:id="@+id/menu_taikhoan"
         android:title="@string/menu_navi_taikhoan">
         <menu>
-            <item
-                android:id="@+id/menu_xemthongtincanhan"
-                android:title="@string/menu_navi_xemthongtincanhan" />
+            <group android:checkableBehavior="single">
+                <item
+                    android:id="@+id/menu_xemthongtincanhan"
+                    android:icon="@drawable/user"
+                    android:title="@string/menu_navi_xemthongtincanhan" />
 
-            <item
-                android:id="@+id/menu_dangxuat"
-                android:title="@string/menu_navi_danngxuat" />
+                <item
+                    android:id="@+id/menu_dangxuat"
+                    android:orderInCategory="9"
+                    android:icon="@drawable/ic_logout"
+                    android:title="@string/menu_navi_danngxuat" />
 
-            <item
-                android:id="@+id/menu_doimatkhau"
-                android:title="@string/menu_navi_doimatkhau" />
+                <item
+                    android:id="@+id/menu_doimatkhau"
+                    android:icon="@drawable/change_pass"
+                    android:title="@string/menu_navi_doimatkhau" />
+            </group>
         </menu>
     </item>
 </menu>

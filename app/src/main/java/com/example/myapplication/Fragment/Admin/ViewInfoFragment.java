@@ -1,12 +1,4 @@
-package com.example.myapplication.Activity.Custumer;
-
-import androidx.activity.result.ActivityResult;
-import androidx.activity.result.ActivityResultCallback;
-import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContracts;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.AppCompatButton;
-import androidx.appcompat.widget.Toolbar;
+package com.example.myapplication.Fragment.Admin;
 
 import android.Manifest;
 import android.app.Activity;
@@ -14,13 +6,24 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
+
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContract;
+import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.appcompat.widget.AppCompatButton;
+import androidx.fragment.app.Fragment;
+
 import android.provider.MediaStore;
+import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.Button;
+import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.myapplication.Activity.admin.AdminActivity;
 import com.example.myapplication.R;
 import com.google.android.material.textfield.TextInputLayout;
 import com.gun0912.tedpermission.PermissionListener;
@@ -29,21 +32,24 @@ import com.gun0912.tedpermission.normal.TedPermission;
 import java.io.IOException;
 import java.util.List;
 
-public class UpdateInfoProfileActivity extends AppCompatActivity {
 
-    Toolbar toolbar;
-    TextView mTitle;
+public class ViewInfoFragment<adminActivity> extends Fragment {
+
+    View mView;
+    AdminActivity adminActivity;
     TextInputLayout textInpuEmail, textInpuhoten, textInpusodienthoai, textInpudiachi;
     AppCompatButton btn_chinhsua;
     ImageView imageView_avartar;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_view_info);
-        AnhXa();
-        setToolbar();
 
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        mView = inflater.inflate(R.layout.fragment_view_info, container, false);
+        AnhXa();
+        adminActivity =(AdminActivity)getActivity();
         btn_chinhsua.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -57,30 +63,18 @@ public class UpdateInfoProfileActivity extends AppCompatActivity {
                 RequestPermissons();
             }
         });
+
+        return mView;
+
     }
 
     private void AnhXa() {
-        toolbar = findViewById(R.id.toobar);
-        mTitle = (TextView) toolbar.findViewById(R.id.toolbar_title);
-        textInpuEmail = findViewById(R.id.textinput_email);
-        textInpuhoten = findViewById(R.id.textinput_hoten);
-        textInpusodienthoai = findViewById(R.id.textinput_sdt);
-        textInpudiachi = findViewById(R.id.textinput_diachi);
-        btn_chinhsua = findViewById(R.id.btn_chinhsua);
-        imageView_avartar = findViewById(R.id.image_avartar);
-    }
-
-    private void setToolbar() {
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        mTitle.setText("Thông tin cá nhân");
-        getSupportActionBar().setDisplayShowTitleEnabled(false);//khong hien thi titile ma cdinh cua toorbar
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                finish();
-            }
-        });
+        textInpuEmail = mView.findViewById(R.id.textinput_email);
+        textInpuhoten = mView.findViewById(R.id.textinput_hoten);
+        textInpusodienthoai = mView.findViewById(R.id.textinput_sdt);
+        textInpudiachi = mView.findViewById(R.id.textinput_diachi);
+        btn_chinhsua = mView.findViewById(R.id.btn_chinhsua);
+        imageView_avartar = mView.findViewById(R.id.image_avartar);
     }
 
     //ham check du lieu email khong de dc trong
@@ -172,7 +166,7 @@ public class UpdateInfoProfileActivity extends AppCompatActivity {
             // nguoi dung khong  cho phep truy cap vao permission
             @Override
             public void onPermissionDenied(List<String> deniedPermissions) {
-                Toast.makeText(getApplicationContext(), "Permission Denied\n" + deniedPermissions.toString(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "Permission Denied\n" + deniedPermissions.toString(), Toast.LENGTH_SHORT).show();
             }
         };
         TedPermission.create()
@@ -182,7 +176,7 @@ public class UpdateInfoProfileActivity extends AppCompatActivity {
                 .check();
     }
 
-    private ActivityResultLauncher<Intent> activityResultLauncher =registerForActivityResult(
+     private  ActivityResultLauncher<Intent> activityResultLauncher =registerForActivityResult(
             new ActivityResultContracts.StartActivityForResult(),
             new ActivityResultCallback<ActivityResult>() {
                 @Override
@@ -194,15 +188,15 @@ public class UpdateInfoProfileActivity extends AppCompatActivity {
                         }
                         Uri uri =data.getData();// uri la du lieu anh ma nguoi dung chon
                         try {
-                            Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(),uri);
+                            Bitmap bitmap =MediaStore.Images.Media.getBitmap(adminActivity.getContentResolver(),uri);
                             imageView_avartar.setImageBitmap(bitmap);//set anh len bitmap
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
 
                     }
-                }
             }
+}
     );
 
     private void OpenGlary() {
@@ -211,5 +205,4 @@ public class UpdateInfoProfileActivity extends AppCompatActivity {
         intent.setAction(Intent.ACTION_GET_CONTENT);
         activityResultLauncher.launch(Intent.createChooser(intent,"Chọn ảnh"));
     }
-
 }

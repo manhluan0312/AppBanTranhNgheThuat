@@ -54,4 +54,7 @@ dependencies {
     implementation 'com.github.ybq:Android-SpinKit:1.4.0'
     //thu vien circle
     implementation 'me.relex:circleindicator:2.1.6'
+    //thu vien check permission
+    implementation 'io.github.ParkSangGwon:tedpermission-normal:3.3.0'
+
 }

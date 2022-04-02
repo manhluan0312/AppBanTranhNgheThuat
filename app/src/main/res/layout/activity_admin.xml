@@ -18,7 +18,7 @@
             android:id="@+id/toolbar_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/purple_500"/>
+            android:background="@drawable/custum_toolbar"/>
 
         <FrameLayout
             android:id="@+id/content_frame"
@@ -31,6 +31,7 @@
        android:id="@+id/navigation_view"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
+        app:itemIconSize="30dp"
         app:headerLayout="@layout/layout_header_view"
         app:menu="@menu/menu_navi"
         android:scrollbars="none"

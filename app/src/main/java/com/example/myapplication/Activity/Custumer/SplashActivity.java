@@ -1,4 +1,4 @@
-package com.example.myapplication.Activity;
+package com.example.myapplication.Activity.Custumer;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.widget.ProgressBar;
 import android.widget.Toast;
+
+import com.example.myapplication.Activity.MainActivity;
 import com.example.myapplication.R;
 import com.example.myapplication.Utils.ischeckNetwork;
 import com.github.ybq.android.spinkit.style.Wave;
