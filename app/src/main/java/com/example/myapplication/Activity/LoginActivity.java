@@ -3,11 +3,15 @@ package com.example.myapplication.Activity;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.graphics.Paint;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.myapplication.Activity.Custumer.RegistrationActivity;
 import com.example.myapplication.Activity.MainActivity;
 import com.example.myapplication.Activity.admin.AdminActivity;
 import com.example.myapplication.R;
@@ -17,12 +21,14 @@ public class LoginActivity extends AppCompatActivity {
 
     TextInputLayout textInputLayout_username, textInputLayoutpass;
     Button btn_login;
+    TextView txt ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         AnhXa();
+        txt.setPaintFlags(txt.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
 
         btn_login.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -31,13 +37,23 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
+        txt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent =new Intent(LoginActivity.this,RegistrationActivity.class);
+                startActivity(intent);
+
+            }
+        });
     }
 
     private void AnhXa() {
         textInputLayout_username = findViewById(R.id.textinput_username);
         textInputLayoutpass = findViewById(R.id.textinput_password);
         btn_login = findViewById(R.id.btn_dangnhap);
+        txt= findViewById(R.id.text1);
     }
+
 
     //ham check du lieu username khong de dc trong
 

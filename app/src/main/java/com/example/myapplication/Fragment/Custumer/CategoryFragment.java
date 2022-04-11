@@ -6,6 +6,7 @@ import android.os.Bundle;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -26,6 +27,7 @@ public class CategoryFragment extends Fragment {
     MainActivity mainActivity;
     Toolbar toolbar;
     TextView mTitle;
+    SwipeRefreshLayout swipeRefreshLayout;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -40,6 +42,7 @@ public class CategoryFragment extends Fragment {
     private void AnhXa() {
         toolbar = mView.findViewById(R.id.toobar);
         mTitle = (TextView) toolbar.findViewById(R.id.toolbar_title);
+        swipeRefreshLayout=mView.findViewById(R.id.switper_dm);
     }
 
     private void setToolbar(){

@@ -38,7 +38,7 @@
             android:src="@mipmap/ic_launcher" />
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/textinput_email"
+            android:id="@+id/textinput_username"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -53,8 +53,8 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Nhập email"
-                android:inputType="textEmailAddress" />
+                android:hint="Nhập username"
+                android:inputType="text" />
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/textinput_hoten"
@@ -65,12 +65,29 @@
                 app:endIconMode="clear_text"
                 app:helperText="*Nội dung bắt buộc phải điền"
                 app:helperTextTextColor="@color/purple_500"
-                app:startIconDrawable="@drawable/user">
+                app:startIconDrawable="@drawable/ic_email">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Nhạp họ và tên" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/textinput_email"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                app:endIconMode="clear_text"
+                app:helperText="*Nội dung bắt buộc phải điền"
+                app:helperTextTextColor="@color/purple_500"
+                app:startIconDrawable="@drawable/ic_email">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Nhạp email" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout

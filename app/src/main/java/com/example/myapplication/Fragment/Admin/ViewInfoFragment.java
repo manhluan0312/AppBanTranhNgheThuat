@@ -37,7 +37,7 @@ public class ViewInfoFragment<adminActivity> extends Fragment {
 
     View mView;
     AdminActivity adminActivity;
-    TextInputLayout textInpuEmail, textInpuhoten, textInpusodienthoai, textInpudiachi;
+    TextInputLayout textInputUsername,textInpuEmail, textInpuhoten, textInpusodienthoai, textInpudiachi;
     AppCompatButton btn_chinhsua;
     ImageView imageView_avartar;
 
@@ -75,6 +75,23 @@ public class ViewInfoFragment<adminActivity> extends Fragment {
         textInpudiachi = mView.findViewById(R.id.textinput_diachi);
         btn_chinhsua = mView.findViewById(R.id.btn_chinhsua);
         imageView_avartar = mView.findViewById(R.id.image_avartar);
+        textInputUsername=mView.findViewById(R.id.textinput_username);
+    }
+
+
+    //ham check du lieu username khong de dc trong
+
+    private boolean validateUsername() {
+        String username = textInputUsername.getEditText().getText().toString().trim();
+        if (username.isEmpty()) {
+            textInputUsername.setError("Username không để trống");
+            return false;
+        } else {
+            textInputUsername.setError(null);
+            textInputUsername.setErrorEnabled(false);
+            textInputUsername.setHelperTextEnabled(false);//dong goi y se bien mat neu co nhap du lieu
+            return true;
+        }
     }
 
     //ham check du lieu email khong de dc trong
@@ -143,7 +160,7 @@ public class ViewInfoFragment<adminActivity> extends Fragment {
     //ham check du lieu trong khi nhan button cap nhat
 
     public void confỉmInput() {
-        if (!validateSdt() | !validateEmail() | validateDiachi() | validateHoten())//du lieu khong con trong
+        if (!validateSdt() | !validateEmail() | !validateDiachi() |!validateUsername() | !validateHoten())//du lieu khong con trong
         {
             return;
         }

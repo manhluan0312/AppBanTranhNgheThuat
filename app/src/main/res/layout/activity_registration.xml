@@ -3,21 +3,39 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:gravity="center"
     android:orientation="vertical"
-    tools:context=".Activity.LoginActivity">
+    android:gravity="center"
+    android:layout_height="match_parent"
+    tools:context=".Activity.Custumer.RegistrationActivity">
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
         android:gravity="center"
-        android:text="ĐĂNG NHẬP HỆ THỐNG"
+        android:text="ĐĂNG KÝ HỆ THỐNG"
         android:textColor="@color/red"
         android:textSize="20sp"
         android:textStyle="bold" />
-    
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/textinput_tenhienthi"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        app:endIconMode="clear_text"
+        app:helperText="*Nội dung bắt buộc phải điền"
+        app:helperTextTextColor="@color/purple_500"
+        app:startIconDrawable="@drawable/user">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Nhập nhập họ và tên"
+            android:inputType="textEmailAddress" />
+    </com.google.android.material.textfield.TextInputLayout>
+
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/textinput_username"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
@@ -27,13 +45,13 @@
         app:endIconMode="clear_text"
         app:helperText="*Nội dung bắt buộc phải điền"
         app:helperTextTextColor="@color/purple_500"
-        app:startIconDrawable="@drawable/ic_email">
+        app:startIconDrawable="@drawable/user">
 
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Nhập username"
-            android:inputType="textEmailAddress" />
+            android:inputType="text" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -54,40 +72,31 @@
             android:hint="Nhạp password" />
     </com.google.android.material.textfield.TextInputLayout>
 
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/textinput_nhaplai_password"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        app:endIconMode="password_toggle"
+        app:helperText="*Nội dung bắt buộc phải điền"
+        app:helperTextTextColor="@color/purple_500"
+        app:startIconDrawable="@drawable/ic_pass">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textPassword"
+            android:hint="Nhạp lại  password" />
+    </com.google.android.material.textfield.TextInputLayout>
+
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/btn_dangnhap"
+        android:id="@+id/btn_dangky"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="15dp"
         android:background="@drawable/custum_button"
-        android:text="Đăng nhập"
+        android:text="Đăng ký"
         android:textColor="@color/white" />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:gravity="center"
-        android:id="@+id/bancodangki"
-        android:orientation="horizontal"
-        android:padding="10dp">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Bạn chưa có tài khoản?"
-            android:textSize="14sp" />
-
-        <TextView
-            android:id="@+id/text1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
-            android:text="Vui lòng đăng ký tài khoản "
-            android:textStyle="bold"
-            android:textColor="#9C27B0"
-            android:textSize="16sp" />
-
-    </LinearLayout>
 
 </LinearLayout>

@@ -16,10 +16,12 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 
+import com.bumptech.glide.Glide;
 import com.example.myapplication.Activity.ChangePasswordActivity;
 import com.example.myapplication.Activity.Custumer.GioHangActivity;
 import com.example.myapplication.Activity.LoginActivity;
@@ -27,6 +29,9 @@ import com.example.myapplication.Activity.MainActivity;
 import com.example.myapplication.Activity.TimKiemActivity;
 import com.example.myapplication.Activity.Custumer.UpdateInfoProfileActivity;
 import com.example.myapplication.R;
+import com.example.myapplication.Utils.Server;
+
+import static com.example.myapplication.R.drawable.user;
 
 
 public class AccountFragment extends Fragment implements View.OnClickListener {
@@ -36,6 +41,7 @@ public class AccountFragment extends Fragment implements View.OnClickListener {
     LinearLayout linearLayoutlogout, linearLayoutviewinfo, linearLayoutchangepass,linearLayoutlíchsu;
     Toolbar toolbar;
     TextView mTitle;
+    ImageView imageView;
     AppCompatButton btn_no, btn_yes;
 
     @Override
@@ -49,6 +55,14 @@ public class AccountFragment extends Fragment implements View.OnClickListener {
         linearLayoutviewinfo.setOnClickListener(this);
         linearLayoutchangepass.setOnClickListener(this);
         linearLayoutlíchsu.setOnClickListener(this);
+
+        Glide.with(mainActivity)
+                .load(Server.IMAGE_AVARTAR)
+                .error(user)
+                .centerCrop()
+                .into(imageView);
+
+
         return mView;
     }
 
@@ -69,6 +83,7 @@ public class AccountFragment extends Fragment implements View.OnClickListener {
         linearLayoutlogout = mView.findViewById(R.id.linner_dangxuat);
         linearLayoutviewinfo = mView.findViewById(R.id.linner_xemthongtincanhan);
         toolbar = mView.findViewById(R.id.toobar);
+        imageView= mView.findViewById(R.id.img_anhdaidien);
         mTitle = (TextView) toolbar.findViewById(R.id.toolbar_title);
         linearLayoutchangepass = mView.findViewById(R.id.linner_doimatkhau);
         linearLayoutlíchsu=mView.findViewById(R.id.linner_lichsudonhang);

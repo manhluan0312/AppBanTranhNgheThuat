@@ -38,7 +38,7 @@
             android:padding="10dp">
 
             <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/img_sanpham"
+                android:id="@+id/img_anhdaidien"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:layout_centerVertical="true"
@@ -53,7 +53,7 @@
                 android:layout_centerVertical="true"
                 android:layout_gravity="center"
                 android:layout_marginLeft="15dp"
-                android:layout_toRightOf="@+id/img_sanpham"
+                android:layout_toRightOf="@+id/img_anhdaidien"
                 android:orientation="vertical">
 
                 <TextView
@@ -134,8 +134,8 @@
                 android:layout_gravity="top"
                 android:backgroundTint="@color/white"
                 android:drawableLeft="@drawable/ic_history"
-                android:drawablePadding="10dp"
                 android:drawableRight="@drawable/ic_next"
+                android:drawablePadding="10dp"
                 android:padding="10dp"
                 android:text="Xem lịch sử đơn hàng đã mua"
                 android:textColor="@color/black"

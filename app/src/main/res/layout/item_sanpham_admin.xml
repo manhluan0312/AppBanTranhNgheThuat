@@ -12,17 +12,20 @@
         android:id="@+id/layoutItem"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:orientation="horizontal"
         android:padding="10dp">
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/img_sanpham"
             android:layout_width="70dp"
             android:layout_height="70dp"
-            android:scaleType="centerCrop"
             android:src="@drawable/ic_launcher_background" />
-
+<LinearLayout
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:layout_centerVertical="true"
@@ -37,7 +40,7 @@
                 android:layout_marginLeft="10dp"
                 android:layout_toRightOf="@+id/img_sanpham"
                 android:maxLines="1"
-                android:text="Tên sản phẩm "
+                android:text="SẢn phẩm "
                 android:textColor="@color/black"
                 android:textSize="20sp"
                 android:textStyle="bold" />
@@ -51,7 +54,6 @@
                 android:layout_marginLeft="10dp"
                 android:layout_toRightOf="@+id/img_sanpham"
                 android:text="Giá sản phẩm"
-                android:maxLines="1"
                 android:textColor="@color/red"
                 android:textSize="16sp"
                 android:textStyle="bold" />
@@ -69,7 +71,6 @@
                 android:textSize="16sp" />
 
         </LinearLayout>
-
-    </LinearLayout>
-
+</LinearLayout>
+</LinearLayout>
 </LinearLayout>

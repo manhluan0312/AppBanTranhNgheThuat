@@ -81,5 +81,10 @@
             </group>
         </menu>
     </item>
+        <group android:checkableBehavior="single">
+            <item
+                android:id="@+id/menu_xemthongke"
+                android:title="Xem thống kê" />
+        </group>
 </menu>
 
