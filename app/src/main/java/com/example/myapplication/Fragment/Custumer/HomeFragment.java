@@ -7,6 +7,9 @@ import android.os.Bundle;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.viewpager2.widget.ViewPager2;
 
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -15,22 +18,49 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.example.myapplication.Activity.Custumer.GioHangActivity;
-import com.example.myapplication.Activity.Custumer.HighlightsProcductsActivity;
-import com.example.myapplication.Activity.Custumer.NewProductsActivity;
+import com.example.myapplication.Activity.Custumer.SeeMoreProposeProcductsActivity;
+import com.example.myapplication.Activity.Custumer.SeeMoreNewProductsActivity;
+import com.example.myapplication.Activity.Custumer.TimKiem_SanPhamActivity;
 import com.example.myapplication.Activity.MainActivity;
-import com.example.myapplication.Activity.TimKiemActivity;
-import com.example.myapplication.Activity.admin.AdminActivity;
+
+import com.example.myapplication.Adapter.SanPhamDeXuatAdapter;
+import com.example.myapplication.Adapter.SanPhamMoiNhatAdapter;
+import com.example.myapplication.Adapter.SliderAdapter;
+import com.example.myapplication.Model.DanhMucSanPham;
+import com.example.myapplication.Model.SanPham;
+import com.example.myapplication.Model.Slider;
 import com.example.myapplication.R;
+import com.example.myapplication.Utils.Server;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+
+import me.relex.circleindicator.CircleIndicator3;
 
 
-public class HomeFragment extends Fragment {
+public class HomeFragment extends Fragment implements View.OnClickListener {
 
     private View mView;
     MainActivity mainActivity;
     Toolbar toolbar;
-    TextView mTitle,xemthemspmn,xemthemspnb;
+    TextView mTitle, xemthemspmn, xemthemspnb;
+    ViewPager2 viewPager2;
+    CircleIndicator3 circleIndicator3;
+    ArrayList<Slider> sliderArrayList;
+    ArrayList<SanPham> sanPhamMoinhatArrayList, getSanPhamdexuatArrayList;
+    RecyclerView rcv_spmn, rcv_spdx;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -40,21 +70,23 @@ public class HomeFragment extends Fragment {
         AnhXa();
         setToolbar();
 
-        xemthemspmn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent =new Intent(mainActivity, NewProductsActivity.class);
-                startActivity(intent);
-            }
-        });
+        //set giao dien cho san pham moi nhat
 
-        xemthemspnb.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent =new Intent(mainActivity, HighlightsProcductsActivity.class);
-                startActivity(intent);
-            }
-        });
+        LinearLayoutManager linearLayoutManager;
+        linearLayoutManager = new LinearLayoutManager(mainActivity, RecyclerView.HORIZONTAL, false);
+        rcv_spmn.setLayoutManager(linearLayoutManager);
+
+        // //set giao dien cho san pham de xuat
+
+        linearLayoutManager = new LinearLayoutManager(mainActivity, RecyclerView.HORIZONTAL, false);
+        rcv_spdx.setLayoutManager(linearLayoutManager);
+
+        getListSlider(); // hien thi slider
+        getListProductsNew();//hien thi san pham moi nhat
+        getListProductsPropose();//hien thi san pham de xuat
+
+        xemthemspmn.setOnClickListener(this);//bat su kien cho nut xem them san pham moi nhat
+        xemthemspnb.setOnClickListener(this);//bat su kien cho nut xem them san pham de xuat
 
         return mView;
     }
@@ -63,11 +95,15 @@ public class HomeFragment extends Fragment {
     private void AnhXa() {
         toolbar = mView.findViewById(R.id.toobar);
         mTitle = (TextView) toolbar.findViewById(R.id.toolbar_title);
-        xemthemspmn=mView.findViewById(R.id.tv_xemthemspmn);
-        xemthemspnb=mView.findViewById(R.id.tv_xemthemspnb);
+        xemthemspmn = mView.findViewById(R.id.tv_xemthemspmn);
+        xemthemspnb = mView.findViewById(R.id.tv_xemthemspnb);
+        viewPager2 = mView.findViewById(R.id.view_papager_2);
+        circleIndicator3 = mView.findViewById(R.id.cir);
+        rcv_spmn = mView.findViewById(R.id.rcv_spmn);
+        rcv_spdx = mView.findViewById(R.id.rcv_spdx);
     }
 
-    private void setToolbar(){
+    private void setToolbar() {
         mainActivity = (MainActivity) getActivity();//ep kieu bien moi truong
         mainActivity.setSupportActionBar(toolbar);
         mTitle.setText("Trang chủ");
@@ -97,10 +133,179 @@ public class HomeFragment extends Fragment {
                 startActivity(intent1);
                 break;
             case R.id.item_serch:
-                Intent intent2 = new Intent(mainActivity, TimKiemActivity.class);
+                Intent intent2 = new Intent(mainActivity, TimKiem_SanPhamActivity.class);
                 startActivity(intent2);
                 break;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private void getListSlider() {
+
+        sliderArrayList = new ArrayList<>();
+
+        //gọi request
+        StringRequest StringRequest = new StringRequest(Request.Method.GET,
+                Server.GET_SILDER, new Response.Listener<String>() {
+
+            @Override
+            //ket noi thanh cong
+            public void onResponse(String response) {
+
+                try {
+                    JSONArray slider = new JSONArray(response);
+
+                    for (int i = 0; i < slider.length(); i++) {
+                        JSONObject SliderObject = slider.getJSONObject(i);
+                        int id_slider = SliderObject.getInt("id_slider");
+                        String titile_sider = SliderObject.getString("titile_sider");
+                        String image_sider = SliderObject.getString("image_slider");
+
+                        Slider slider1 = new Slider(id_slider, titile_sider, image_sider);
+                        sliderArrayList.add(slider1);
+                    }
+                    SliderAdapter sliderAdapter = new SliderAdapter(mainActivity, sliderArrayList);
+                    //viewPager2.setAdapter(sliderAdapter);
+                    circleIndicator3.setViewPager(viewPager2);
+
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+            //ket noi that bai
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(mainActivity, "lỗi", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        RequestQueue requestQueue = Volley.newRequestQueue(getContext());// tạo request len server
+        requestQueue.add(StringRequest);
+
+    }
+
+
+    private void getListProductsNew() {
+        sanPhamMoinhatArrayList = new ArrayList<>();
+
+
+        StringRequest StringRequest = new StringRequest(Request.Method.GET, Server.GETSANPHAMMOINHAT,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+
+                        try {
+                            JSONArray sanpham = new JSONArray(response);
+                            for (int i = 0; i < sanpham.length(); i++) {
+                                JSONObject jsonObjectRequest = sanpham.getJSONObject(i);
+                                int id_product = jsonObjectRequest.getInt("id_product");
+                                String name_product = jsonObjectRequest.getString("name_product");
+                                String poto_product = jsonObjectRequest.getString("poto_product");
+                                int price_product = jsonObjectRequest.getInt("price_product");
+                                String product_material = jsonObjectRequest.getString("product_material");
+                                String product_dimensions = jsonObjectRequest.getString("product_dimensions");
+                                int year_of_creation = jsonObjectRequest.getInt("year_of_creation");
+                                String product_description = jsonObjectRequest.getString("product_description");
+                                String note_products = jsonObjectRequest.getString("note_products");
+                                String name_catalog = jsonObjectRequest.getString("name_catalog");
+
+                                SanPham sanPham = new SanPham(id_product, name_product, poto_product, price_product,
+                                        product_material, product_dimensions, year_of_creation, product_description, note_products, name_catalog);
+                                sanPhamMoinhatArrayList.add(sanPham);
+                            }
+
+                            SanPhamMoiNhatAdapter sanPhamMoiNhatAdapter = new SanPhamMoiNhatAdapter(mainActivity, sanPhamMoinhatArrayList);
+                            rcv_spmn.setAdapter(sanPhamMoiNhatAdapter);
+                            sanPhamMoiNhatAdapter.notifyDataSetChanged();
+
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(mainActivity, "lỗi", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        RequestQueue requestQueue = Volley.newRequestQueue(getContext());// tạo request len server
+        requestQueue.add(StringRequest);
+
+    }
+
+
+    private void getListProductsPropose() {
+
+        getSanPhamdexuatArrayList = new ArrayList<>();
+
+
+        StringRequest StringRequest = new StringRequest(Request.Method.GET, Server.GETSANPHAMDEXUAT,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+
+                        try {
+                            JSONArray sanpham = new JSONArray(response);
+                            for (int i = 0; i < sanpham.length(); i++) {
+                                JSONObject jsonObjectRequest = sanpham.getJSONObject(i);
+                                int id_product = jsonObjectRequest.getInt("id_product");
+                                String name_product = jsonObjectRequest.getString("name_product");
+                                String poto_product = jsonObjectRequest.getString("poto_product");
+                                int price_product = jsonObjectRequest.getInt("price_product");
+                                String product_material = jsonObjectRequest.getString("product_material");
+                                String product_dimensions = jsonObjectRequest.getString("product_dimensions");
+                                int year_of_creation = jsonObjectRequest.getInt("year_of_creation");
+                                String product_description = jsonObjectRequest.getString("product_description");
+                                String note_products = jsonObjectRequest.getString("note_products");
+                                String name_catalog = jsonObjectRequest.getString("name_catalog");
+
+                                SanPham sanPham = new SanPham(id_product, name_product, poto_product, price_product,
+                                        product_material, product_dimensions, year_of_creation, product_description, note_products, name_catalog);
+                                getSanPhamdexuatArrayList.add(sanPham);
+                            }
+
+                            SanPhamDeXuatAdapter sanPhamDeXuatAdapter = new SanPhamDeXuatAdapter(mainActivity, getSanPhamdexuatArrayList);
+                            rcv_spdx.setAdapter(sanPhamDeXuatAdapter);
+                            sanPhamDeXuatAdapter.notifyDataSetChanged();
+
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(mainActivity, "lỗi", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        RequestQueue requestQueue = Volley.newRequestQueue(getContext());// tạo request len server
+        requestQueue.add(StringRequest);
+
+    }
+
+    //bat su kien cac view
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()) {
+            //bat su kien khi an
+            case R.id.tv_xemthemspmn:
+                Intent intent = new Intent(mainActivity, SeeMoreNewProductsActivity.class);
+                startActivity(intent);
+                break;
+            //bat su kien khi an
+            case R.id.tv_xemthemspnb:
+                Intent intent1 = new Intent(mainActivity, SeeMoreProposeProcductsActivity.class);
+                startActivity(intent1);
+                break;
+        }
     }
 }

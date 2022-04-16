@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".Activity.TimKiemActivity">
+    tools:context=".Activity.Custumer.TimKiemDanhMucActivity">
 
 
     <androidx.appcompat.widget.Toolbar
@@ -31,7 +31,7 @@
         android:layout_margin="15dp"
         android:drawableRight="@drawable/ic_search"
         android:drawablePadding="10dp"
-        android:hint="Nhập nội dung tìm kiếm"
+        android:hint="Nhập nội dung tìm kiếm anh mục "
         android:background="@drawable/custum_edittext_timkiem"
         />
 
@@ -67,4 +67,5 @@
             android:textColor="@color/design_default_color_primary_dark"
             android:textSize="18sp" />
     </LinearLayout>
+
 </LinearLayout>

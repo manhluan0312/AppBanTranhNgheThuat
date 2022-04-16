@@ -5,7 +5,13 @@ import android.view.ViewGroup;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.myapplication.Activity.MainActivity;
+import com.example.myapplication.Model.SanPham;
+
+import java.util.ArrayList;
+
 public class GioHangAdapter extends RecyclerView.Adapter<GioHangAdapter.GioHangViewHolder> {
+
 
 
     @Override

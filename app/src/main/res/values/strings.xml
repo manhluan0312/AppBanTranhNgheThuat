@@ -5,9 +5,9 @@
     <string name="home">Home</string>
     <string name="danh_muc_san_pham">Danh mục sản phẩm</string>
     <string name="taikhoan">Tài khoản</string>
-    <string name="tieu_de_san_moi_nhat">SẢN PHẨM MỚI NHẤT</string>
+    <string name="tieu_de_san_moi_nhat">MỚI CẬP NHẬT</string>
     <string name="tv_xemthemsanphammoinhat">Xem thêm</string>
-    <string name="tieu_de_san_pham_noi_bat">SẢN PHẨM NỔI BẬT</string>
+    <string name="tieu_de_san_pham_noi_bat">ĐỀ XUẤT CHO BẠN</string>
     <string name="tv_xemthemsanpham_noi_bat">Xem thêm</string>
     <string name="menu_timkiem">Tìm kiếm</string>
     <string name="menutoobar_giohang">Giỏ Hàng</string>
@@ -29,5 +29,14 @@
     <string name="Open_navi">Open</string>
     <string name="Close_navi">Close</string>
     <string name="tv_motademo">Google Dịch (tên tiếng Việt chính thức,[4] lúc đầu gọi là Google Thông dịch,[5] tên tiếng Anh là Google Translate) là một công cụ dịch thuật trực tuyến do Google phát triển. Nó cung cấp giao diện trang web, ứng dụng trên thiết bị di động cho hệ điều hành Android và iOS và giao diện lập trình ứng dụng giúp nhà phát triển xây dựng tiện ích mở rộng trình duyệt web và ứng dụng phần mềm. Google Dịch hỗ trợ hơn 100 ngôn ngữ ở các cấp khác nhau và kể từ tháng 5 nămhỗ trợ này có thể được sử dụng trong các lần dịch sau.</string>
+    <string name="title_activity_tim_kiem_danh_muc">TimKiemDanhMucActivity</string>
+    <!-- Strings used for fragments for navigation -->
+    <string name="first_fragment_label">First Fragment</string>
+    <string name="second_fragment_label">Second Fragment</string>
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
+
+    <string name="hello_first_fragment">Hello first fragment</string>
+    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
 
 </resources>

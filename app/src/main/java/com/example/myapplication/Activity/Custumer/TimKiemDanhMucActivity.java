@@ -9,7 +9,8 @@ import android.widget.TextView;
 
 import com.example.myapplication.R;
 
-public class HighlightsProcductsActivity extends AppCompatActivity {
+public class TimKiemDanhMucActivity extends AppCompatActivity {
+
 
     Toolbar toolbar;
     TextView mTitle;
@@ -17,9 +18,11 @@ public class HighlightsProcductsActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_highlights_procducts);
+        setContentView(R.layout.activity_tim_kiem_danh_muc);
+
         AnhXa();
         setToolbar();
+
     }
 
     private void AnhXa() {
@@ -27,10 +30,11 @@ public class HighlightsProcductsActivity extends AppCompatActivity {
         mTitle = (TextView) toolbar.findViewById(R.id.toolbar_title);
     }
 
-    private void setToolbar() {
+
+    private void setToolbar(){
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        mTitle.setText("Sản phẩm nổi bật");
+        mTitle.setText("Tìm kiếm danh mục ");
         getSupportActionBar().setDisplayShowTitleEnabled(false);//khong hien thi titile ma cdinh cua toorbar
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
@@ -39,4 +43,5 @@ public class HighlightsProcductsActivity extends AppCompatActivity {
             }
         });
     }
+
 }

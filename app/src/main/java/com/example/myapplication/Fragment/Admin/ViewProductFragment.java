@@ -13,9 +13,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.myapplication.Activity.Custumer.ChiTietSanPhamActivity;
-import com.example.myapplication.Activity.Custumer.GioHangActivity;
-import com.example.myapplication.Activity.TimKiemActivity;
+import com.example.myapplication.Activity.Custumer.TimKiem_SanPhamActivity;
 import com.example.myapplication.Activity.admin.AdminActivity;
 import com.example.myapplication.R;
 
@@ -65,7 +63,7 @@ public class ViewProductFragment extends Fragment {
 
         switch (item.getItemId()) {
             case R.id.item_serch:
-                Intent intent2 = new Intent(adminActivity, GioHangActivity.class);
+                Intent intent2 = new Intent(adminActivity, TimKiem_SanPhamActivity.class);
                 startActivity(intent2);
                 break;
         }

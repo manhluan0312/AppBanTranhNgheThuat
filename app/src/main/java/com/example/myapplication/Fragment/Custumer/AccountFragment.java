@@ -24,9 +24,9 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.example.myapplication.Activity.ChangePasswordActivity;
 import com.example.myapplication.Activity.Custumer.GioHangActivity;
+import com.example.myapplication.Activity.Custumer.TimKiem_SanPhamActivity;
 import com.example.myapplication.Activity.LoginActivity;
 import com.example.myapplication.Activity.MainActivity;
-import com.example.myapplication.Activity.TimKiemActivity;
 import com.example.myapplication.Activity.Custumer.UpdateInfoProfileActivity;
 import com.example.myapplication.R;
 import com.example.myapplication.Utils.Server;
@@ -38,7 +38,7 @@ public class AccountFragment extends Fragment implements View.OnClickListener {
 
     private View mView;
     MainActivity mainActivity;
-    LinearLayout linearLayoutlogout, linearLayoutviewinfo, linearLayoutchangepass,linearLayoutlíchsu;
+    LinearLayout linearLayoutlogout, linearLayoutviewinfo, linearLayoutchangepass, linearLayoutlíchsu;
     Toolbar toolbar;
     TextView mTitle;
     ImageView imageView;
@@ -83,10 +83,10 @@ public class AccountFragment extends Fragment implements View.OnClickListener {
         linearLayoutlogout = mView.findViewById(R.id.linner_dangxuat);
         linearLayoutviewinfo = mView.findViewById(R.id.linner_xemthongtincanhan);
         toolbar = mView.findViewById(R.id.toobar);
-        imageView= mView.findViewById(R.id.img_anhdaidien);
+        imageView = mView.findViewById(R.id.img_anhdaidien);
         mTitle = (TextView) toolbar.findViewById(R.id.toolbar_title);
         linearLayoutchangepass = mView.findViewById(R.id.linner_doimatkhau);
-        linearLayoutlíchsu=mView.findViewById(R.id.linner_lichsudonhang);
+        linearLayoutlíchsu = mView.findViewById(R.id.linner_lichsudonhang);
     }
 
     public void OpenDilog() {
@@ -128,6 +128,13 @@ public class AccountFragment extends Fragment implements View.OnClickListener {
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.menu_toobar, menu);
         super.onCreateOptionsMenu(menu, inflater);
+
+        // an icon menu tim kiem
+        MenuItem item = menu.findItem(R.id.item_serch);
+        if (item != null) {
+            item.setVisible(false);
+        }
+
     }
 
     //ham xu ly su kien khi chon vao tung item menu
@@ -140,7 +147,7 @@ public class AccountFragment extends Fragment implements View.OnClickListener {
                 startActivity(intent1);
                 break;
             case R.id.item_serch:
-                Intent intent2 = new Intent(mainActivity, TimKiemActivity.class);
+                Intent intent2 = new Intent(mainActivity, TimKiem_SanPhamActivity.class);
                 startActivity(intent2);
                 break;
         }

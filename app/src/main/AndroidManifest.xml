@@ -7,6 +7,7 @@
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -16,7 +17,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MyApplication"
         android:usesCleartextTraffic="true">
-        <activity android:name=".Activity.Custumer.RegistrationActivity"></activity>
+        <activity android:name=".Activity.admin.ChangeCatalogActivity"></activity>
+        <activity android:name=".Activity.Custumer.TimKiemDanhMucActivity" />
+        <activity android:name=".Activity.Custumer.RegistrationActivity" />
         <activity android:name=".Activity.admin.AdminActivity">
 <!--            <intent-filter>-->
 <!--                <action android:name="android.intent.action.MAIN" />-->
@@ -24,12 +27,12 @@
 <!--                <category android:name="android.intent.category.LAUNCHER" />-->
 <!--            </intent-filter>-->
         </activity>
-        <activity android:name=".Activity.Custumer.HighlightsProcductsActivity" />
-        <activity android:name=".Activity.Custumer.NewProductsActivity" />
+        <activity android:name=".Activity.Custumer.SeeMoreProposeProcductsActivity" />
+        <activity android:name=".Activity.Custumer.SeeMoreNewProductsActivity" />
         <activity android:name=".Activity.ChangePasswordActivity" />
         <activity android:name=".Activity.LoginActivity" />
         <activity android:name=".Activity.Custumer.UpdateInfoProfileActivity" />
-        <activity android:name=".Activity.TimKiemActivity" />
+        <activity android:name=".Activity.Custumer.TimKiem_SanPhamActivity" />
         <activity android:name=".Activity.MainActivity" />
         <activity android:name=".Activity.Custumer.GioHangActivity" />
         <activity android:name=".Activity.Custumer.ChiTietSanPhamActivity" />

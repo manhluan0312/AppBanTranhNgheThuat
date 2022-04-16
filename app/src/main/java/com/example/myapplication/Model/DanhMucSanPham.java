@@ -3,22 +3,19 @@ package com.example.myapplication.Model;
 import java.io.Serializable;
 
 public class DanhMucSanPham implements Serializable {
-    String iddm;
+    int iddm;
     String tendanhmuc;
 
-    public DanhMucSanPham() {
-    }
-
-    public DanhMucSanPham(String iddm, String tendanhmuc) {
+    public DanhMucSanPham(int iddm, String tendanhmuc) {
         this.iddm = iddm;
         this.tendanhmuc = tendanhmuc;
     }
 
-    public String getIddm() {
+    public int getIddm() {
         return iddm;
     }
 
-    public void setIddm(String iddm) {
+    public void setIddm(int iddm) {
         this.iddm = iddm;
     }
 
@@ -30,5 +27,3 @@ public class DanhMucSanPham implements Serializable {
         this.tendanhmuc = tendanhmuc;
     }
 }
-
-
