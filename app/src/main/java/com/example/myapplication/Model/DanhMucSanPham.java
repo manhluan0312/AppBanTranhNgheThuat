@@ -26,4 +26,12 @@ public class DanhMucSanPham implements Serializable {
     public void setTendanhmuc(String tendanhmuc) {
         this.tendanhmuc = tendanhmuc;
     }
+
+    @Override
+    public String toString() {
+        return "DanhMucSanPham{" +
+                "iddm=" + iddm +
+                ", tendanhmuc='" + tendanhmuc + '\'' +
+                '}';
+    }
 }

@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginTop="10dp"
-    android:layout_marginRight="10dp"
-    android:layout_marginBottom="10dp"
-    android:orientation="vertical">
+    app:cardCornerRadius="8dp"
+    android:layout_marginRight="10dp">
 
     <LinearLayout
         android:id="@+id/layoutItem"
@@ -37,6 +36,7 @@
                 android:layout_marginLeft="10dp"
                 android:layout_toRightOf="@+id/img_sanpham"
                 android:maxLines="1"
+                android:ellipsize="end"
                 android:text="Tên sản phẩm "
                 android:textColor="@color/black"
                 android:textSize="20sp"
@@ -52,6 +52,7 @@
                 android:layout_toRightOf="@+id/img_sanpham"
                 android:text="Giá sản phẩm"
                 android:maxLines="1"
+                android:ellipsize="end"
                 android:textColor="@color/red"
                 android:textSize="16sp"
                 android:textStyle="bold" />
@@ -64,6 +65,7 @@
                 android:layout_marginLeft="10dp"
                 android:layout_toRightOf="@+id/img_sanpham"
                 android:maxLines="2"
+                android:ellipsize="end"
                 android:text="Mô tả sản phẩm "
                 android:textColor="@color/black"
                 android:textSize="16sp" />
@@ -72,4 +74,4 @@
 
     </LinearLayout>
 
-</LinearLayout>
+</androidx.cardview.widget.CardView>

@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -30,13 +31,14 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-public class SeeMoreNewProductsActivity extends AppCompatActivity {
+public class SeeMoreNewProductsActivity extends AppCompatActivity implements SwipeRefreshLayout.OnRefreshListener  {
 
     Toolbar toolbar;
     TextView mTitle;
     RecyclerView rcv_dmsp;
     ArrayList<SanPham> arrayListxemthemsanphammoinat;
-    MainActivity mainActivity;
+    SwipeRefreshLayout swipeRefreshLayout;
+    Context context;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,16 +50,19 @@ public class SeeMoreNewProductsActivity extends AppCompatActivity {
         //set giao dien cho san pham moi nhat
 
         GridLayoutManager gridLayoutManager;
-        gridLayoutManager=new GridLayoutManager(this,2);
+        gridLayoutManager = new GridLayoutManager(this, 2);
         rcv_dmsp.setLayoutManager(gridLayoutManager);
-
         getListMoreProductNew();//ham get du lieu moi nhat
+
+        swipeRefreshLayout.setOnRefreshListener(this);//ham refest du lieu
+        swipeRefreshLayout.setColorSchemeColors(getResources().getColor(R.color.purple_500));//xet mau load
     }
 
     private void AnhXa() {
         toolbar = findViewById(R.id.toobar);
-        rcv_dmsp=findViewById(R.id.rcv_dmsp);
+        rcv_dmsp = findViewById(R.id.rcv_dmsp);
         mTitle = (TextView) toolbar.findViewById(R.id.toolbar_title);
+        swipeRefreshLayout = findViewById(R.id.switper_spmn);
     }
 
     private void setToolbar() {
@@ -103,7 +108,7 @@ public class SeeMoreNewProductsActivity extends AppCompatActivity {
                                 arrayListxemthemsanphammoinat.add(sanPham);
                             }
 
-                            XemThemSanPhamMoiNhatAdapter sanPhamMoiNhatAdapter = new XemThemSanPhamMoiNhatAdapter(mainActivity,arrayListxemthemsanphammoinat);
+                            XemThemSanPhamMoiNhatAdapter sanPhamMoiNhatAdapter = new XemThemSanPhamMoiNhatAdapter(context, arrayListxemthemsanphammoinat);
                             rcv_dmsp.setAdapter(sanPhamMoiNhatAdapter);
                             sanPhamMoiNhatAdapter.notifyDataSetChanged();
 
@@ -123,5 +128,12 @@ public class SeeMoreNewProductsActivity extends AppCompatActivity {
         RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());// tạo request len server
         requestQueue.add(StringRequest);
 
+    }
+
+    @Override
+    public void onRefresh() {
+        //arrayListxemthemsanphammoinat.clear();
+        getListMoreProductNew();
+        swipeRefreshLayout.setRefreshing(false);//tat di
     }
 }

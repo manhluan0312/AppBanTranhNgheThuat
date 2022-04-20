@@ -36,7 +36,7 @@
         <activity android:name=".Activity.MainActivity" />
         <activity android:name=".Activity.Custumer.GioHangActivity" />
         <activity android:name=".Activity.Custumer.ChiTietSanPhamActivity" />
-        <activity android:name=".Activity.SanPhamActivity" />
+        <activity android:name=".Activity.Custumer.SanPhamActivity" />
         <activity android:name=".Activity.Custumer.SplashActivity">
 
              <intent-filter>

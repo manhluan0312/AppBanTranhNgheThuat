@@ -62,6 +62,7 @@ public class CategoryFragment extends Fragment implements SwipeRefreshLayout.OnR
         recyclerView_dmsp = mView.findViewById(R.id.rcv_dmsp);
 
         swipeRefreshLayout.setOnRefreshListener(this);//ham refest du lieu
+        swipeRefreshLayout.setColorSchemeColors(getResources().getColor(R.color.purple_500));//xet mau load
 
         //set giao dien
 
@@ -164,7 +165,7 @@ public class CategoryFragment extends Fragment implements SwipeRefreshLayout.OnR
 
     @Override
     public void onRefresh() {
-        danhmucList.clear();
+        //danhmucList.clear();
         getListcatalog();
         swipeRefreshLayout.setRefreshing(false);//tat di
     }

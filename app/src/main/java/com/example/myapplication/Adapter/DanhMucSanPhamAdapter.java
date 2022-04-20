@@ -1,5 +1,6 @@
 package com.example.myapplication.Adapter;
 
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -7,8 +8,9 @@ import android.widget.Button;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.myapplication.Activity.Custumer.SanPhamActivity;
 import com.example.myapplication.Activity.MainActivity;
-import com.example.myapplication.Activity.admin.AdminActivity;
+
 import com.example.myapplication.Model.DanhMucSanPham;
 import com.example.myapplication.R;
 
@@ -20,8 +22,8 @@ public class DanhMucSanPhamAdapter extends RecyclerView.Adapter<DanhMucSanPhamAd
    private MainActivity mainActivity;
    ArrayList<DanhMucSanPham> DanhmucSanPhamArrayList;
 
-    public DanhMucSanPhamAdapter(MainActivity mainActivity, ArrayList<DanhMucSanPham> mucSanPhamArrayList) {
-        this.mainActivity = mainActivity;
+    public DanhMucSanPhamAdapter(MainActivity mainActivity, ArrayList<DanhMucSanPham> mucSanPhamArrayList){
+        this.mainActivity=mainActivity;
         this.DanhmucSanPhamArrayList = mucSanPhamArrayList;
     }
 
@@ -40,6 +42,16 @@ public class DanhMucSanPhamAdapter extends RecyclerView.Adapter<DanhMucSanPhamAd
             return;
         }
         holder.btn_tendm.setText(danhMucSanPham.getTendanhmuc());
+
+        holder.btn_tendm.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent =new Intent(mainActivity, SanPhamActivity.class);
+                intent.putExtra("danhmuctheosanpham",danhMucSanPham.getIddm());
+                intent.putExtra("tendanhmuc",danhMucSanPham.getTendanhmuc());
+                mainActivity.startActivity(intent);
+            }
+        });
      }
 
     @Override

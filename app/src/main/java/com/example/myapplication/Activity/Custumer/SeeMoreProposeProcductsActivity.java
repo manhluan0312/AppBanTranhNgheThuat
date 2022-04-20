@@ -4,7 +4,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
@@ -16,9 +18,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.example.myapplication.Activity.MainActivity;
 import com.example.myapplication.Adapter.XemThemSanPhamDeXuatAdapter;
-import com.example.myapplication.Adapter.XemThemSanPhamMoiNhatAdapter;
 import com.example.myapplication.Model.SanPham;
 import com.example.myapplication.R;
 import com.example.myapplication.Utils.Server;
@@ -29,14 +29,14 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-public class SeeMoreProposeProcductsActivity extends AppCompatActivity {
+public class SeeMoreProposeProcductsActivity extends AppCompatActivity implements SwipeRefreshLayout.OnRefreshListener  {
 
     Toolbar toolbar;
     TextView mTitle;
     RecyclerView rcv_dmsp;
-    MainActivity mainActivity;
+    SwipeRefreshLayout swipeRefreshLayout;
     ArrayList<SanPham> arrayListxemthemsanphamnoibat;
-    SeeMoreProposeProcductsActivity activity;
+    Context context;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,15 +48,19 @@ public class SeeMoreProposeProcductsActivity extends AppCompatActivity {
         //set giao dien cho san pham de xuat
 
         GridLayoutManager gridLayoutManager;
-        gridLayoutManager=new GridLayoutManager(this,2);
+        gridLayoutManager = new GridLayoutManager(this, 2);
         rcv_dmsp.setLayoutManager(gridLayoutManager);
         GetListProductPropose();
+
+        swipeRefreshLayout.setOnRefreshListener(this);//ham refest du lieu
+        swipeRefreshLayout.setColorSchemeColors(getResources().getColor(R.color.purple_500));//xet mau load
     }
 
     private void AnhXa() {
         toolbar = findViewById(R.id.toobar);
-        rcv_dmsp=findViewById(R.id.rcv_dmspdx);
+        rcv_dmsp = findViewById(R.id.rcv_dmspdx);
         mTitle = (TextView) toolbar.findViewById(R.id.toolbar_title);
+        swipeRefreshLayout = findViewById(R.id.switper_spdx);
     }
 
     private void setToolbar() {
@@ -73,7 +77,6 @@ public class SeeMoreProposeProcductsActivity extends AppCompatActivity {
     }
 
     private void GetListProductPropose() {
-
 
 
         arrayListxemthemsanphamnoibat = new ArrayList<>();
@@ -104,7 +107,7 @@ public class SeeMoreProposeProcductsActivity extends AppCompatActivity {
                                 arrayListxemthemsanphamnoibat.add(sanPham);
                             }
 
-                            XemThemSanPhamDeXuatAdapter sanPhamMoiNhatAdapter = new XemThemSanPhamDeXuatAdapter(arrayListxemthemsanphamnoibat,activity);
+                            XemThemSanPhamDeXuatAdapter sanPhamMoiNhatAdapter = new XemThemSanPhamDeXuatAdapter(context, arrayListxemthemsanphamnoibat);
                             rcv_dmsp.setAdapter(sanPhamMoiNhatAdapter);
                             sanPhamMoiNhatAdapter.notifyDataSetChanged();
 
@@ -124,5 +127,12 @@ public class SeeMoreProposeProcductsActivity extends AppCompatActivity {
         RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());// tạo request len server
         requestQueue.add(StringRequest);
 
+    }
+
+    @Override
+    public void onRefresh() {
+        //arrayListxemthemsanphamnoibat.clear();
+        GetListProductPropose();
+        swipeRefreshLayout.setRefreshing(false);//tat di
     }
 }

@@ -37,6 +37,7 @@
                 android:layout_marginLeft="10dp"
                 android:layout_toRightOf="@+id/img_sanpham"
                 android:maxLines="1"
+                android:ellipsize="end"
                 android:text="Tên sản phẩm "
                 android:textColor="@color/black"
                 android:textSize="20sp"
@@ -64,6 +65,7 @@
                 android:layout_toRightOf="@+id/img_sanpham"
                 android:maxLines="2"
                 android:text="Mô tả sản phẩm "
+                android:ellipsize="end"
                 android:textColor="@color/black"
                 android:textSize="16sp" />
 

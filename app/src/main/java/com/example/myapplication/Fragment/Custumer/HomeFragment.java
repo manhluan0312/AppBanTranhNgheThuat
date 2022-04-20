@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.widget.ViewPager2;
 
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -61,6 +62,8 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     ArrayList<Slider> sliderArrayList;
     ArrayList<SanPham> sanPhamMoinhatArrayList, getSanPhamdexuatArrayList;
     RecyclerView rcv_spmn, rcv_spdx;
+
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -140,6 +143,19 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         return super.onOptionsItemSelected(item);
     }
 
+    //Auto run slider
+    Handler handler =new Handler();
+    Runnable runnable =new Runnable() {
+        @Override
+        public void run() {
+            if(viewPager2.getCurrentItem()==sliderArrayList.size()-1){
+                viewPager2.setCurrentItem(0);
+            }else {
+                viewPager2.setCurrentItem(viewPager2.getCurrentItem() + 1);//ẽext page
+            }
+        }
+    };
+
     private void getListSlider() {
 
         sliderArrayList = new ArrayList<>();
@@ -165,8 +181,18 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                         sliderArrayList.add(slider1);
                     }
                     SliderAdapter sliderAdapter = new SliderAdapter(mainActivity, sliderArrayList);
-                    //viewPager2.setAdapter(sliderAdapter);
+                    viewPager2.setAdapter(sliderAdapter);
                     circleIndicator3.setViewPager(viewPager2);
+
+                    viewPager2.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
+                        @Override
+                        public void onPageSelected(int position) {
+                            super.onPageSelected(position);
+                            handler.removeCallbacks(runnable);
+                            handler.postDelayed(runnable,3000);//thoi gian chuyen slider
+
+                        }
+                    });
 
 
                 } catch (JSONException e) {
@@ -185,7 +211,6 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         requestQueue.add(StringRequest);
 
     }
-
 
     private void getListProductsNew() {
         sanPhamMoinhatArrayList = new ArrayList<>();
@@ -291,6 +316,9 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
 
     }
 
+
+
+
     //bat su kien cac view
 
     @Override
@@ -307,5 +335,18 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                 startActivity(intent1);
                 break;
         }
+    }
+
+    //giu trang thai slider khi an nut home
+    @Override
+    public void onPause() {
+        super.onPause();
+        handler.removeCallbacks(runnable);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        handler.postDelayed(runnable,3000);//thoi gian chuyen slider
     }
 }

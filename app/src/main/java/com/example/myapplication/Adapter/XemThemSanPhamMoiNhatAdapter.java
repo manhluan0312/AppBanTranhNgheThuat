@@ -1,5 +1,6 @@
 package com.example.myapplication.Adapter;
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,21 +20,22 @@ import java.util.ArrayList;
 
 public class XemThemSanPhamMoiNhatAdapter extends RecyclerView.Adapter<XemThemSanPhamMoiNhatAdapter.XemThemSanPhamViewMoiNhatHolder> {
 
-    private MainActivity mainActivity;
+    private Context context;
     ArrayList<SanPham> xemthemsanPhamMoiNhatArrayList;
 
 
-    public XemThemSanPhamMoiNhatAdapter(MainActivity mainActivity, ArrayList<SanPham> xemthemsanPhamMoiNhatArrayList) {
-        this.mainActivity = mainActivity;
+    public XemThemSanPhamMoiNhatAdapter(Context context, ArrayList<SanPham> xemthemsanPhamMoiNhatArrayList) {
+        this.context = context;
         this.xemthemsanPhamMoiNhatArrayList = xemthemsanPhamMoiNhatArrayList;
     }
+
 
     //anh xa den file item
 
     @Override
     public XemThemSanPhamViewMoiNhatHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_sanphammoinhat, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_tatcasanphammoinhat, parent, false);
         return new XemThemSanPhamViewMoiNhatHolder(view);
 
     }
@@ -55,8 +57,9 @@ public class XemThemSanPhamMoiNhatAdapter extends RecyclerView.Adapter<XemThemSa
 
         String anh = "http://" + Server.HOST + "image/Products/" + sanPham.getPoto_product();
 
-        if(mainActivity!=null){
-        Glide.with(mainActivity)
+        if(holder!=null)
+        {
+        Glide.with(holder.itemView)
                 .load(anh)
                 .centerCrop()
                 .error(R.drawable.ic_launcher_background)
