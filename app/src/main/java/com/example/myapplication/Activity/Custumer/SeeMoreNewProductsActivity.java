@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
@@ -21,6 +22,7 @@ import com.android.volley.toolbox.Volley;
 import com.example.myapplication.Activity.MainActivity;
 import com.example.myapplication.Adapter.SanPhamMoiNhatAdapter;
 import com.example.myapplication.Adapter.XemThemSanPhamMoiNhatAdapter;
+import com.example.myapplication.Interface.IClickProductDetail;
 import com.example.myapplication.Model.SanPham;
 import com.example.myapplication.R;
 import com.example.myapplication.Utils.Server;
@@ -108,7 +110,13 @@ public class SeeMoreNewProductsActivity extends AppCompatActivity implements Swi
                                 arrayListxemthemsanphammoinat.add(sanPham);
                             }
 
-                            XemThemSanPhamMoiNhatAdapter sanPhamMoiNhatAdapter = new XemThemSanPhamMoiNhatAdapter(context, arrayListxemthemsanphammoinat);
+                            XemThemSanPhamMoiNhatAdapter sanPhamMoiNhatAdapter = new XemThemSanPhamMoiNhatAdapter(context, arrayListxemthemsanphammoinat, new IClickProductDetail() {
+
+                                @Override
+                                public void OnClickProductDetail(SanPham sanPham) {
+                                    GotoProductDetail(sanPham);
+                                }
+                            });
                             rcv_dmsp.setAdapter(sanPhamMoiNhatAdapter);
                             sanPhamMoiNhatAdapter.notifyDataSetChanged();
 
@@ -129,6 +137,15 @@ public class SeeMoreNewProductsActivity extends AppCompatActivity implements Swi
         requestQueue.add(StringRequest);
 
     }
+
+    private void GotoProductDetail(SanPham sanPham) {
+        Intent intent = new Intent(this, ChiTietSanPhamActivity.class);
+        Bundle bundle =new Bundle();
+        bundle.putSerializable("productdetail",sanPham);
+        intent.putExtras(bundle);
+        startActivity(intent);
+        }
+
 
     @Override
     public void onRefresh() {

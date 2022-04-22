@@ -10,4 +10,5 @@ public class Server {
     public  static String GETSANPHAMDEXUAT="http://"+HOST+"get_products_propose_home.php";
     public  static String GETMORESANPHAMDEXUAT="http://"+HOST+"get_products_propone_see_more.php";
     public  static String GETSANPHAMTHEODANHMUC="http://"+HOST+"get_product_catalog.php";
+    public  static String GETALLPRODUCT="http://"+HOST+"get_all_product.php";
 }

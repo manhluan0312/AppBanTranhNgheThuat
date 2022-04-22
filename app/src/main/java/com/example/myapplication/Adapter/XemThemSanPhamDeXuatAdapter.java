@@ -5,12 +5,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.myapplication.Activity.Custumer.SeeMoreProposeProcductsActivity;
+import com.example.myapplication.Interface.IClickProductDetail;
 import com.example.myapplication.Model.SanPham;
 import com.example.myapplication.R;
 import com.example.myapplication.Utils.Server;
@@ -22,10 +24,12 @@ public class XemThemSanPhamDeXuatAdapter extends RecyclerView.Adapter<XemThemSan
 
     Context context;
     ArrayList<SanPham> xemthemsanPhamDeXuatArrayList;
+    IClickProductDetail iClickProductDetail;
 
-    public XemThemSanPhamDeXuatAdapter(Context context, ArrayList<SanPham> xemthemsanPhamDeXuatArrayList) {
+    public XemThemSanPhamDeXuatAdapter(Context context, ArrayList<SanPham> xemthemsanPhamDeXuatArrayList, IClickProductDetail iClickProductDetail) {
         this.context = context;
         this.xemthemsanPhamDeXuatArrayList = xemthemsanPhamDeXuatArrayList;
+        this.iClickProductDetail = iClickProductDetail;
     }
 //anh xa den file item
 
@@ -51,17 +55,25 @@ public class XemThemSanPhamDeXuatAdapter extends RecyclerView.Adapter<XemThemSan
 
         holder.tv_gia.setText("Giá :" + decimalFormat.format(sanPham.getPrice_product()) + " " + "VND");
 
-        String anh = "http://" + Server.HOST +"image/Products/" + sanPham.getPoto_product();
+        String anh = "http://" + Server.HOST + "image/Products/" + sanPham.getPoto_product();
 
-        if (holder!=null)
-        {
+        if (holder != null) {
             Glide.with(holder.itemView)
                     .load(anh)
                     .centerCrop()
                     .error(R.drawable.ic_launcher_background)
                     .into(holder.img_anh);
+
+
+            holder.linearLayout.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    iClickProductDetail.OnClickProductDetail(sanPham);
+                }
+            });
         }
     }
+
     @Override
     public int getItemCount() {
         if (xemthemsanPhamDeXuatArrayList != null) {
@@ -74,6 +86,7 @@ public class XemThemSanPhamDeXuatAdapter extends RecyclerView.Adapter<XemThemSan
 
         ImageView img_anh;
         TextView tv_ten, tv_gia;
+        LinearLayout linearLayout;
 
         //ham khoi tao viewholder
         public XemThemSanPhamViewDeXuatHolder(View itemView) {
@@ -81,7 +94,7 @@ public class XemThemSanPhamDeXuatAdapter extends RecyclerView.Adapter<XemThemSan
             img_anh = itemView.findViewById(R.id.anhsp);
             tv_ten = itemView.findViewById(R.id.tv_name);
             tv_gia = itemView.findViewById(R.id.tv_giasp);
-
+            linearLayout = itemView.findViewById(R.id.linner_sanpham);
         }
     }
 }

@@ -21,6 +21,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.myapplication.Adapter.SanPhamAdapter;
+import com.example.myapplication.Interface.IClickProductDetail;
 import com.example.myapplication.Model.SanPham;
 import com.example.myapplication.R;
 import com.example.myapplication.Utils.Server;
@@ -43,6 +44,7 @@ public class SanPhamActivity extends AppCompatActivity implements SwipeRefreshLa
     RecyclerView recyclerView_sp;
     SwipeRefreshLayout swipeRefreshLayout;
     Context context;
+    TextView tv_saptrong;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,7 +56,6 @@ public class SanPhamActivity extends AppCompatActivity implements SwipeRefreshLa
         ten = intent.getStringExtra("tendanhmuc");
         setToolbar();
         GetProductToCatalog();
-
 
         swipeRefreshLayout.setOnRefreshListener(this);//ham refest du lieu
         swipeRefreshLayout.setColorSchemeColors(getResources().getColor(R.color.purple_500));//xet mau load
@@ -72,6 +73,7 @@ public class SanPhamActivity extends AppCompatActivity implements SwipeRefreshLa
         mTitle = (TextView) toolbar.findViewById(R.id.toolbar_title);
         recyclerView_sp = findViewById(R.id.rcv_sp);
         swipeRefreshLayout = findViewById(R.id.switper_sp);
+        tv_saptrong = findViewById(R.id.ko_co_san_pham);
     }
 
 
@@ -91,7 +93,6 @@ public class SanPhamActivity extends AppCompatActivity implements SwipeRefreshLa
     private void GetProductToCatalog() {
 
         sanPhamArrayList = new ArrayList<>();
-
 
         StringRequest StringRequest = new StringRequest(Request.Method.POST, Server.GETSANPHAMTHEODANHMUC,
                 new Response.Listener<String>() {
@@ -118,10 +119,15 @@ public class SanPhamActivity extends AppCompatActivity implements SwipeRefreshLa
                                 sanPhamArrayList.add(sanPham);
                             }
 
-                            SanPhamAdapter sanPhamAdapter = new SanPhamAdapter(context, sanPhamArrayList);
+                            SanPhamAdapter sanPhamAdapter = new SanPhamAdapter(context, sanPhamArrayList, new IClickProductDetail() {
+
+                                @Override
+                                public void OnClickProductDetail(SanPham sanPham) {
+                                    GotoProductDetail(sanPham);
+                                }
+                            });
                             recyclerView_sp.setAdapter(sanPhamAdapter);
                             sanPhamAdapter.notifyDataSetChanged();
-
 
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -134,7 +140,6 @@ public class SanPhamActivity extends AppCompatActivity implements SwipeRefreshLa
                 Toast.makeText(getApplicationContext(), "lỗi", Toast.LENGTH_SHORT).show();
             }
         }) {
-
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 HashMap<String, String> hashMap = new HashMap<>();
@@ -145,9 +150,15 @@ public class SanPhamActivity extends AppCompatActivity implements SwipeRefreshLa
 
         RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());// tạo request len server
         requestQueue.add(StringRequest);
-
     }
 
+    private void GotoProductDetail(SanPham sanPham) {
+        Intent intent = new Intent(this, ChiTietSanPhamActivity.class);
+        Bundle bundle =new Bundle();
+        bundle.putSerializable("productdetail",sanPham);
+        intent.putExtras(bundle);
+        startActivity(intent);
+    }
 
     @Override
     public void onRefresh() {

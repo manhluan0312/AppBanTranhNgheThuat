@@ -5,12 +5,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.myapplication.Activity.MainActivity;
+import com.example.myapplication.Interface.IClickProductDetail;
 import com.example.myapplication.Model.SanPham;
 import com.example.myapplication.R;
 import com.example.myapplication.Utils.Server;
@@ -22,11 +24,12 @@ public class XemThemSanPhamMoiNhatAdapter extends RecyclerView.Adapter<XemThemSa
 
     private Context context;
     ArrayList<SanPham> xemthemsanPhamMoiNhatArrayList;
+    IClickProductDetail iClickProductDetail;
 
-
-    public XemThemSanPhamMoiNhatAdapter(Context context, ArrayList<SanPham> xemthemsanPhamMoiNhatArrayList) {
+    public XemThemSanPhamMoiNhatAdapter(Context context, ArrayList<SanPham> xemthemsanPhamMoiNhatArrayList, IClickProductDetail iClickProductDetail) {
         this.context = context;
         this.xemthemsanPhamMoiNhatArrayList = xemthemsanPhamMoiNhatArrayList;
+        this.iClickProductDetail = iClickProductDetail;
     }
 
 
@@ -57,14 +60,22 @@ public class XemThemSanPhamMoiNhatAdapter extends RecyclerView.Adapter<XemThemSa
 
         String anh = "http://" + Server.HOST + "image/Products/" + sanPham.getPoto_product();
 
-        if(holder!=null)
-        {
-        Glide.with(holder.itemView)
-                .load(anh)
-                .centerCrop()
-                .error(R.drawable.ic_launcher_background)
-                .into(holder.img_anh);
-    }
+        if (holder != null) {
+            Glide.with(holder.itemView)
+                    .load(anh)
+                    .centerCrop()
+                    .error(R.drawable.ic_launcher_background)
+                    .into(holder.img_anh);
+
+
+            holder.linearLayout.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    iClickProductDetail.OnClickProductDetail(sanPham);
+                }
+            });
+        }
+
     }
 
     @Override
@@ -79,6 +90,7 @@ public class XemThemSanPhamMoiNhatAdapter extends RecyclerView.Adapter<XemThemSa
 
         ImageView img_anh;
         TextView tv_ten, tv_gia;
+        LinearLayout linearLayout;
 
         //ham khoi tao viewholder
         public XemThemSanPhamViewMoiNhatHolder(View itemView) {
@@ -86,7 +98,7 @@ public class XemThemSanPhamMoiNhatAdapter extends RecyclerView.Adapter<XemThemSa
             img_anh = itemView.findViewById(R.id.anhsp);
             tv_ten = itemView.findViewById(R.id.tv_name);
             tv_gia = itemView.findViewById(R.id.tv_giasp);
-
+            linearLayout = itemView.findViewById(R.id.linner_sanpham);
         }
     }
 }

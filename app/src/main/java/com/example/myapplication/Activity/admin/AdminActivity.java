@@ -82,10 +82,10 @@ public class AdminActivity extends AppCompatActivity implements NavigationView.O
                 titile="Trang chủ";
                 break;
             case FRAGMENT_VIEW_CATALOG:
-                titile="Xem danh mục sản phẩm";
+                titile="Tất cả danh mục sản phẩm";
                 break;
             case FRAGMENT_VIEW_PRODUCT:
-                titile="Xem thông tin sản phẩm";
+                titile="Tất cả sản phẩm";
                 break;
             case FRAGMENT_ADD_PRODUCT:
                 titile="Thêm sản phẩm";

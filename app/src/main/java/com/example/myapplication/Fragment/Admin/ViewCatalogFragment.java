@@ -31,6 +31,7 @@ import com.example.myapplication.Interface.IClickCatalogManageAdmin;
 import com.example.myapplication.Model.DanhMucSanPham;
 import com.example.myapplication.R;
 import com.example.myapplication.Utils.Server;
+import com.google.android.material.bottomsheet.BottomSheetDialog;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -138,7 +139,7 @@ public class ViewCatalogFragment extends Fragment implements SwipeRefreshLayout.
                     danhMucSanPhamAdapter = new DanhMucSanPham_AdminAdapter(adminActivity, danhmucList, new IClickCatalogManageAdmin() {
                         @Override
                         public void OnClickCatalogCatalogManageAdmin(DanhMucSanPham danhMucSanPham) {
-                            ChangeCatalog(danhMucSanPham);
+                            OpenBotomSheetDanhMuc();
                         }
                     });
                     recyclerView_dmsp.setAdapter(danhMucSanPhamAdapter);
@@ -166,9 +167,10 @@ public class ViewCatalogFragment extends Fragment implements SwipeRefreshLayout.
         swipeRefreshLayout.setRefreshing(false);//tat di
     }
 
-    //ham chinh sua thong tin danh muc
-    private void ChangeCatalog(DanhMucSanPham danhMucSanPham) {
-        Intent intent = new Intent(adminActivity, ChangeCatalogActivity.class);
-        startActivity(intent);
+    private void OpenBotomSheetDanhMuc() {
+        View view = getLayoutInflater().inflate(R.layout.bottom_sheet_dmsp, null);
+        BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(adminActivity);
+        bottomSheetDialog.setContentView(view);
+        bottomSheetDialog.show();
     }
 }

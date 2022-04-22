@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
@@ -19,6 +20,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.myapplication.Adapter.XemThemSanPhamDeXuatAdapter;
+import com.example.myapplication.Interface.IClickProductDetail;
 import com.example.myapplication.Model.SanPham;
 import com.example.myapplication.R;
 import com.example.myapplication.Utils.Server;
@@ -29,7 +31,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-public class SeeMoreProposeProcductsActivity extends AppCompatActivity implements SwipeRefreshLayout.OnRefreshListener  {
+public class SeeMoreProposeProcductsActivity extends AppCompatActivity implements SwipeRefreshLayout.OnRefreshListener {
 
     Toolbar toolbar;
     TextView mTitle;
@@ -107,7 +109,13 @@ public class SeeMoreProposeProcductsActivity extends AppCompatActivity implement
                                 arrayListxemthemsanphamnoibat.add(sanPham);
                             }
 
-                            XemThemSanPhamDeXuatAdapter sanPhamMoiNhatAdapter = new XemThemSanPhamDeXuatAdapter(context, arrayListxemthemsanphamnoibat);
+                            XemThemSanPhamDeXuatAdapter sanPhamMoiNhatAdapter = new XemThemSanPhamDeXuatAdapter(context, arrayListxemthemsanphamnoibat, new IClickProductDetail() {
+
+                                @Override
+                                public void OnClickProductDetail(SanPham sanPham) {
+                                    GotoProductDetail(sanPham);
+                                }
+                            });
                             rcv_dmsp.setAdapter(sanPhamMoiNhatAdapter);
                             sanPhamMoiNhatAdapter.notifyDataSetChanged();
 
@@ -127,6 +135,14 @@ public class SeeMoreProposeProcductsActivity extends AppCompatActivity implement
         RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());// tạo request len server
         requestQueue.add(StringRequest);
 
+    }
+
+    private void GotoProductDetail(SanPham sanPham) {
+        Intent intent = new Intent(this, ChiTietSanPhamActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("productdetail", sanPham);
+        intent.putExtras(bundle);
+        startActivity(intent);
     }
 
     @Override

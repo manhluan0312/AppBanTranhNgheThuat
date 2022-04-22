@@ -1,13 +1,13 @@
-package com.example.myapplication.Activity.Custumer;
-
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
+package com.example.myapplication.Activity.admin;
 
 import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.CenterCrop;
@@ -19,19 +19,19 @@ import com.example.myapplication.Utils.Server;
 
 import java.text.DecimalFormat;
 
-public class ChiTietSanPhamActivity extends AppCompatActivity {
+public class ChiTietSanPhamAdminActivity extends AppCompatActivity {
 
     Toolbar toolbar;
     TextView mTitle;
     SanPham sanPham;
     Context context;
-    TextView tv_tensp, tv_gia_sp, tv_chatlieu, tv_kichthuoc, tv_namsangtac, tv_motasp;
+    TextView tv_tensp, tv_gia_sp, tv_chatlieu, tv_kichthuoc, tv_namsangtac, tv_motasp,tv_danhmuc;
     ImageView img_anh_sp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_chi_tiet_san_pham);
+        setContentView(R.layout.activity_chi_tiet_san_pham_admin);
         AnhXa();
         NhanDuLieuTuProduct();
         setToolbar();
@@ -64,6 +64,7 @@ public class ChiTietSanPhamActivity extends AppCompatActivity {
 
         tv_motasp.setText(sanPham.getProduct_description());
 
+        tv_danhmuc.setText("Loại:"+sanPham.getName_catalog());
     }
 
     private void NhanDuLieuTuProduct() {
@@ -85,6 +86,7 @@ public class ChiTietSanPhamActivity extends AppCompatActivity {
         tv_namsangtac = findViewById(R.id.tv_namsangtac);
         tv_motasp = findViewById(R.id.tv_motasp_chitiet);
         img_anh_sp = findViewById(R.id.img_anh_sanpham);
+        tv_danhmuc=findViewById(R.id.tv_danhmuc);
     }
 
     private void setToolbar() {

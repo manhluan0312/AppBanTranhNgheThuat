@@ -27,6 +27,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.myapplication.Activity.Custumer.ChiTietSanPhamActivity;
 import com.example.myapplication.Activity.Custumer.GioHangActivity;
 import com.example.myapplication.Activity.Custumer.SeeMoreProposeProcductsActivity;
 import com.example.myapplication.Activity.Custumer.SeeMoreNewProductsActivity;
@@ -36,6 +37,7 @@ import com.example.myapplication.Activity.MainActivity;
 import com.example.myapplication.Adapter.SanPhamDeXuatAdapter;
 import com.example.myapplication.Adapter.SanPhamMoiNhatAdapter;
 import com.example.myapplication.Adapter.SliderAdapter;
+import com.example.myapplication.Interface.IClickProductDetail;
 import com.example.myapplication.Model.DanhMucSanPham;
 import com.example.myapplication.Model.SanPham;
 import com.example.myapplication.Model.Slider;
@@ -46,6 +48,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 import me.relex.circleindicator.CircleIndicator3;
@@ -62,7 +65,6 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     ArrayList<Slider> sliderArrayList;
     ArrayList<SanPham> sanPhamMoinhatArrayList, getSanPhamdexuatArrayList;
     RecyclerView rcv_spmn, rcv_spdx;
-
 
 
     @Override
@@ -144,13 +146,13 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     }
 
     //Auto run slider
-    Handler handler =new Handler();
-    Runnable runnable =new Runnable() {
+    Handler handler = new Handler();
+    Runnable runnable = new Runnable() {
         @Override
         public void run() {
-            if(viewPager2.getCurrentItem()==sliderArrayList.size()-1){
+            if (viewPager2.getCurrentItem() == sliderArrayList.size() - 1) {
                 viewPager2.setCurrentItem(0);
-            }else {
+            } else {
                 viewPager2.setCurrentItem(viewPager2.getCurrentItem() + 1);//ẽext page
             }
         }
@@ -189,7 +191,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                         public void onPageSelected(int position) {
                             super.onPageSelected(position);
                             handler.removeCallbacks(runnable);
-                            handler.postDelayed(runnable,3000);//thoi gian chuyen slider
+                            handler.postDelayed(runnable, 3000);//thoi gian chuyen slider
 
                         }
                     });
@@ -241,7 +243,12 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                                 sanPhamMoinhatArrayList.add(sanPham);
                             }
 
-                            SanPhamMoiNhatAdapter sanPhamMoiNhatAdapter = new SanPhamMoiNhatAdapter(mainActivity, sanPhamMoinhatArrayList);
+                            SanPhamMoiNhatAdapter sanPhamMoiNhatAdapter = new SanPhamMoiNhatAdapter(mainActivity, sanPhamMoinhatArrayList, new IClickProductDetail() {
+                                @Override
+                                public void OnClickProductDetail(SanPham sanPham) {
+                                    GotoProductDetail(sanPham);
+                                }
+                            });
                             rcv_spmn.setAdapter(sanPhamMoiNhatAdapter);
                             sanPhamMoiNhatAdapter.notifyDataSetChanged();
 
@@ -262,7 +269,6 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         requestQueue.add(StringRequest);
 
     }
-
 
     private void getListProductsPropose() {
 
@@ -294,7 +300,13 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                                 getSanPhamdexuatArrayList.add(sanPham);
                             }
 
-                            SanPhamDeXuatAdapter sanPhamDeXuatAdapter = new SanPhamDeXuatAdapter(mainActivity, getSanPhamdexuatArrayList);
+                            SanPhamDeXuatAdapter sanPhamDeXuatAdapter = new SanPhamDeXuatAdapter(mainActivity, getSanPhamdexuatArrayList, new IClickProductDetail() {
+                                @Override
+                                public void OnClickProductDetail(SanPham sanPham) {
+                                    GotoProductDetail(sanPham);
+                                }
+                            });
+
                             rcv_spdx.setAdapter(sanPhamDeXuatAdapter);
                             sanPhamDeXuatAdapter.notifyDataSetChanged();
 
@@ -315,8 +327,6 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         requestQueue.add(StringRequest);
 
     }
-
-
 
 
     //bat su kien cac view
@@ -347,6 +357,15 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onResume() {
         super.onResume();
-        handler.postDelayed(runnable,3000);//thoi gian chuyen slider
+        handler.postDelayed(runnable, 3000);//thoi gian chuyen slider
     }
+
+    private void GotoProductDetail(SanPham sanPham) {
+        Intent intent = new Intent(mainActivity, ChiTietSanPhamActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("productdetail", sanPham);
+        intent.putExtras(bundle);
+        startActivity(intent);
+    }
+
 }

@@ -13,6 +13,9 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.bitmap.CenterCrop;
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
+import com.bumptech.glide.request.RequestOptions;
 import com.example.myapplication.Activity.MainActivity;
 
 import com.example.myapplication.Model.Slider;
@@ -51,6 +54,7 @@ public class SliderAdapter extends RecyclerView.Adapter<SliderAdapter.SliderView
 
         Glide.with(mainActivity)
                 .load(anh)
+                .apply(new RequestOptions().transform(new CenterCrop()).transform(new RoundedCorners(12)))//bo goc anh
                 .centerCrop()
                 .error(R.drawable.ic_launcher_background)
                 .into(holder.img_slider);

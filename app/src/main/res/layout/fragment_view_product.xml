@@ -3,16 +3,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="10dp"
     tools:context=".Fragment.Admin.ViewProductFragment">
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rcv_dmsp_admin"
+
+        android:id="@+id/rcv_allsp_admin"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
         android:layout_marginLeft="10dp"
-        android:layout_marginBottom="10dp"
-        android:padding="16dp" />
+        android:layout_marginBottom="10dp"/>
 
 </LinearLayout>

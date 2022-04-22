@@ -11,8 +11,8 @@ import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.RequestOptions;
 import com.example.myapplication.Interface.IClickProductDetail;
+import com.example.myapplication.Interface.IClickProductManageAdmin;
 import com.example.myapplication.Model.SanPham;
 import com.example.myapplication.R;
 import com.example.myapplication.Utils.Server;
@@ -20,27 +20,28 @@ import com.example.myapplication.Utils.Server;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 
-public class SanPhamAdapter extends RecyclerView.Adapter<SanPhamAdapter.SanPhamViewtHolder> {
+public class SanPham_AdminAdapter extends RecyclerView.Adapter<SanPham_AdminAdapter.SanPhamViewtHolder> {
 
     Context context;
     ArrayList<SanPham> sanPhamArrayList;
-    IClickProductDetail iClickProductDetail;
+    IClickProductManageAdmin iClickProductManageAdmin;
 
-    public SanPhamAdapter(Context context, ArrayList<SanPham> sanPhamArrayList, IClickProductDetail iClickProductDetail) {
+
+    public SanPham_AdminAdapter(Context context, ArrayList<SanPham> sanPhamArrayList, IClickProductManageAdmin iClickProductManageAdmin){
         this.context = context;
         this.sanPhamArrayList = sanPhamArrayList;
-        this.iClickProductDetail = iClickProductDetail;
+        this.iClickProductManageAdmin = iClickProductManageAdmin;
     }
 
     //anh xa den file item
     @Override
     public SanPhamViewtHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_sanpham, parent, false);
-        return new SanPhamAdapter.SanPhamViewtHolder(view);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_sanpham_admin, parent, false);
+        return new SanPham_AdminAdapter.SanPhamViewtHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(SanPhamAdapter.SanPhamViewtHolder holder, int position) {
+    public void onBindViewHolder(SanPham_AdminAdapter.SanPhamViewtHolder holder, int position) {
 
 
         SanPham sanPham = sanPhamArrayList.get(position);
@@ -65,16 +66,27 @@ public class SanPhamAdapter extends RecyclerView.Adapter<SanPhamAdapter.SanPhamV
                     .error(R.drawable.ic_launcher_background)
                     .into(holder.img_anh);
 
-
-            holder.linearLayout.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    iClickProductDetail.OnClickProductDetail(sanPham);
-                }
-            });
         }
         holder.tv_mota.setText(sanPham.getProduct_description());
+
+        holder.imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                iClickProductManageAdmin.OnClickCatalogCatalogManageAdmin();
+            }
+        });
+
+        holder.linearLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                iClickProductManageAdmin.OnClickProductDetail(sanPham);
+            }
+        });
+
+
     }
+
+
 
     @Override
     public int getItemCount() {
@@ -90,6 +102,7 @@ public class SanPhamAdapter extends RecyclerView.Adapter<SanPhamAdapter.SanPhamV
         ImageView img_anh;
         TextView tv_ten, tv_gia, tv_mota;
         LinearLayout linearLayout;
+        ImageView imageView;
 
         public SanPhamViewtHolder(View itemView) {
             super(itemView);
@@ -99,6 +112,7 @@ public class SanPhamAdapter extends RecyclerView.Adapter<SanPhamAdapter.SanPhamV
             tv_gia = itemView.findViewById(R.id.tv_giasp);
             tv_mota = itemView.findViewById(R.id.tv_motasp);
             linearLayout = itemView.findViewById(R.id.linner_sanpham);
+            imageView = itemView.findViewById(R.id.ic_more);
         }
     }
 }

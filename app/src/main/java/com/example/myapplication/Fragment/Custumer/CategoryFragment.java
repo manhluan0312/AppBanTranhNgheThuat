@@ -44,9 +44,11 @@ public class CategoryFragment extends Fragment implements SwipeRefreshLayout.OnR
     private View mView;
     MainActivity mainActivity;
     Toolbar toolbar;
-    TextView mTitle;
+    TextView mTitle,soluongitem;
     SwipeRefreshLayout swipeRefreshLayout;
     RecyclerView recyclerView_dmsp;
+
+
 
     DanhMucSanPhamAdapter danhMucSanPhamAdapter;
     private ArrayList<DanhMucSanPham> danhmucList;
@@ -70,6 +72,8 @@ public class CategoryFragment extends Fragment implements SwipeRefreshLayout.OnR
         linearLayoutManager = new LinearLayoutManager(mainActivity, RecyclerView.VERTICAL, false);
         recyclerView_dmsp.setLayoutManager(linearLayoutManager);
 
+        //soluongitem.setText("Số lượng  danh mục sản phẩm "+"");
+
         //set du lieu
         getListcatalog();
 
@@ -80,6 +84,7 @@ public class CategoryFragment extends Fragment implements SwipeRefreshLayout.OnR
         toolbar = mView.findViewById(R.id.toobar);
         mTitle = (TextView) toolbar.findViewById(R.id.toolbar_title);
         swipeRefreshLayout = mView.findViewById(R.id.switper_dm);
+        soluongitem=mView.findViewById(R.id.tv_motasp);
     }
 
     private void setToolbar() {
@@ -88,18 +93,17 @@ public class CategoryFragment extends Fragment implements SwipeRefreshLayout.OnR
         mainActivity.getSupportActionBar().setDisplayShowTitleEnabled(false);//khong hien thi titile ma cdinh cua toorbar
     }
 
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);//Add this sentence to the menu
+    }
 
     //ham khoi tao menu toobar
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.menu_toobar, menu);
         super.onCreateOptionsMenu(menu, inflater);
-    }
-
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setHasOptionsMenu(true);//Add this sentence to the menu
     }
 
     //ham xu ly su kien khi chon vao tung item menu
@@ -144,7 +148,6 @@ public class CategoryFragment extends Fragment implements SwipeRefreshLayout.OnR
                     }
                     danhMucSanPhamAdapter = new DanhMucSanPhamAdapter(mainActivity, danhmucList);
                     recyclerView_dmsp.setAdapter(danhMucSanPhamAdapter);
-
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
