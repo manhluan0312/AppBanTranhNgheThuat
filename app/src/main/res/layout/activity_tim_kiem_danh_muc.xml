@@ -25,17 +25,18 @@
 
     </androidx.appcompat.widget.Toolbar>
 
-    <EditText
+    <androidx.appcompat.widget.SearchView
+        android:id="@+id/noidungnhap"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="15dp"
-        android:drawableRight="@drawable/ic_search"
-        android:drawablePadding="10dp"
-        android:hint="Nhập nội dung tìm kiếm anh mục "
+        android:layout_height="45dp"
+        android:layout_margin="10dp"
+        app:queryBackground="@android:color/transparent"
+        app:defaultQueryHint="Tìm kiếm danh mục"
         android:background="@drawable/custum_edittext_timkiem"
         />
 
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rcv_dmsp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
@@ -44,11 +45,11 @@
         android:padding="16dp" />
 
     <LinearLayout
-        android:id="@+id/linner_giohangtrong"
+        android:id="@+id/linner_kotimthayketqua"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:visibility="invisible"
+        android:layout_gravity="center"
+        android:visibility="gone"
         android:orientation="vertical">
 
 

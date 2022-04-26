@@ -4,8 +4,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -19,7 +21,7 @@ import com.example.myapplication.Utils.Server;
 
 import java.text.DecimalFormat;
 
-public class ChiTietSanPhamActivity extends AppCompatActivity {
+public class ChiTietSanPhamActivity extends AppCompatActivity implements View.OnClickListener {
 
     Toolbar toolbar;
     TextView mTitle;
@@ -27,6 +29,7 @@ public class ChiTietSanPhamActivity extends AppCompatActivity {
     Context context;
     TextView tv_tensp, tv_gia_sp, tv_chatlieu, tv_kichthuoc, tv_namsangtac, tv_motasp;
     ImageView img_anh_sp;
+    Button btn_themgiohang;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,6 +88,10 @@ public class ChiTietSanPhamActivity extends AppCompatActivity {
         tv_namsangtac = findViewById(R.id.tv_namsangtac);
         tv_motasp = findViewById(R.id.tv_motasp_chitiet);
         img_anh_sp = findViewById(R.id.img_anh_sanpham);
+        btn_themgiohang=findViewById(R.id.btn_them_vao_gio_hang);
+
+        btn_themgiohang.setOnClickListener(this);
+
     }
 
     private void setToolbar() {
@@ -100,5 +107,15 @@ public class ChiTietSanPhamActivity extends AppCompatActivity {
                 finish();
             }
         });
+    }
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.btn_them_vao_gio_hang:
+                Intent intent =new Intent(this,GioHangActivity.class);
+                startActivity(intent);
+                break;
+        }
     }
 }

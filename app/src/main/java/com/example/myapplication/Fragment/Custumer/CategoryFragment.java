@@ -76,15 +76,17 @@ public class CategoryFragment extends Fragment implements SwipeRefreshLayout.OnR
 
         //set du lieu
         getListcatalog();
+        getCountProduct();
 
         return mView;
     }
+
 
     private void AnhXa() {
         toolbar = mView.findViewById(R.id.toobar);
         mTitle = (TextView) toolbar.findViewById(R.id.toolbar_title);
         swipeRefreshLayout = mView.findViewById(R.id.switper_dm);
-        soluongitem=mView.findViewById(R.id.tv_motasp);
+        soluongitem=mView.findViewById(R.id.tv_soluong_item);
     }
 
     private void setToolbar() {
@@ -164,12 +166,32 @@ public class CategoryFragment extends Fragment implements SwipeRefreshLayout.OnR
         requestQueue.add(StringRequest);
     }
 
+    private void getCountProduct() {
+
+        StringRequest stringRequest =new StringRequest(Request.Method.GET, Server.GETCOUNT_DANHMUC, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+              soluongitem.setText("Số lượng danh mục "+"("+response.toString()+")");
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+        });
+
+        RequestQueue requestQueue = Volley.newRequestQueue(getContext());// tạo request len server
+        requestQueue.add(stringRequest);
+
+    }
+
     //refesh du lieu
 
     @Override
     public void onRefresh() {
         //danhmucList.clear();
         getListcatalog();
+        getCountProduct();
         swipeRefreshLayout.setRefreshing(false);//tat di
     }
 }

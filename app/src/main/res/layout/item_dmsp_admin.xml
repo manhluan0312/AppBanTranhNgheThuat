@@ -11,7 +11,7 @@
         android:id="@+id/btn_tendm"
         android:layout_width="0dp"
         android:layout_weight="9.5"
-        android:layout_height="100dp"
+        android:layout_height="wrap_content"
         android:background="@drawable/custumbutton_dmsp"
         android:layout_marginTop="10dp"
         android:layout_marginRight="10dp"

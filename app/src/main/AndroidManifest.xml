@@ -17,7 +17,8 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MyApplication"
         android:usesCleartextTraffic="true">
-        <activity android:name=".Activity.admin.ChangeCatalogActivity"></activity>
+        <activity android:name=".Activity.admin.TimKiemSanPham_AdminActivity"></activity>
+        <activity android:name=".Activity.admin.ChangeCatalogActivity" />
         <activity android:name=".Activity.Custumer.TimKiemDanhMucActivity" />
         <activity android:name=".Activity.Custumer.RegistrationActivity" />
         <activity android:name=".Activity.admin.AdminActivity">
@@ -31,7 +32,7 @@
         <activity android:name=".Activity.Custumer.SeeMoreNewProductsActivity" />
         <activity android:name=".Activity.ChangePasswordActivity" />
         <activity android:name=".Activity.LoginActivity" />
-        <activity android:name=".Activity.admin.ChiTietSanPhamAdminActivity"/>
+        <activity android:name=".Activity.admin.ChiTietSanPhamAdminActivity" />
         <activity android:name=".Activity.Custumer.UpdateInfoProfileActivity" />
         <activity android:name=".Activity.Custumer.TimKiem_SanPhamActivity" />
         <activity android:name=".Activity.MainActivity" />
@@ -40,13 +41,14 @@
         <activity android:name=".Activity.Custumer.SanPhamActivity" />
         <activity android:name=".Activity.Custumer.SplashActivity">
 
-<!--             <intent-filter>-->
-<!--             <action android:name="android.intent.action.MAIN" />-->
+            <!-- <intent-filter> -->
+            <!-- <action android:name="android.intent.action.MAIN" /> -->
 
 
-<!--             <category android:name="android.intent.category.LAUNCHER" />-->
-<!--             </intent-filter>-->
+            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
+            <!-- </intent-filter> -->
         </activity>
+        <activity android:name=".Activity.admin.TimKiemDanhMuc_AdminActivity" />
     </application>
 
 </manifest>

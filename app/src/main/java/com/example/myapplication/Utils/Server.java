@@ -11,4 +11,7 @@ public class Server {
     public  static String GETMORESANPHAMDEXUAT="http://"+HOST+"get_products_propone_see_more.php";
     public  static String GETSANPHAMTHEODANHMUC="http://"+HOST+"get_product_catalog.php";
     public  static String GETALLPRODUCT="http://"+HOST+"get_all_product.php";
+    public  static String GETCOUNT_DANHMUC="http://"+HOST+"get_count_catalog.php";
+    public  static String SEARCH_PRODUCT="http://"+HOST+"serch_product.php";
+    public  static String SEARCH_CATALOG="http://"+HOST+"serch_catalog.php";
 }

@@ -9,6 +9,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import androidx.viewpager2.widget.ViewPager2;
 
 import android.os.Handler;
@@ -38,7 +39,6 @@ import com.example.myapplication.Adapter.SanPhamDeXuatAdapter;
 import com.example.myapplication.Adapter.SanPhamMoiNhatAdapter;
 import com.example.myapplication.Adapter.SliderAdapter;
 import com.example.myapplication.Interface.IClickProductDetail;
-import com.example.myapplication.Model.DanhMucSanPham;
 import com.example.myapplication.Model.SanPham;
 import com.example.myapplication.Model.Slider;
 import com.example.myapplication.R;
@@ -48,19 +48,19 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 import me.relex.circleindicator.CircleIndicator3;
 
 
-public class HomeFragment extends Fragment implements View.OnClickListener {
+public class HomeFragment extends Fragment implements View.OnClickListener, SwipeRefreshLayout.OnRefreshListener {
 
     private View mView;
     MainActivity mainActivity;
     Toolbar toolbar;
     TextView mTitle, xemthemspmn, xemthemspnb;
     ViewPager2 viewPager2;
+    SwipeRefreshLayout swipeRefreshLayout;
     CircleIndicator3 circleIndicator3;
     ArrayList<Slider> sliderArrayList;
     ArrayList<SanPham> sanPhamMoinhatArrayList, getSanPhamdexuatArrayList;
@@ -93,6 +93,9 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         xemthemspmn.setOnClickListener(this);//bat su kien cho nut xem them san pham moi nhat
         xemthemspnb.setOnClickListener(this);//bat su kien cho nut xem them san pham de xuat
 
+        swipeRefreshLayout.setOnRefreshListener(this);//ham refest du lieu
+        swipeRefreshLayout.setColorSchemeColors(getResources().getColor(R.color.purple_500));//xet mau load
+
         return mView;
     }
 
@@ -106,6 +109,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         circleIndicator3 = mView.findViewById(R.id.cir);
         rcv_spmn = mView.findViewById(R.id.rcv_spmn);
         rcv_spdx = mView.findViewById(R.id.rcv_spdx);
+        swipeRefreshLayout = mView.findViewById(R.id.switper_trangchu);
     }
 
     private void setToolbar() {
@@ -368,4 +372,11 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         startActivity(intent);
     }
 
+    @Override
+    public void onRefresh() {
+        getListSlider();
+        getListProductsNew();
+        getListProductsPropose();
+        swipeRefreshLayout.setRefreshing(false);//tat di
+    }
 }

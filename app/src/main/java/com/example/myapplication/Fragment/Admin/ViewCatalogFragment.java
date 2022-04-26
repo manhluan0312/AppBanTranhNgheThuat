@@ -15,6 +15,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -22,11 +23,9 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.example.myapplication.Activity.Custumer.TimKiemDanhMucActivity;
 import com.example.myapplication.Activity.admin.AdminActivity;
-import com.example.myapplication.Activity.admin.ChangeCatalogActivity;
+import com.example.myapplication.Activity.admin.TimKiemDanhMuc_AdminActivity;
 import com.example.myapplication.Adapter.DanhMucSanPham_AdminAdapter;
-import com.example.myapplication.Fragment.Custumer.HomeFragment;
 import com.example.myapplication.Interface.IClickCatalogManageAdmin;
 import com.example.myapplication.Model.DanhMucSanPham;
 import com.example.myapplication.R;
@@ -39,7 +38,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-public class ViewCatalogFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
+public class ViewCatalogFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener{
 
     View view;
     AdminActivity adminActivity;
@@ -59,8 +58,8 @@ public class ViewCatalogFragment extends Fragment implements SwipeRefreshLayout.
         AnhXa();
         adminActivity = (AdminActivity) getActivity();
 
-        recyclerView_dmsp = view.findViewById(R.id.rcv_dmsp_admin);
         swipeRefreshLayout.setOnRefreshListener(this);//ham refest du lieu
+        swipeRefreshLayout.setColorSchemeColors(getResources().getColor(R.color.purple_500));//xet mau load
 
 
         //set giao dien
@@ -76,6 +75,7 @@ public class ViewCatalogFragment extends Fragment implements SwipeRefreshLayout.
     }
 
     private void AnhXa() {
+        recyclerView_dmsp = view.findViewById(R.id.rcv_dmsp_admin);
         swipeRefreshLayout = view.findViewById(R.id.switper_dm_admin);
     }
 
@@ -105,7 +105,7 @@ public class ViewCatalogFragment extends Fragment implements SwipeRefreshLayout.
 
         switch (item.getItemId()) {
             case R.id.item_serch:
-                Intent intent2 = new Intent(adminActivity, TimKiemDanhMucActivity.class);
+                Intent intent2 = new Intent(adminActivity, TimKiemDanhMuc_AdminActivity.class);
                 startActivity(intent2);
                 break;
         }
@@ -162,7 +162,7 @@ public class ViewCatalogFragment extends Fragment implements SwipeRefreshLayout.
 
     @Override
     public void onRefresh() {
-        danhmucList.clear();
+        //danhmucList.clear();
         getListcatalog();
         swipeRefreshLayout.setRefreshing(false);//tat di
     }
@@ -172,5 +172,7 @@ public class ViewCatalogFragment extends Fragment implements SwipeRefreshLayout.
         BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(adminActivity);
         bottomSheetDialog.setContentView(view);
         bottomSheetDialog.show();
+
+        LinearLayout linearLayout_suadm = view.findViewById(R.id.suadm);
     }
 }

@@ -1,4 +1,4 @@
-package com.example.myapplication.Activity.Custumer;
+package com.example.myapplication.Activity.admin;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
@@ -21,11 +21,12 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.example.myapplication.Adapter.SanPhamAdapter;
-import com.example.myapplication.Interface.IClickProductDetail;
+import com.example.myapplication.Adapter.SanPham_AdminAdapter;
+import com.example.myapplication.Interface.IClickProductManageAdmin;
 import com.example.myapplication.Model.SanPham;
 import com.example.myapplication.R;
 import com.example.myapplication.Utils.Server;
+import com.google.android.material.bottomsheet.BottomSheetDialog;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -35,49 +36,53 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public class TimKiem_SanPhamActivity extends AppCompatActivity {
+
+public class TimKiemSanPham_AdminActivity extends AppCompatActivity {
+
 
     Toolbar toolbar;
     TextView mTitle;
     Context context;
-    ArrayList<SanPham> sanPhamArrayList;
-    RecyclerView recyclerView_sp;
+    ArrayList<SanPham> SanPhamArrayList;
+    RecyclerView recyclerView_sp_admin;
     LinearLayout linearLayout;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_tim_kiem_san_pham);
+        setContentView(R.layout.activity_tim_kiem_san_pham_admin);
+
+
         AnhXa();
         setToolbar();
 
-        sanPhamArrayList = new ArrayList<>();
+        SanPhamArrayList = new ArrayList<>();
 
         SearchView searchView = findViewById(R.id.noidungnhap);
 
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                getListSearchProduct(query);
+                getListSearchCatalog(query);
                 return true;
             }
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                getListSearchProduct(newText);
+                getListSearchCatalog(newText);
                 return true;
             }
         });
-
     }
+
 
     private void AnhXa() {
         toolbar = findViewById(R.id.toobar);
         mTitle = (TextView) toolbar.findViewById(R.id.toolbar_title);
-        recyclerView_sp = findViewById(R.id.rcv_sp);
-        linearLayout = findViewById(R.id.linner_khongcosanpham);
+        recyclerView_sp_admin = findViewById(R.id.rcv_sp_timkiem_admin);
+        linearLayout = findViewById(R.id.linner_kotimthayketqua);
     }
+
 
     private void setToolbar() {
         setSupportActionBar(toolbar);
@@ -92,9 +97,9 @@ public class TimKiem_SanPhamActivity extends AppCompatActivity {
         });
     }
 
+    private void getListSearchCatalog(String query) {
+        SanPhamArrayList.clear();
 
-    private void getListSearchProduct(String query) {
-        sanPhamArrayList.clear();
         StringRequest StringRequest = new StringRequest(Request.Method.POST, Server.SEARCH_PRODUCT,
                 new Response.Listener<String>() {
                     @Override
@@ -117,37 +122,39 @@ public class TimKiem_SanPhamActivity extends AppCompatActivity {
 
                                 SanPham sanPham = new SanPham(id_product, name_product, poto_product, price_product,
                                         product_material, product_dimensions, year_of_creation, product_description, note_products, name_catalog);
-                                sanPhamArrayList.add(sanPham);
+                                SanPhamArrayList.add(sanPham);
                             }
 
-                            if (sanPhamArrayList.size() > 0)// tim thay  san pham
+                            if (SanPhamArrayList.size() > 0)// tim thay  san pham
                             {
 
-                                SanPhamAdapter sanPhamAdapter = new SanPhamAdapter(context, sanPhamArrayList, new IClickProductDetail() {
+                                SanPham_AdminAdapter sanPhamAdapter = new SanPham_AdminAdapter(context, SanPhamArrayList, new IClickProductManageAdmin() {
+                                    @Override
+                                    public void OnClickCatalogCatalogManageAdmin() {
+                                        OpenBottomSheet();
+                                    }
 
                                     @Override
                                     public void OnClickProductDetail(SanPham sanPham) {
                                         GotoProductDetail(sanPham);
                                     }
                                 });
-
                                 //set giao dien cho san pham theo danh muc
 
                                 LinearLayoutManager linearLayoutManager;
                                 linearLayoutManager = new LinearLayoutManager(context, RecyclerView.VERTICAL, false);
-                                recyclerView_sp.setLayoutManager(linearLayoutManager);
+                                recyclerView_sp_admin.setLayoutManager(linearLayoutManager);
 
                                 //set kieu hien thi
 
-                                recyclerView_sp.setAdapter(sanPhamAdapter);
+                                recyclerView_sp_admin.setAdapter(sanPhamAdapter);
                                 sanPhamAdapter.notifyDataSetChanged();
                                 linearLayout.setVisibility(View.GONE);
-                                recyclerView_sp.setVisibility(View.VISIBLE);
-                            }
-                            else//khong tim thay  san pham
+                                recyclerView_sp_admin.setVisibility(View.VISIBLE);
+                            } else//khong tim thay  san pham
                             {
                                 linearLayout.setVisibility(View.VISIBLE);
-                                recyclerView_sp.setVisibility(View.INVISIBLE);
+                                recyclerView_sp_admin.setVisibility(View.INVISIBLE);
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -171,13 +178,23 @@ public class TimKiem_SanPhamActivity extends AppCompatActivity {
         RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());// tạo request len server
         requestQueue.add(StringRequest);
 
+
     }
 
     private void GotoProductDetail(SanPham sanPham) {
-        Intent intent = new Intent(this, ChiTietSanPhamActivity.class);
-        Bundle bundle = new Bundle();
-        bundle.putSerializable("productdetail", sanPham);
+        Intent intent = new Intent(this, ChiTietSanPhamAdminActivity.class);
+        Bundle bundle =new Bundle();
+        bundle.putSerializable("productdetail",sanPham);
         intent.putExtras(bundle);
         startActivity(intent);
+    }
+
+    private void OpenBottomSheet() {
+        View view = getLayoutInflater().inflate(R.layout.bottom_sheet_sp, null);
+        BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(this);
+        bottomSheetDialog.setContentView(view);
+        bottomSheetDialog.show();
+
+
     }
 }

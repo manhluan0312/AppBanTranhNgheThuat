@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_gravity="bottom|center"
-    android:background="@android:color/white"
+    android:background="@drawable/custum_botomsheet_dialog"
     android:padding="10dp"
     android:orientation="vertical">
 
@@ -19,7 +19,6 @@
         android:drawableLeft="@drawable/ic_edit"
         android:padding="15dp"
         android:textSize="20sp"
-        android:textStyle="bold"
         android:text="Sửa sản phẩm"/>
 
 </LinearLayout>

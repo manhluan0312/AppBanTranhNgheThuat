@@ -8,6 +8,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -24,9 +25,9 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.example.myapplication.Activity.Custumer.TimKiem_SanPhamActivity;
 import com.example.myapplication.Activity.admin.AdminActivity;
 import com.example.myapplication.Activity.admin.ChiTietSanPhamAdminActivity;
+import com.example.myapplication.Activity.admin.TimKiemSanPham_AdminActivity;
 import com.example.myapplication.Adapter.SanPham_AdminAdapter;
 import com.example.myapplication.Interface.IClickProductManageAdmin;
 import com.example.myapplication.Model.SanPham;
@@ -41,12 +42,13 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 
-public class ViewProductFragment extends Fragment {
+public class ViewProductFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
 
     View view;
     AdminActivity adminActivity;
     ArrayList<SanPham> sanPhamArrayList;
     Toolbar toolbar;
+    SwipeRefreshLayout swipeRefreshLayout;
     TextView mTitle;
     RecyclerView recyclerView_sp;
 
@@ -65,6 +67,9 @@ public class ViewProductFragment extends Fragment {
         linearLayoutManager = new LinearLayoutManager(adminActivity, RecyclerView.VERTICAL, false);
         recyclerView_sp.setLayoutManager(linearLayoutManager);
 
+        swipeRefreshLayout.setOnRefreshListener(this);//ham refest du lieu
+        swipeRefreshLayout.setColorSchemeColors(getResources().getColor(R.color.purple_500));//xet mau load
+
         GetAllProducts();
 
         return view;
@@ -73,6 +78,7 @@ public class ViewProductFragment extends Fragment {
     private void AnhXa() {
         toolbar = view.findViewById(R.id.toobar);
         recyclerView_sp = view.findViewById(R.id.rcv_allsp_admin);
+        swipeRefreshLayout = view.findViewById(R.id.switper_dm_admin);
     }
 
 
@@ -102,7 +108,7 @@ public class ViewProductFragment extends Fragment {
 
         switch (item.getItemId()) {
             case R.id.item_serch:
-                Intent intent2 = new Intent(adminActivity, TimKiem_SanPhamActivity.class);
+                Intent intent2 = new Intent(adminActivity, TimKiemSanPham_AdminActivity.class);
                 startActivity(intent2);
                 break;
         }
@@ -175,13 +181,21 @@ public class ViewProductFragment extends Fragment {
         BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(adminActivity);
         bottomSheetDialog.setContentView(view);
         bottomSheetDialog.show();
+
+
     }
 
     private void GotoProductDetail(SanPham sanPham) {
         Intent intent = new Intent(adminActivity, ChiTietSanPhamAdminActivity.class);
-        Bundle bundle =new Bundle();
-        bundle.putSerializable("productdetail",sanPham);
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("productdetail", sanPham);
         intent.putExtras(bundle);
         startActivity(intent);
+    }
+
+    @Override
+    public void onRefresh() {
+        GetAllProducts();
+        swipeRefreshLayout.setRefreshing(false);//tat di
     }
 }

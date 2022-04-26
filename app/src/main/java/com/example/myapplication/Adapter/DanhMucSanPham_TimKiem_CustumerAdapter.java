@@ -10,26 +10,23 @@ import android.widget.Button;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myapplication.Activity.Custumer.SanPhamActivity;
-import com.example.myapplication.Activity.MainActivity;
-
 import com.example.myapplication.Model.DanhMucSanPham;
 import com.example.myapplication.R;
 
 import java.util.ArrayList;
 
 
-public class DanhMucSanPhamAdapter extends RecyclerView.Adapter<DanhMucSanPhamAdapter.DanhMucSanPhamViewHolder> {
+public class DanhMucSanPham_TimKiem_CustumerAdapter extends RecyclerView.Adapter<DanhMucSanPham_TimKiem_CustumerAdapter.DanhMucSanPhamViewHolder> {
 
-   private MainActivity mainActivity;
+   private Context context ;
    ArrayList<DanhMucSanPham> DanhmucSanPhamArrayList;
 
-   Context context;
-    public DanhMucSanPhamAdapter(MainActivity mainActivity, ArrayList<DanhMucSanPham> mucSanPhamArrayList){
-        this.mainActivity=mainActivity;
-        this.DanhmucSanPhamArrayList = mucSanPhamArrayList;
+    public DanhMucSanPham_TimKiem_CustumerAdapter(Context context, ArrayList<DanhMucSanPham> danhmucSanPhamArrayList) {
+        this.context = context;
+        DanhmucSanPhamArrayList = danhmucSanPhamArrayList;
     }
 
-//anh xa den file item
+    //anh xa den file item
     @Override
     public DanhMucSanPhamViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_dmsp, parent, false);
@@ -38,7 +35,7 @@ public class DanhMucSanPhamAdapter extends RecyclerView.Adapter<DanhMucSanPhamAd
 
     //ham set du lieu
     @Override
-    public void onBindViewHolder(DanhMucSanPhamAdapter.DanhMucSanPhamViewHolder holder, int position) {
+    public void onBindViewHolder(DanhMucSanPham_TimKiem_CustumerAdapter.DanhMucSanPhamViewHolder holder, int position) {
         DanhMucSanPham danhMucSanPham = DanhmucSanPhamArrayList.get(position);
         if (danhMucSanPham == null) {
             return;
@@ -48,10 +45,10 @@ public class DanhMucSanPhamAdapter extends RecyclerView.Adapter<DanhMucSanPhamAd
         holder.btn_tendm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent =new Intent(mainActivity,SanPhamActivity.class);
+                Intent intent =new Intent(view.getContext(),SanPhamActivity.class);
                 intent.putExtra("danhmuctheosanpham",danhMucSanPham.getIddm());
                 intent.putExtra("tendanhmuc",danhMucSanPham.getTendanhmuc());
-                mainActivity.startActivity(intent);
+                view.getContext().startActivity(intent);
             }
         });
      }

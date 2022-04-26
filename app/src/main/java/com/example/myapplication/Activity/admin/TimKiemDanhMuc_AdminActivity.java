@@ -1,16 +1,16 @@
-package com.example.myapplication.Activity.Custumer;
-
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.SearchView;
-import androidx.appcompat.widget.Toolbar;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
+package com.example.myapplication.Activity.admin;
 
 import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
+import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -19,10 +19,12 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.example.myapplication.Adapter.DanhMucSanPham_TimKiem_CustumerAdapter;
+import com.example.myapplication.Adapter.DanhMucSanPham_AdminAdapter;
+import com.example.myapplication.Interface.IClickCatalogManageAdmin;
 import com.example.myapplication.Model.DanhMucSanPham;
 import com.example.myapplication.R;
 import com.example.myapplication.Utils.Server;
+import com.google.android.material.bottomsheet.BottomSheetDialog;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -32,20 +34,20 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public class TimKiemDanhMucActivity extends AppCompatActivity {
+public class TimKiemDanhMuc_AdminActivity extends AppCompatActivity {
 
 
     Toolbar toolbar;
     TextView mTitle;
     Context context;
     ArrayList<DanhMucSanPham> danhMucSanPhamArrayList;
-    RecyclerView recyclerView_dmsp;
+    RecyclerView recyclerView_dmsp_admin;
     LinearLayout linearLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_tim_kiem_danh_muc);
+        setContentView(R.layout.activity_tim_kiem_danh_muc_admin);
 
         AnhXa();
         setToolbar();
@@ -73,7 +75,7 @@ public class TimKiemDanhMucActivity extends AppCompatActivity {
     private void AnhXa() {
         toolbar = findViewById(R.id.toobar);
         mTitle = (TextView) toolbar.findViewById(R.id.toolbar_title);
-        recyclerView_dmsp = findViewById(R.id.rcv_dmsp);
+        recyclerView_dmsp_admin = findViewById(R.id.rcv_dmsp_timkiem_admin);
         linearLayout = findViewById(R.id.linner_kotimthayketqua);
     }
 
@@ -92,6 +94,7 @@ public class TimKiemDanhMucActivity extends AppCompatActivity {
     }
 
     private void getListSearchCatalog(String query) {
+
 
         danhMucSanPhamArrayList.clear();
 
@@ -115,25 +118,30 @@ public class TimKiemDanhMucActivity extends AppCompatActivity {
                         danhMucSanPhamArrayList.add(danhMucSanPham);
                     }
                     if (danhMucSanPhamArrayList.size() > 0) {
-                        DanhMucSanPham_TimKiem_CustumerAdapter danhMucSanPhamAdapter = new DanhMucSanPham_TimKiem_CustumerAdapter(context, danhMucSanPhamArrayList);
+                        DanhMucSanPham_AdminAdapter danhMucSanPham_adminAdapter = new DanhMucSanPham_AdminAdapter((AdminActivity) context, danhMucSanPhamArrayList, new IClickCatalogManageAdmin() {
+                            @Override
+                            public void OnClickCatalogCatalogManageAdmin(DanhMucSanPham danhMucSanPham) {
+                                OpenBotomSheetDanhMuc();
+                            }
+                        });
 
                         //set giao dien cho san pham theo danh muc
 
                         LinearLayoutManager linearLayoutManager;
                         linearLayoutManager = new LinearLayoutManager(context, RecyclerView.VERTICAL, false);
-                        recyclerView_dmsp.setLayoutManager(linearLayoutManager);
+                        recyclerView_dmsp_admin.setLayoutManager(linearLayoutManager);
 
                         //set kieu hien thi
 
-                        recyclerView_dmsp.setAdapter(danhMucSanPhamAdapter);
-                        danhMucSanPhamAdapter.notifyDataSetChanged();
+                        recyclerView_dmsp_admin.setAdapter(danhMucSanPham_adminAdapter);
+                        danhMucSanPham_adminAdapter.notifyDataSetChanged();
                         linearLayout.setVisibility(View.GONE);
-                        recyclerView_dmsp.setVisibility(View.VISIBLE);
+                        recyclerView_dmsp_admin.setVisibility(View.VISIBLE);
 
                     } else//khong tim thay  san pham
                     {
                         linearLayout.setVisibility(View.VISIBLE);
-                        recyclerView_dmsp.setVisibility(View.INVISIBLE);
+                        recyclerView_dmsp_admin.setVisibility(View.INVISIBLE);
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -157,5 +165,14 @@ public class TimKiemDanhMucActivity extends AppCompatActivity {
 
         RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());// tạo request len server
         requestQueue.add(StringRequest);
+    }
+
+    private void OpenBotomSheetDanhMuc() {
+        View view = getLayoutInflater().inflate(R.layout.bottom_sheet_dmsp, null);
+        BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(this);
+        bottomSheetDialog.setContentView(view);
+        bottomSheetDialog.show();
+
+        LinearLayout linearLayout_suadm = view.findViewById(R.id.suadm);
     }
 }
