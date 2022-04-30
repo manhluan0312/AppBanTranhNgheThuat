@@ -19,8 +19,6 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.example.myapplication.Activity.MainActivity;
-import com.example.myapplication.Adapter.SanPhamMoiNhatAdapter;
 import com.example.myapplication.Adapter.XemThemSanPhamMoiNhatAdapter;
 import com.example.myapplication.Interface.IClickProductDetail;
 import com.example.myapplication.Model.SanPham;

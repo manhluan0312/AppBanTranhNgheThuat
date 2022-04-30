@@ -14,4 +14,7 @@ public class Server {
     public  static String GETCOUNT_DANHMUC="http://"+HOST+"get_count_catalog.php";
     public  static String SEARCH_PRODUCT="http://"+HOST+"serch_product.php";
     public  static String SEARCH_CATALOG="http://"+HOST+"serch_catalog.php";
+    public  static String REGISTRATION="http://"+HOST+"register.php";
+    public  static String LOGIN_CUSTUMER="http://"+HOST+"login_custumer.php";
+    public  static String LOGIN_ADMIN="http://"+HOST+"login_admin.php";
 }

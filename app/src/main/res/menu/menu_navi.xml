@@ -60,6 +60,7 @@
 
     <item
         android:id="@+id/menu_taikhoan"
+        android:orderInCategory="6"
         android:title="@string/menu_navi_taikhoan">
         <menu>
             <group android:checkableBehavior="single">
@@ -81,10 +82,15 @@
             </group>
         </menu>
     </item>
+    <item android:title="Xem thống kê">
+        <menu>
         <group android:checkableBehavior="single">
             <item
                 android:id="@+id/menu_xemthongke"
+                android:orderInCategory="5"
                 android:title="Xem thống kê" />
         </group>
+        </menu>
+    </item>
 </menu>
 

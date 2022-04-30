@@ -39,4 +39,9 @@
     <string name="hello_first_fragment">Hello first fragment</string>
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
 
+    <string name="tatcadonhang">Tất cả các đơn hàng</string>
+    <string name="choxuly">Đang chờ xử lý</string>
+    <string name="dangxuly">Đang xử lý</string>
+    <string name="daxuly">Đã xử lý</string>
+
 </resources>

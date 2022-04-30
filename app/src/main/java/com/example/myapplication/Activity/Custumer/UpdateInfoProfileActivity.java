@@ -10,18 +10,21 @@ import androidx.appcompat.widget.Toolbar;
 
 import android.Manifest;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.example.myapplication.R;
+import com.example.myapplication.Utils.Server;
 import com.google.android.material.textfield.TextInputLayout;
 import com.gun0912.tedpermission.PermissionListener;
 import com.gun0912.tedpermission.normal.TedPermission;
@@ -29,13 +32,16 @@ import com.gun0912.tedpermission.normal.TedPermission;
 import java.io.IOException;
 import java.util.List;
 
+//import static com.example.myapplication.Activity.LoginActivity.DATALOGIN;
+
 public class UpdateInfoProfileActivity extends AppCompatActivity {
 
     Toolbar toolbar;
     TextView mTitle;
-    TextInputLayout textInputUsername,textInpuEmail, textInpuhoten, textInpusodienthoai, textInpudiachi;
+    TextInputLayout textInputUsername, textInpuEmail, textInpuhoten, textInpusodienthoai, textInpudiachi;
     AppCompatButton btn_chinhsua;
     ImageView imageView_avartar;
+    public SharedPreferences sharedPreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +49,23 @@ public class UpdateInfoProfileActivity extends AppCompatActivity {
         setContentView(R.layout.activity_view_info);
         AnhXa();
         setToolbar();
+
+        sharedPreferences = getSharedPreferences("datalogin_custumer", Context.MODE_PRIVATE);
+
+        textInputUsername.getEditText().setText((sharedPreferences.getString("Username", "")));
+        textInpuhoten.getEditText().setText((sharedPreferences.getString("hoten", "")));
+        textInpuEmail.getEditText().setText((sharedPreferences.getString("email", "")));
+        textInpusodienthoai.getEditText().setText((sharedPreferences.getString("sdt", "")));
+        textInpudiachi.getEditText().setText((sharedPreferences.getString("diachi", "")));
+
+        String anh = sharedPreferences.getString("anh", "");
+
+        Glide.with(this)
+                .load(anh)
+                .error(Server.IMAGE_AVARTAR)
+                .centerCrop()
+                .into(imageView_avartar);
+
 
         btn_chinhsua.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -66,7 +89,7 @@ public class UpdateInfoProfileActivity extends AppCompatActivity {
         textInpuhoten = findViewById(R.id.textinput_hoten);
         textInpusodienthoai = findViewById(R.id.textinput_sdt);
         textInpudiachi = findViewById(R.id.textinput_diachi);
-        textInputUsername=findViewById(R.id.textinput_username);
+        textInputUsername = findViewById(R.id.textinput_username);
         btn_chinhsua = findViewById(R.id.btn_chinhsua);
         imageView_avartar = findViewById(R.id.image_avartar);
     }
@@ -167,7 +190,7 @@ public class UpdateInfoProfileActivity extends AppCompatActivity {
     //ham check du lieu trong khi nhan button cap nhat
 
     public void confỉmInput() {
-        if (!validateSdt() | !validateEmail() | !validateDiachi() |!validateUsername() | !validateHoten())//du lieu khong con trong
+        if (!validateSdt() | !validateEmail() | !validateDiachi() | !validateUsername() | !validateHoten())//du lieu khong con trong
         {
             return;
         }
@@ -175,7 +198,6 @@ public class UpdateInfoProfileActivity extends AppCompatActivity {
     }
 
     private void UpdateInfoProfile() {
-
     }
 
     private void RequestPermissons() {
@@ -200,19 +222,19 @@ public class UpdateInfoProfileActivity extends AppCompatActivity {
                 .check();
     }
 
-    private ActivityResultLauncher<Intent> activityResultLauncher =registerForActivityResult(
+    private ActivityResultLauncher<Intent> activityResultLauncher = registerForActivityResult(
             new ActivityResultContracts.StartActivityForResult(),
             new ActivityResultCallback<ActivityResult>() {
                 @Override
                 public void onActivityResult(ActivityResult result) {
-                    if(result.getResultCode()== Activity.RESULT_OK){
+                    if (result.getResultCode() == Activity.RESULT_OK) {
                         Intent data = result.getData();
-                        if(data==null){
+                        if (data == null) {
                             return;
                         }
-                        Uri uri =data.getData();// uri la du lieu anh ma nguoi dung chon
+                        Uri uri = data.getData();// uri la du lieu anh ma nguoi dung chon
                         try {
-                            Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(),uri);
+                            Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), uri);
                             imageView_avartar.setImageBitmap(bitmap);//set anh len bitmap
                         } catch (IOException e) {
                             e.printStackTrace();
@@ -224,10 +246,10 @@ public class UpdateInfoProfileActivity extends AppCompatActivity {
     );
 
     private void OpenGlary() {
-        Intent intent =new Intent();
+        Intent intent = new Intent();
         intent.setType("image/*");
         intent.setAction(Intent.ACTION_GET_CONTENT);
-        activityResultLauncher.launch(Intent.createChooser(intent,"Chọn ảnh"));
+        activityResultLauncher.launch(Intent.createChooser(intent, "Chọn ảnh"));
     }
 
 }

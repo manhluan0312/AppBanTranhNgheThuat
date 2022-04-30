@@ -11,12 +11,17 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.example.myapplication.Activity.LoginActivity;
 import com.example.myapplication.Fragment.Admin.AddCatalogFragment;
 import com.example.myapplication.Fragment.Admin.AddProductFragment;
@@ -26,15 +31,23 @@ import com.example.myapplication.Fragment.Admin.OrderManagementFragment;
 import com.example.myapplication.Fragment.Admin.ViewCatalogFragment;
 import com.example.myapplication.Fragment.Admin.ViewInfoFragment;
 import com.example.myapplication.Fragment.Admin.ViewProductFragment;
+import com.example.myapplication.Fragment.Admin.ViewStatisticsFragment;
 import com.example.myapplication.Fragment.Custumer.AccountFragment;
 import com.example.myapplication.R;
+import com.example.myapplication.Utils.Server;
 import com.google.android.material.navigation.NavigationView;
+
+//import static com.example.myapplication.Activity.LoginActivity.DATALOGIN;
 
 public class AdminActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     DrawerLayout drawerLayout;
     Toolbar toolbar;
     NavigationView navigationView;
+    ImageView imageView_avartar;
+    TextView tv_ten, tv_sdt;
+    public SharedPreferences sharedPreferences;
+
 
     AppCompatButton btn_no, btn_yes;
 
@@ -46,6 +59,7 @@ public class AdminActivity extends AppCompatActivity implements NavigationView.O
     private static final int FRAGMENT_MANAGEMENT_ORDER = 5;
     private static final int FRAGMENT_VIEW_INFO = 6;
     private static final int FRAGMENT_CHANGE_PASS = 7;
+    private static final int FRAGMENT_VIEW_STATISTICS = 8;
 
     private int CurrentFrament = FRAGMENT_HOME;// gan vi tri mo trang admin la mo trang home
 
@@ -55,6 +69,22 @@ public class AdminActivity extends AppCompatActivity implements NavigationView.O
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin);
         AnhXa();
+
+        sharedPreferences = getSharedPreferences("datalogin_custumer", Context.MODE_PRIVATE);
+
+        //set du lieu len headerview
+
+        tv_ten.setText(sharedPreferences.getString("hoten", ""));
+        tv_sdt.setText(sharedPreferences.getString("sdt", ""));
+
+        String anh = sharedPreferences.getString("anh", "");
+
+        Glide.with(this)
+                .load(anh)
+                .error(Server.IMAGE_AVARTAR)
+                .centerCrop()
+                .into(imageView_avartar);
+
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         MoNavigationDrawer();//bat su kien mo navidraw
@@ -75,43 +105,50 @@ public class AdminActivity extends AppCompatActivity implements NavigationView.O
 
 
     private void setToorBar() {
-        String titile="";
+        String titile = "";
 
-        switch (CurrentFrament){
+        switch (CurrentFrament) {
             case FRAGMENT_HOME:
-                titile="Trang chủ";
+                titile = "Trang chủ";
                 break;
             case FRAGMENT_VIEW_CATALOG:
-                titile="Tất cả danh mục sản phẩm";
+                titile = "Tất cả danh mục sản phẩm";
                 break;
             case FRAGMENT_VIEW_PRODUCT:
-                titile="Tất cả sản phẩm";
+                titile = "Tất cả sản phẩm";
                 break;
             case FRAGMENT_ADD_PRODUCT:
-                titile="Thêm sản phẩm";
+                titile = "Thêm sản phẩm";
                 break;
             case FRAGMENT_ADD_CATALOG:
-                titile="Thêm danh mục sản phẩm";
+                titile = "Thêm danh mục sản phẩm";
                 break;
             case FRAGMENT_MANAGEMENT_ORDER:
-                titile="Quản lý đơn hàng";
+                titile = "Quản lý đơn hàng";
                 break;
             case FRAGMENT_VIEW_INFO:
-                titile="Xem thông tin cá nhân";
+                titile = "Xem thông tin cá nhân";
                 break;
             case FRAGMENT_CHANGE_PASS:
-                titile="Đổi mật khẩu";
+                titile = "Đổi mật khẩu";
                 break;
+            case FRAGMENT_VIEW_STATISTICS:
+                titile = "Xem thống kê";
         }
-        if(getSupportActionBar()!=null){
+        if (getSupportActionBar() != null) {
             getSupportActionBar().setTitle(titile);
-        };
+        }
+        ;
     }
 
     private void AnhXa() {
         drawerLayout = findViewById(R.id.draw_layout);
         toolbar = findViewById(R.id.toolbar_title);
         navigationView = findViewById(R.id.navigation_view);
+        View headerView = navigationView.getHeaderView(0);
+        imageView_avartar = headerView.findViewById(R.id.img_admin);
+        tv_ten = headerView.findViewById(R.id.tv_hoten_admin);
+        tv_sdt = headerView.findViewById(R.id.tv_sdt_admin);
     }
 
 
@@ -140,6 +177,7 @@ public class AdminActivity extends AppCompatActivity implements NavigationView.O
 
                 }
                 break;
+
             case R.id.menu_xemsanpham:
                 if (CurrentFrament != FRAGMENT_VIEW_PRODUCT)//vi tri hien tai ko phai fragment xemsanpham
                 {
@@ -147,6 +185,7 @@ public class AdminActivity extends AppCompatActivity implements NavigationView.O
                     CurrentFrament = FRAGMENT_VIEW_PRODUCT;//gan ve fragment xem san pham
                 }
                 break;
+
             case R.id.menu_themsanpham:
                 if (CurrentFrament != FRAGMENT_ADD_PRODUCT)//vi tri hien tai ko phai fragment them san pham
                 {
@@ -154,6 +193,7 @@ public class AdminActivity extends AppCompatActivity implements NavigationView.O
                     CurrentFrament = FRAGMENT_ADD_PRODUCT;//gan ve fragment them san pham
                 }
                 break;
+
             case R.id.menu_xemdmsanpham:
                 if (CurrentFrament != FRAGMENT_VIEW_CATALOG)//vi tri hien tai ko phai fragment xemdmsanpham
                 {
@@ -161,6 +201,7 @@ public class AdminActivity extends AppCompatActivity implements NavigationView.O
                     CurrentFrament = FRAGMENT_VIEW_CATALOG;//gan ve fragment xemdmucsanpham
                 }
                 break;
+
             case R.id.menu_themdmsanpham:
                 if (CurrentFrament != FRAGMENT_ADD_CATALOG)//vi tri hien tai ko phai fragment themdm
                 {
@@ -168,6 +209,7 @@ public class AdminActivity extends AppCompatActivity implements NavigationView.O
                     CurrentFrament = FRAGMENT_ADD_CATALOG;//gan ve fragment themdm
                 }
                 break;
+
             case R.id.menu_tiepnhan_xulydonhang:
                 if (CurrentFrament != FRAGMENT_MANAGEMENT_ORDER)//vi tri hien tai ko phai fragment xuly
                 {
@@ -175,6 +217,7 @@ public class AdminActivity extends AppCompatActivity implements NavigationView.O
                     CurrentFrament = FRAGMENT_MANAGEMENT_ORDER;//gan ve fragment xuly
                 }
                 break;
+
             case R.id.menu_xemthongtincanhan:
                 if (CurrentFrament != FRAGMENT_VIEW_INFO)//vi tri hien tai ko phai fragment xemthongtin
                 {
@@ -182,6 +225,7 @@ public class AdminActivity extends AppCompatActivity implements NavigationView.O
                     CurrentFrament = FRAGMENT_VIEW_INFO;//gan ve fragment xemthongtin
                 }
                 break;
+
             case R.id.menu_doimatkhau:
                 if (CurrentFrament != FRAGMENT_CHANGE_PASS)//vi tri hien tai ko phai fragment doimatkhau
                 {
@@ -189,9 +233,17 @@ public class AdminActivity extends AppCompatActivity implements NavigationView.O
                     CurrentFrament = FRAGMENT_CHANGE_PASS;//gan ve fragment doimatkhau
                 }
                 break;
+
             case R.id.menu_dangxuat:
                 OpenDilog();
                 break;
+
+            case R.id.menu_xemthongke:
+                if (CurrentFrament != FRAGMENT_VIEW_STATISTICS)//vi tri hien tai ko phai fragment xem thong ke
+                {
+                    replaceFragment(new ViewStatisticsFragment());//replace frament thong ke
+                    CurrentFrament = FRAGMENT_VIEW_STATISTICS;//gan ve fragment thong ke
+                }
         }
         setToorBar();
         drawerLayout.closeDrawer(GravityCompat.START);

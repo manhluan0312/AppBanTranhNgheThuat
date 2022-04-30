@@ -17,7 +17,7 @@
         android:textColor="@color/red"
         android:textSize="20sp"
         android:textStyle="bold" />
-    
+
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/textinput_username"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
@@ -50,9 +50,44 @@
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="textPassword"
-            android:hint="Nhạp password" />
+            android:hint="Nhạp password"
+            android:inputType="textPassword" />
     </com.google.android.material.textfield.TextInputLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="15dp"
+            android:text="Quyền đăng nhập"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <RadioGroup
+            android:id="@+id/rdio_quyendangnhap"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/rdio_kh"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Khách hàng"
+                android:textSize="16sp" />
+
+            <RadioButton
+                android:id="@+id/rdio_admin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Admin"
+                android:textSize="16sp" />
+        </RadioGroup>
+    </LinearLayout>
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btn_dangnhap"
@@ -64,11 +99,11 @@
         android:textColor="@color/white" />
 
     <LinearLayout
+        android:id="@+id/bancodangki"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:gravity="center"
-        android:id="@+id/bancodangki"
         android:orientation="horizontal"
         android:padding="10dp">
 
@@ -84,9 +119,9 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
             android:text="Vui lòng đăng ký tài khoản "
-            android:textStyle="bold"
             android:textColor="#9C27B0"
-            android:textSize="16sp" />
+            android:textSize="16sp"
+            android:textStyle="bold" />
 
     </LinearLayout>
 

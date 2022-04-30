@@ -2,7 +2,9 @@ package com.example.myapplication.Fragment.Admin;
 
 import android.Manifest;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
@@ -23,14 +25,18 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.example.myapplication.Activity.admin.AdminActivity;
 import com.example.myapplication.R;
+import com.example.myapplication.Utils.Server;
 import com.google.android.material.textfield.TextInputLayout;
 import com.gun0912.tedpermission.PermissionListener;
 import com.gun0912.tedpermission.normal.TedPermission;
 
 import java.io.IOException;
 import java.util.List;
+
+//import static com.example.myapplication.Activity.LoginActivity.DATALOGIN;
 
 
 public class ViewInfoFragment<adminActivity> extends Fragment {
@@ -41,7 +47,7 @@ public class ViewInfoFragment<adminActivity> extends Fragment {
     AppCompatButton btn_chinhsua;
     ImageView imageView_avartar;
 
-
+    public SharedPreferences sharedPreferences;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -50,6 +56,24 @@ public class ViewInfoFragment<adminActivity> extends Fragment {
         mView = inflater.inflate(R.layout.fragment_view_info, container, false);
         AnhXa();
         adminActivity =(AdminActivity)getActivity();
+
+        sharedPreferences = this.getActivity().getSharedPreferences("datalogin_custumer", Context.MODE_PRIVATE);
+
+        textInputUsername.getEditText().setText((sharedPreferences.getString("Username", "")));
+        textInpuhoten.getEditText().setText((sharedPreferences.getString("hoten", "")));
+        textInpuEmail.getEditText().setText((sharedPreferences.getString("email", "")));
+        textInpusodienthoai.getEditText().setText((sharedPreferences.getString("sdt", "")));
+        textInpudiachi.getEditText().setText((sharedPreferences.getString("diachi", "")));
+
+        String anh = sharedPreferences.getString("anh", "");
+
+        Glide.with(this)
+                .load(anh)
+                .error(Server.IMAGE_AVARTAR)
+                .centerCrop()
+                .into(imageView_avartar);
+
+
         btn_chinhsua.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
