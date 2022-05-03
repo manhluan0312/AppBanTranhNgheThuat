@@ -16,7 +16,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.CenterCrop;
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.bumptech.glide.request.RequestOptions;
-import com.example.myapplication.Activity.MainActivity;
+import com.example.myapplication.Activity.Custumer.MainActivity;
 
 import com.example.myapplication.Model.Slider;
 import com.example.myapplication.R;

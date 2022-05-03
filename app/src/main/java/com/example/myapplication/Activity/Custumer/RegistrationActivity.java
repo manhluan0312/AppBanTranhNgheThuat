@@ -16,7 +16,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.example.myapplication.Activity.LoginActivity;
+import com.example.myapplication.Activity.Other.LoginActivity;
 import com.example.myapplication.R;
 import com.example.myapplication.Utils.Server;
 import com.google.android.material.textfield.TextInputLayout;
@@ -24,7 +24,6 @@ import com.google.android.material.textfield.TextInputLayout;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.Map;
 

@@ -22,7 +22,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.example.myapplication.Activity.LoginActivity;
+import com.example.myapplication.Activity.Other.LoginActivity;
 import com.example.myapplication.Fragment.Admin.AddCatalogFragment;
 import com.example.myapplication.Fragment.Admin.AddProductFragment;
 import com.example.myapplication.Fragment.Admin.ChangePasswordFragment;
@@ -31,8 +31,7 @@ import com.example.myapplication.Fragment.Admin.OrderManagementFragment;
 import com.example.myapplication.Fragment.Admin.ViewCatalogFragment;
 import com.example.myapplication.Fragment.Admin.ViewInfoFragment;
 import com.example.myapplication.Fragment.Admin.ViewProductFragment;
-import com.example.myapplication.Fragment.Admin.ViewStatisticsFragment;
-import com.example.myapplication.Fragment.Custumer.AccountFragment;
+import com.example.myapplication.Fragment.Admin.ViewStatistics_CatalogFragment;
 import com.example.myapplication.R;
 import com.example.myapplication.Utils.Server;
 import com.google.android.material.navigation.NavigationView;
@@ -59,7 +58,7 @@ public class AdminActivity extends AppCompatActivity implements NavigationView.O
     private static final int FRAGMENT_MANAGEMENT_ORDER = 5;
     private static final int FRAGMENT_VIEW_INFO = 6;
     private static final int FRAGMENT_CHANGE_PASS = 7;
-    private static final int FRAGMENT_VIEW_STATISTICS = 8;
+    private static final int FRAGMENT_VIEW_STATISTICS_CATALOG = 8;
 
     private int CurrentFrament = FRAGMENT_HOME;// gan vi tri mo trang admin la mo trang home
 
@@ -132,8 +131,8 @@ public class AdminActivity extends AppCompatActivity implements NavigationView.O
             case FRAGMENT_CHANGE_PASS:
                 titile = "Đổi mật khẩu";
                 break;
-            case FRAGMENT_VIEW_STATISTICS:
-                titile = "Xem thống kê";
+            case FRAGMENT_VIEW_STATISTICS_CATALOG:
+                titile = "Thống kê sản phẩm theo danh mục";
         }
         if (getSupportActionBar() != null) {
             getSupportActionBar().setTitle(titile);
@@ -239,10 +238,10 @@ public class AdminActivity extends AppCompatActivity implements NavigationView.O
                 break;
 
             case R.id.menu_xemthongke:
-                if (CurrentFrament != FRAGMENT_VIEW_STATISTICS)//vi tri hien tai ko phai fragment xem thong ke
+                if (CurrentFrament != FRAGMENT_VIEW_STATISTICS_CATALOG)//vi tri hien tai ko phai fragment xem thong ke
                 {
-                    replaceFragment(new ViewStatisticsFragment());//replace frament thong ke
-                    CurrentFrament = FRAGMENT_VIEW_STATISTICS;//gan ve fragment thong ke
+                    replaceFragment(new ViewStatistics_CatalogFragment());//replace frament thong ke
+                    CurrentFrament = FRAGMENT_VIEW_STATISTICS_CATALOG;//gan ve fragment thong ke
                 }
         }
         setToorBar();

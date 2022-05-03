@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".Fragment.Admin.ViewStatistics_CatalogFragment">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_margin="15dp"
+        android:text="THỐNG KÊ THEO DANH MỤC"
+        android:textColor="@color/red"
+        android:textSize="25sp"
+        android:textStyle="bold" />
+
+    <HorizontalScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scrollbars="none">
+
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:stretchColumns="*">
+
+            <TableRow>
+
+                <TextView
+                    android:background="@drawable/cell_shape"
+                    android:gravity="center"
+                    android:padding="10dp"
+                    android:text="Tên danh mục"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textColor="@color/black"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:background="@drawable/cell_shape"
+                    android:gravity="center"
+                    android:padding="10dp"
+                    android:text="Số lượng"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textColor="@color/black"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+
+                <TextView
+                    android:background="@drawable/cell_shape"
+                    android:gravity="center"
+                    android:padding="10dp"
+                    android:text="Giá cao nhất"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textColor="@color/black"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+
+                <TextView
+                    android:background="@drawable/cell_shape"
+                    android:gravity="center"
+                    android:padding="10dp"
+                    android:text="Giá thấp nhất"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textColor="@color/black"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+
+                <TextView
+                    android:background="@drawable/cell_shape"
+                    android:gravity="center"
+                    android:padding="10dp"
+                    android:text="Giá trung bình"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textColor="@color/black"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+            </TableRow>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rct_thongketheodm"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+
+        </TableLayout>
+
+    </HorizontalScrollView>
+
+</LinearLayout>

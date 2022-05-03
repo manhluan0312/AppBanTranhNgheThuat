@@ -11,15 +11,16 @@
 
     <application
         android:allowBackup="true"
+        android:hardwareAccelerated="false"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
+        android:largeHeap="true"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:largeHeap="true"
-        android:hardwareAccelerated="false"
         android:theme="@style/Theme.MyApplication"
         android:usesCleartextTraffic="true">
-        <activity android:name=".Activity.Custumer.HistoryOrderActivity"></activity>
+        <activity android:name=".Activity.Custumer.DatHangActivity"></activity>
+        <activity android:name=".Activity.Custumer.HistoryOrderActivity" />
         <activity android:name=".Activity.admin.TimKiemSanPham_AdminActivity" />
         <activity android:name=".Activity.admin.ChangeCatalogActivity" />
         <activity android:name=".Activity.Custumer.TimKiemDanhMucActivity" />
@@ -36,17 +37,19 @@
         <activity android:name=".Activity.Custumer.SeeMoreProposeProcductsActivity" />
         <activity android:name=".Activity.Custumer.SeeMoreNewProductsActivity" />
         <activity android:name=".Activity.ChangePasswordActivity" />
-        <activity android:name=".Activity.LoginActivity" >
-<!--            <intent-filter>-->
-<!--            <action android:name="android.intent.action.MAIN" />-->
+        <activity android:name=".Activity.Other.LoginActivity">
 
-<!--            <category android:name="android.intent.category.LAUNCHER" />-->
-<!--            </intent-filter>-->
+            <!-- <intent-filter> -->
+            <!-- <action android:name="android.intent.action.MAIN" /> -->
+
+
+            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
+            <!-- </intent-filter> -->
         </activity>
         <activity android:name=".Activity.admin.ChiTietSanPhamAdminActivity" />
         <activity android:name=".Activity.Custumer.UpdateInfoProfileActivity" />
         <activity android:name=".Activity.Custumer.TimKiem_SanPhamActivity" />
-        <activity android:name=".Activity.MainActivity" />
+        <activity android:name=".Activity.Custumer.MainActivity" />
         <activity android:name=".Activity.Custumer.GioHangActivity" />
         <activity android:name=".Activity.Custumer.ChiTietSanPhamActivity" />
         <activity android:name=".Activity.Custumer.SanPhamActivity" />
@@ -59,4 +62,5 @@
         </activity>
         <activity android:name=".Activity.admin.TimKiemDanhMuc_AdminActivity" />
     </application>
+
 </manifest>

@@ -26,7 +26,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.myapplication.Activity.Custumer.GioHangActivity;
 import com.example.myapplication.Activity.Custumer.TimKiemDanhMucActivity;
-import com.example.myapplication.Activity.MainActivity;
+import com.example.myapplication.Activity.Custumer.MainActivity;
 import com.example.myapplication.Adapter.DanhMucSanPhamAdapter;
 import com.example.myapplication.Model.DanhMucSanPham;
 import com.example.myapplication.R;

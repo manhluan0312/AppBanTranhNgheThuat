@@ -15,6 +15,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.CenterCrop;
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.bumptech.glide.request.RequestOptions;
+import com.example.myapplication.Model.GioHang;
 import com.example.myapplication.Model.SanPham;
 import com.example.myapplication.R;
 import com.example.myapplication.Utils.Server;
@@ -76,6 +77,7 @@ public class ChiTietSanPhamActivity extends AppCompatActivity implements View.On
             return;
         }
         sanPham = (SanPham) bundle.get("productdetail");
+
     }
 
     private void AnhXa() {
@@ -88,7 +90,7 @@ public class ChiTietSanPhamActivity extends AppCompatActivity implements View.On
         tv_namsangtac = findViewById(R.id.tv_namsangtac);
         tv_motasp = findViewById(R.id.tv_motasp_chitiet);
         img_anh_sp = findViewById(R.id.img_anh_sanpham);
-        btn_themgiohang=findViewById(R.id.btn_them_vao_gio_hang);
+        btn_themgiohang = findViewById(R.id.btn_them_vao_gio_hang);
 
         btn_themgiohang.setOnClickListener(this);
 
@@ -113,9 +115,55 @@ public class ChiTietSanPhamActivity extends AppCompatActivity implements View.On
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.btn_them_vao_gio_hang:
-                Intent intent =new Intent(this,GioHangActivity.class);
-                startActivity(intent);
+                ThemSanPhamGiohang();
                 break;
         }
+    }
+
+    private void ThemSanPhamGiohang() {
+        //da co sp trong gio hang
+        if (MainActivity.gioHangArrayList.size() > 0) {
+            int soluong = 1;
+            boolean sanphamtrung = false;
+            for (int i = 0; i < MainActivity.gioHangArrayList.size(); i++) {
+                //xu ly su kien san pham them da co trong gio hang -->cong don
+                if (MainActivity.gioHangArrayList.get(i).getIdsp() == sanPham.getId_product()) {
+                    MainActivity.gioHangArrayList.get(i).setSoluongsanpham(soluong + MainActivity.gioHangArrayList.get(i).getSoluongsanpham());
+                    float giasanphamtungitemdonhang = MainActivity.gioHangArrayList.get(i).getSoluongsanpham() * sanPham.getPrice_product();
+                    MainActivity.gioHangArrayList.get(i).setGiasanpham(giasanphamtungitemdonhang);
+                    sanphamtrung = true;
+                }
+            }
+
+            //san pham them chua co trong gio hang
+
+            if (sanphamtrung == false) {
+
+                float giasanphamtungitemdonhang = soluong * sanPham.getPrice_product();
+                GioHang gioHang = new GioHang();
+
+                gioHang.setGiasanpham(giasanphamtungitemdonhang);
+                gioHang.setSoluongsanpham(1);
+                gioHang.setIdsp(sanPham.getId_product());
+                gioHang.setTensanpham(sanPham.getName_product());
+                gioHang.setHinhanhsanpham(sanPham.getPoto_product());
+                MainActivity.gioHangArrayList.add(gioHang);
+            }
+        } else //chua co sp trong gio hang
+            {
+            int soluong = 1;
+            float giasanphamtungitemdonhang = soluong * sanPham.getPrice_product();
+
+            GioHang gioHang = new GioHang();
+
+            gioHang.setGiasanpham(giasanphamtungitemdonhang);
+            gioHang.setSoluongsanpham(1);
+            gioHang.setIdsp(sanPham.getId_product());
+            gioHang.setTensanpham(sanPham.getName_product());
+            gioHang.setHinhanhsanpham(sanPham.getPoto_product());
+            MainActivity.gioHangArrayList.add(gioHang);
+        }
+//        Intent intent =new Intent(this,GioHangActivity.class);
+//        startActivity(intent);
     }
 }

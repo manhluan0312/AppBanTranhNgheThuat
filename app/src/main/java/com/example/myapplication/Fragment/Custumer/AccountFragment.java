@@ -28,9 +28,11 @@ import com.example.myapplication.Activity.ChangePasswordActivity;
 import com.example.myapplication.Activity.Custumer.GioHangActivity;
 import com.example.myapplication.Activity.Custumer.HistoryOrderActivity;
 import com.example.myapplication.Activity.Custumer.TimKiem_SanPhamActivity;
-import com.example.myapplication.Activity.LoginActivity;
-import com.example.myapplication.Activity.MainActivity;
+//import com.example.myapplication.Activity.LoginActivity;
+import com.example.myapplication.Activity.Custumer.MainActivity;
 import com.example.myapplication.Activity.Custumer.UpdateInfoProfileActivity;
+//import com.example.myapplication.Activity.sharedPreferences_Login;
+import com.example.myapplication.Activity.Other.LoginActivity;
 import com.example.myapplication.R;
 import com.example.myapplication.Utils.Server;
 

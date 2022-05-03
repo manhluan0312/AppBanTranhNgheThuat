@@ -63,4 +63,7 @@ dependencies {
     //thu vien check permission
     implementation 'io.github.ParkSangGwon:tedpermission-normal:3.3.0'
 
+    //even bus
+    implementation "org.greenrobot:eventbus:3.3.1"
+
 }

@@ -9,9 +9,8 @@ import android.widget.Button;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.myapplication.Activity.Custumer.MainActivity;
 import com.example.myapplication.Activity.Custumer.SanPhamActivity;
-import com.example.myapplication.Activity.MainActivity;
-
 import com.example.myapplication.Model.DanhMucSanPham;
 import com.example.myapplication.R;
 

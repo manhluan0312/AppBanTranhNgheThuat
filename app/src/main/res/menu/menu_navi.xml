@@ -88,7 +88,7 @@
             <item
                 android:id="@+id/menu_xemthongke"
                 android:orderInCategory="5"
-                android:title="Xem thống kê" />
+                android:title="Thống kê theo danh mục" />
         </group>
         </menu>
     </item>

@@ -33,7 +33,7 @@ import com.example.myapplication.Activity.Custumer.GioHangActivity;
 import com.example.myapplication.Activity.Custumer.SeeMoreProposeProcductsActivity;
 import com.example.myapplication.Activity.Custumer.SeeMoreNewProductsActivity;
 import com.example.myapplication.Activity.Custumer.TimKiem_SanPhamActivity;
-import com.example.myapplication.Activity.MainActivity;
+import com.example.myapplication.Activity.Custumer.MainActivity;
 
 import com.example.myapplication.Adapter.SanPhamDeXuatAdapter;
 import com.example.myapplication.Adapter.SanPhamMoiNhatAdapter;

@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:stretchColumns="1">
+
+    <TableRow>
+
+        <TextView
+            android:id="@+id/tv_tendanhmuc"
+            android:background="@drawable/cell_shape_item"
+            android:padding="10dp"
+            android:text="Tên danh mục"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tv_soluong"
+            android:background="@drawable/cell_shape_item"
+            android:padding="10dp"
+            android:text="Số lượng"
+            android:gravity="center"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+
+        <TextView
+            android:id="@+id/tv_giacaonhat"
+            android:background="@drawable/cell_shape_item"
+            android:padding="10dp"
+            android:text="Giá cao nhất"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+
+        <TextView
+            android:id="@+id/tv_giathapnhat"
+            android:background="@drawable/cell_shape_item"
+            android:padding="10dp"
+            android:text="Giá thấp nhất"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+
+        <TextView
+            android:id="@+id/tv_giatrung_binh"
+            android:background="@drawable/cell_shape_item"
+            android:padding="10dp"
+            android:text="Giá trung bình"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+    </TableRow>
+
+</TableLayout>

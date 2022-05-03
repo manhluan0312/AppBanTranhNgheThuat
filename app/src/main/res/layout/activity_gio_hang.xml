@@ -27,7 +27,7 @@
 
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rcv_dmsp"
+        android:id="@+id/rcv_giohang"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
@@ -56,56 +56,48 @@
             android:textColor="@color/design_default_color_primary_dark"
             android:textSize="18sp" />
 
-        <androidx.appcompat.widget.AppCompatButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="10dp"
-            android:background="@color/red"
-            android:text="Quay trở lại trang chủ "
-            android:textColor="@color/white"
-            android:textSize="18sp"
-            android:textStyle="bold" />
-
     </LinearLayout>
 
     <!--    truong hop gio hang trong-->
 
+
     <RelativeLayout
+
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp">
 
-<!--        <LinearLayout-->
-<!--            android:id="@+id/linner_gia"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:orientation="horizontal"-->
-<!--            android:weightSum="10">-->
+        <LinearLayout
+            android:id="@+id/linner_gia"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="10">
 
-<!--            <TextView-->
-<!--                android:layout_width="0dp"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_marginLeft="10dp"-->
-<!--                android:layout_weight="3"-->
-<!--                android:text="Tổng tiền"-->
-<!--                android:textColor="@color/black"-->
-<!--                android:textSize="25sp"-->
-<!--                android:textStyle="bold" />-->
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_weight="3"
+                android:text="Tổng tiền"
+                android:textColor="@color/black"
+                android:textSize="25sp"
+                android:textStyle="bold" />
 
-<!--            <TextView-->
-<!--                android:layout_width="0dp"-->
-<!--                android:layout_height="match_parent"-->
-<!--                android:layout_weight="7"-->
-<!--                android:gravity="center"-->
-<!--                android:text="Giá"-->
-<!--                android:textColor="@color/purple_500"-->
-<!--                android:textSize="25sp"-->
-<!--                android:textStyle="bold" />-->
-<!--        </LinearLayout>-->
+            <TextView
+                android:id="@+id/tv_tongtien"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="7"
+                android:gravity="center"
+                android:text="Giá"
+                android:textColor="@color/purple_500"
+                android:textSize="25sp"
+                android:textStyle="bold" />
+        </LinearLayout>
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/btn_them_vao_gio_hang"
+        android:id="@+id/btn_dathang"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/custum_button_themanphamvaogiohang"

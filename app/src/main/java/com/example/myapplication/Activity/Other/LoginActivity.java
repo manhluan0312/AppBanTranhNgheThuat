@@ -1,4 +1,4 @@
-package com.example.myapplication.Activity;
+package com.example.myapplication.Activity.Other;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -19,6 +19,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.myapplication.Activity.Custumer.MainActivity;
 import com.example.myapplication.Activity.Custumer.RegistrationActivity;
 import com.example.myapplication.Activity.admin.AdminActivity;
 import com.example.myapplication.R;
@@ -43,7 +44,7 @@ public class LoginActivity extends AppCompatActivity {
     sharedPreferences_Login sharedPreferences_login;
 
     //public static final String DATALOGIN = "datalogin_custumer";
-   //SharedPreferences sharedPreferences;
+    //SharedPreferences sharedPreferences;
 
 
     @Override
@@ -53,7 +54,7 @@ public class LoginActivity extends AppCompatActivity {
 
         //sharedPreferences = getSharedPreferences(DATALOGIN, MODE_PRIVATE);
 
-        sharedPreferences_login=new sharedPreferences_Login(this);
+        sharedPreferences_login = new sharedPreferences_Login(this);
 
         AnhXa();
         btn_login.setOnClickListener(new View.OnClickListener() {
@@ -219,7 +220,7 @@ public class LoginActivity extends AppCompatActivity {
                     }
 
                     Toast.makeText(getApplicationContext(), "Đăng nhập thành công", Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(getApplicationContext(), com.example.myapplication.Activity.MainActivity.class);
+                    Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                     startActivity(intent);
                     finish();
                     if (suscess.equals("0")) {
@@ -247,17 +248,4 @@ public class LoginActivity extends AppCompatActivity {
         RequestQueue requestQueue = Volley.newRequestQueue(this);// tạo request len server
         requestQueue.add(stringRequest);
     }
-
-//    public void PutDataLoginsharedPreferences(int id, String username, String password, String anh, String hoten, String email, String sdt, String diachi) {
-//        SharedPreferences.Editor editor = sharedPreferences.edit();
-//        editor.putInt("id", id);
-//        editor.putString("Username", username);
-//        editor.putString("password", password);
-//        editor.putString("anh", anh);
-//        editor.putString("hoten", hoten);
-//        editor.putString("email", email);
-//        editor.putString("sdt", sdt);
-//        editor.putString("diachi", diachi);
-//        editor.apply();
-//    }
 }
