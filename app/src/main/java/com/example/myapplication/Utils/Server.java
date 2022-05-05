@@ -18,4 +18,8 @@ public class Server {
     public static String LOGIN_CUSTUMER = "http://" + HOST + "login_custumer.php";
     public static String LOGIN_ADMIN = "http://" + HOST + "login_admin.php";
     public static String ViewStatistics_Catalog = "http://" + HOST + "get_view_statistics_catalog.php";
+    public static String Order = "http://" + HOST + "order.php";
+    public static String Order_detail = "http://" + HOST + "order_detail.php";
+    public static String change_password_custumer = "http://" + HOST + "doimatkhau_kh.php";
+    public static String change_password_admin = "http://" + HOST + "doi_mk_admin.php";
 }

@@ -36,7 +36,7 @@
         </activity>
         <activity android:name=".Activity.Custumer.SeeMoreProposeProcductsActivity" />
         <activity android:name=".Activity.Custumer.SeeMoreNewProductsActivity" />
-        <activity android:name=".Activity.ChangePasswordActivity" />
+        <activity android:name=".Activity.Other.ChangePasswordActivity" />
         <activity android:name=".Activity.Other.LoginActivity">
 
             <!-- <intent-filter> -->

@@ -24,7 +24,7 @@ import android.widget.TextView;
 
 
 import com.bumptech.glide.Glide;
-import com.example.myapplication.Activity.ChangePasswordActivity;
+import com.example.myapplication.Activity.Other.ChangePasswordActivity;
 import com.example.myapplication.Activity.Custumer.GioHangActivity;
 import com.example.myapplication.Activity.Custumer.HistoryOrderActivity;
 import com.example.myapplication.Activity.Custumer.TimKiem_SanPhamActivity;

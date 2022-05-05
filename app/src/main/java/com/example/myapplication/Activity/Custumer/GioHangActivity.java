@@ -77,12 +77,13 @@ public class GioHangActivity extends AppCompatActivity {
         btn_dathang.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (MainActivity.gioHangArrayList.size() <= 0) {
-                    Toast.makeText(getApplicationContext(), "Giỏ hàng phải có sản phẩm", Toast.LENGTH_SHORT).show();
-                } else {
+                if (MainActivity.gioHangArrayList.size() > 0) {
+
                     Intent intent = new Intent(getApplicationContext(), DatHangActivity.class);
                     intent.putExtra("tongtien",Tongtien);
                     startActivity(intent);
+                } else {
+                    Toast.makeText(getApplicationContext(), "Giỏ hàng phải có sản phẩm", Toast.LENGTH_SHORT).show();
                 }
             }
         });

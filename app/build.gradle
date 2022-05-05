@@ -66,4 +66,6 @@ dependencies {
     //even bus
     implementation "org.greenrobot:eventbus:3.3.1"
 
+    implementation 'com.google.code.gson:gson:2.9.0'
+
 }
