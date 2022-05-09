@@ -141,11 +141,11 @@ public class ChangePasswordActivity extends AppCompatActivity {
                             Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                             startActivity(intent);
                             finish();
-
+                        }
                             if (suscess.equals("3")) {
                                 Toast.makeText(getApplicationContext(), "Mật khẩu cũ nhập sai", Toast.LENGTH_LONG).show();
                             }
-                        }
+
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }

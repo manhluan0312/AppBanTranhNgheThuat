@@ -25,7 +25,16 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.bumptech.glide.Glide;
+import com.example.myapplication.Activity.Custumer.UpdateInfoProfileActivity;
+import com.example.myapplication.Activity.Other.sharedPreferences_Login;
 import com.example.myapplication.Activity.admin.AdminActivity;
 import com.example.myapplication.R;
 import com.example.myapplication.Utils.Server;
@@ -33,8 +42,13 @@ import com.google.android.material.textfield.TextInputLayout;
 import com.gun0912.tedpermission.PermissionListener;
 import com.gun0912.tedpermission.normal.TedPermission;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 //import static com.example.myapplication.Activity.LoginActivity.DATALOGIN;
 
@@ -46,6 +60,7 @@ public class ViewInfoFragment<adminActivity> extends Fragment {
     TextInputLayout textInputUsername,textInpuEmail, textInpuhoten, textInpusodienthoai, textInpudiachi;
     AppCompatButton btn_chinhsua;
     ImageView imageView_avartar;
+    sharedPreferences_Login sharedPreferences_login;
 
     public SharedPreferences sharedPreferences;
 
@@ -56,6 +71,7 @@ public class ViewInfoFragment<adminActivity> extends Fragment {
         mView = inflater.inflate(R.layout.fragment_view_info, container, false);
         AnhXa();
         adminActivity =(AdminActivity)getActivity();
+        sharedPreferences_login = new sharedPreferences_Login(adminActivity);
 
         sharedPreferences = this.getActivity().getSharedPreferences("datalogin_custumer", Context.MODE_PRIVATE);
 
@@ -192,6 +208,56 @@ public class ViewInfoFragment<adminActivity> extends Fragment {
     }
 
     private void UpdateInfoProfile() {
+
+        int id = sharedPreferences.getInt("id", 0);
+        String username = textInputUsername.getEditText().getText().toString().trim();
+        String hoten = textInpuhoten.getEditText().getText().toString().trim();
+        String sdt = textInpusodienthoai.getEditText().getText().toString().trim();
+        String email = textInpuEmail.getEditText().getText().toString().trim();
+        String diachi = textInpudiachi.getEditText().getText().toString().trim();
+
+        if (email.equals("null")) {
+            email.isEmpty();
+        }
+
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, Server.update_profile_custumer, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                try {
+                    JSONObject jsonObject =new JSONObject(response);
+                    String sucess=jsonObject.getString("success");
+
+                    if (sucess.equals("1")) {
+                        sharedPreferences_login.PutEditProfile(id, username, hoten, email, sdt, diachi);
+                        Toast.makeText(adminActivity, "Cập nhật thành công", Toast.LENGTH_LONG).show();
+                    }
+
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(adminActivity, "Lỗi cập nhật" + error, Toast.LENGTH_LONG).show();
+            }
+        }) {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                HashMap<String, String> hashMap = new HashMap<>();
+                hashMap.put("username", username);
+                hashMap.put("name_customer", hoten);
+                hashMap.put("Phone", sdt);
+                hashMap.put("Address_customer", diachi);
+                hashMap.put("email", email);
+                hashMap.put("id", String.valueOf(id));
+                return hashMap;
+            }
+        };
+        RequestQueue queue = Volley.newRequestQueue(adminActivity);
+        queue.add(stringRequest);
 
     }
 

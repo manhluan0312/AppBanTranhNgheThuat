@@ -90,6 +90,16 @@ public class sharedPreferences_Login {
         editor.putString("diachi", diachi);
         editor.apply();
     }
+
+    public void PutEditProfile(int id, String username, String hoten, String email, String sdt, String diachi) {
+        editor.putInt("id", id);
+        editor.putString("Username", username);
+        editor.putString("hoten", hoten);
+        editor.putString("email", email);
+        editor.putString("sdt", sdt);
+        editor.putString("diachi", diachi);
+        editor.apply();
+    }
 }
 
 

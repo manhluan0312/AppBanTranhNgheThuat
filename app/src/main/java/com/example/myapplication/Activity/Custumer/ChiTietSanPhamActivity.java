@@ -6,6 +6,8 @@ import androidx.appcompat.widget.Toolbar;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -70,6 +72,37 @@ public class ChiTietSanPhamActivity extends AppCompatActivity implements View.On
 
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_toobar, menu);
+        return super.onCreateOptionsMenu(menu);
+
+    }
+
+    //an menu item
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        super.onPrepareOptionsMenu(menu);
+        if (menu.findItem(R.id.item_serch) != null) {
+            menu.findItem(R.id.item_serch).setVisible(false);
+        }
+        return true;
+    }
+
+    //ham xu ly su kien khi chon vao tung item menu
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        switch (item.getItemId()) {
+            case R.id.item_cart:
+                Intent intent1 = new Intent(getApplicationContext(), GioHangActivity.class);
+                startActivity(intent1);
+                break;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+
     private void NhanDuLieuTuProduct() {
 
         Bundle bundle = getIntent().getExtras();
@@ -129,8 +162,8 @@ public class ChiTietSanPhamActivity extends AppCompatActivity implements View.On
                 //xu ly su kien san pham them da co trong gio hang -->cong don
                 if (MainActivity.gioHangArrayList.get(i).getIdsp() == sanPham.getId_product()) {
                     MainActivity.gioHangArrayList.get(i).setSoluongsanpham(soluong + MainActivity.gioHangArrayList.get(i).getSoluongsanpham());
-                    float giasanphamtungitemdonhang = MainActivity.gioHangArrayList.get(i).getSoluongsanpham() * sanPham.getPrice_product();
-                    MainActivity.gioHangArrayList.get(i).setGiasanpham(giasanphamtungitemdonhang);
+//                    float giasanphamtungitemdonhang = MainActivity.gioHangArrayList.get(i).getSoluongsanpham() * sanPham.getPrice_product();
+//                    MainActivity.gioHangArrayList.get(i).setGiasanpham(giasanphamtungitemdonhang);
                     sanphamtrung = true;
                 }
             }
@@ -139,7 +172,7 @@ public class ChiTietSanPhamActivity extends AppCompatActivity implements View.On
 
             if (sanphamtrung == false) {
 
-                float giasanphamtungitemdonhang = soluong * sanPham.getPrice_product();
+                float giasanphamtungitemdonhang = sanPham.getPrice_product();
                 GioHang gioHang = new GioHang();
 
                 gioHang.setGiasanpham(giasanphamtungitemdonhang);
@@ -150,9 +183,9 @@ public class ChiTietSanPhamActivity extends AppCompatActivity implements View.On
                 MainActivity.gioHangArrayList.add(gioHang);
             }
         } else //chua co sp trong gio hang
-            {
+        {
             int soluong = 1;
-            float giasanphamtungitemdonhang = soluong * sanPham.getPrice_product();
+            float giasanphamtungitemdonhang = sanPham.getPrice_product();
 
             GioHang gioHang = new GioHang();
 

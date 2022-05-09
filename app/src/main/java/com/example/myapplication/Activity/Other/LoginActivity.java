@@ -217,12 +217,13 @@ public class LoginActivity extends AppCompatActivity {
 
                         sharedPreferences_login.PutDataLoginsharedPreferences(id, username, password, anh, hoten, email, sdt, diachi);
                         //PutDataLoginsharedPreferences(id, username, password, anh, hoten, email, sdt, diachi);
-                    }
 
-                    Toast.makeText(getApplicationContext(), "Đăng nhập thành công", Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                    startActivity(intent);
-                    finish();
+
+                        Toast.makeText(getApplicationContext(), "Đăng nhập thành công", Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                        startActivity(intent);
+                        finish();
+                    }
                     if (suscess.equals("0")) {
                         Toast.makeText(getApplicationContext(), "Sai tên tài khoản hoặc mật khẩu", Toast.LENGTH_SHORT).show();
                     }

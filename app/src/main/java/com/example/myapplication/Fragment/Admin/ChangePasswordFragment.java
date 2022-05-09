@@ -149,11 +149,11 @@ public class ChangePasswordFragment extends Fragment {
                             matkhaucu.isEmpty();
                             matkhaumoi.isEmpty();
                             nhaplaimatkhaumoi.isEmpty();
+                        }
 
                             if (suscess.equals("3")) {
                                 Toast.makeText(getContext(), "Mật khẩu cũ nhập sai", Toast.LENGTH_LONG).show();
                             }
-                        }
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }

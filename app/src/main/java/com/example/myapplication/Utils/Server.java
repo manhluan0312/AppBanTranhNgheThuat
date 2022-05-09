@@ -22,4 +22,8 @@ public class Server {
     public static String Order_detail = "http://" + HOST + "order_detail.php";
     public static String change_password_custumer = "http://" + HOST + "doimatkhau_kh.php";
     public static String change_password_admin = "http://" + HOST + "doi_mk_admin.php";
+    public static String update_profile_custumer = "http://" + HOST + "updateprofile_custumer.php";
+    public static String add_catalog = "http://" + HOST + "insert_catalog.php";
+    public static String update_catalog = "http://" + HOST + "update_catalog.php";
 }
+

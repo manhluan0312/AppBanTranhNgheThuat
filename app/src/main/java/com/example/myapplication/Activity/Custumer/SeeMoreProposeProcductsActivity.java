@@ -9,6 +9,8 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -77,6 +79,33 @@ public class SeeMoreProposeProcductsActivity extends AppCompatActivity implement
             }
         });
     }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_toobar, menu);
+        return super.onCreateOptionsMenu(menu);
+
+    }
+
+
+
+    //ham xu ly su kien khi chon vao tung item menu
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        switch (item.getItemId()) {
+            case R.id.item_cart:
+                Intent intent1 = new Intent(getApplicationContext(), GioHangActivity.class);
+                startActivity(intent1);
+                break;
+            case R.id.item_serch:
+                Intent intent2 = new Intent(getApplicationContext(), TimKiem_SanPhamActivity.class);
+                startActivity(intent2);
+                break;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
 
     private void GetListProductPropose() {
 

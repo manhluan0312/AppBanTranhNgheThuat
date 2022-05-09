@@ -24,6 +24,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.myapplication.Activity.admin.AdminActivity;
+import com.example.myapplication.Activity.admin.ChangeCatalogActivity;
 import com.example.myapplication.Activity.admin.TimKiemDanhMuc_AdminActivity;
 import com.example.myapplication.Adapter.DanhMucSanPham_AdminAdapter;
 import com.example.myapplication.Interface.IClickCatalogManageAdmin;
@@ -139,7 +140,25 @@ public class ViewCatalogFragment extends Fragment implements SwipeRefreshLayout.
                     danhMucSanPhamAdapter = new DanhMucSanPham_AdminAdapter(adminActivity, danhmucList, new IClickCatalogManageAdmin() {
                         @Override
                         public void OnClickCatalogCatalogManageAdmin(DanhMucSanPham danhMucSanPham) {
-                            OpenBotomSheetDanhMuc();
+                            //OpenBotomSheetDanhMuc();
+
+                            View view = getLayoutInflater().inflate(R.layout.bottom_sheet_dmsp, null);
+                            BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(adminActivity);
+                            bottomSheetDialog.setContentView(view);
+                            bottomSheetDialog.show();
+
+                            LinearLayout linearLayout_suadm = view.findViewById(R.id.suadm);
+
+                            linearLayout_suadm.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View view) {
+                                    Intent intent =new Intent(adminActivity, ChangeCatalogActivity.class);
+                                    intent.putExtra("danhmuc",danhMucSanPham);
+                                    startActivity(intent);
+                                    bottomSheetDialog.cancel();
+                                }
+                            });
+
                         }
                     });
                     recyclerView_dmsp.setAdapter(danhMucSanPhamAdapter);
@@ -165,14 +184,5 @@ public class ViewCatalogFragment extends Fragment implements SwipeRefreshLayout.
         //danhmucList.clear();
         getListcatalog();
         swipeRefreshLayout.setRefreshing(false);//tat di
-    }
-
-    private void OpenBotomSheetDanhMuc() {
-        View view = getLayoutInflater().inflate(R.layout.bottom_sheet_dmsp, null);
-        BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(adminActivity);
-        bottomSheetDialog.setContentView(view);
-        bottomSheetDialog.show();
-
-        LinearLayout linearLayout_suadm = view.findViewById(R.id.suadm);
     }
 }
