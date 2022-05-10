@@ -70,12 +70,19 @@ public class UpdateInfoProfileActivity extends AppCompatActivity {
         AnhXa();
         setToolbar();
         sharedPreferences = getSharedPreferences("datalogin_custumer", Context.MODE_PRIVATE);
+        int id = sharedPreferences.getInt("id", 0);
 
-        textInputUsername.getEditText().setText((sharedPreferences.getString("Username", "")));
-        textInpuhoten.getEditText().setText((sharedPreferences.getString("hoten", "")));
-        textInpuEmail.getEditText().setText((sharedPreferences.getString("email", "")));
-        textInpusodienthoai.getEditText().setText((sharedPreferences.getString("sdt", "")));
-        textInpudiachi.getEditText().setText((sharedPreferences.getString("diachi", "")));
+        String username=sharedPreferences.getString("Username", "");
+        String hoten=sharedPreferences.getString("hoten", "");
+        String email=sharedPreferences.getString("email", "");
+        String sdt=sharedPreferences.getString("sdt", "");
+        String diachi=sharedPreferences.getString("diachi", "");
+
+        textInputUsername.getEditText().setText(username);
+        textInpuhoten.getEditText().setText(hoten);
+        textInpuEmail.getEditText().setText((email));
+        textInpusodienthoai.getEditText().setText(sdt);
+        textInpudiachi.getEditText().setText(diachi);
 
         String anh = sharedPreferences.getString("anh", "");
 
@@ -84,7 +91,6 @@ public class UpdateInfoProfileActivity extends AppCompatActivity {
                 .error(Server.IMAGE_AVARTAR)
                 .centerCrop()
                 .into(imageView_avartar);
-
 
         btn_chinhsua.setOnClickListener(new View.OnClickListener() {
             @Override

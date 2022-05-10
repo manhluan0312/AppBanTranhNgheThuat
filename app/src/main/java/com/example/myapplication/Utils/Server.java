@@ -25,5 +25,7 @@ public class Server {
     public static String update_profile_custumer = "http://" + HOST + "updateprofile_custumer.php";
     public static String add_catalog = "http://" + HOST + "insert_catalog.php";
     public static String update_catalog = "http://" + HOST + "update_catalog.php";
+    public static String all_lichsumuahang = "http://" + HOST + "all_lichsumuahang.php";
+    public static String update_profile_admin = "http://" + HOST + "updateprofileadmin.php";
 }
 

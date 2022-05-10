@@ -220,7 +220,7 @@ public class ViewInfoFragment<adminActivity> extends Fragment {
             email.isEmpty();
         }
 
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, Server.update_profile_custumer, new Response.Listener<String>() {
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, Server.update_profile_admin, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 try {
@@ -248,9 +248,9 @@ public class ViewInfoFragment<adminActivity> extends Fragment {
             protected Map<String, String> getParams() throws AuthFailureError {
                 HashMap<String, String> hashMap = new HashMap<>();
                 hashMap.put("username", username);
-                hashMap.put("name_customer", hoten);
+                hashMap.put("name", hoten);
                 hashMap.put("Phone", sdt);
-                hashMap.put("Address_customer", diachi);
+                hashMap.put("Address", diachi);
                 hashMap.put("email", email);
                 hashMap.put("id", String.valueOf(id));
                 return hashMap;
