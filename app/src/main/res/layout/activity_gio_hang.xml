@@ -25,6 +25,20 @@
 
     </androidx.appcompat.widget.Toolbar>
 
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="none">
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rcv_giohang"
@@ -32,82 +46,93 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
         android:layout_marginBottom="10dp" />
-    <LinearLayout
-        android:id="@+id/linner_giohangtrong"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:visibility="gone"
-        android:orientation="vertical">
 
 
-        <ImageView
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_gravity="center_horizontal"
-            android:src="@drawable/cart_empty" />
+            <LinearLayout
+                android:layout_margin="10dp"
+                android:background="#4CAF50"
+                android:id="@+id/linner_gia"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="10">
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_weight="3"
+                    android:text="Tổng tiền"
+                    android:textColor="@color/black"
+                    android:textSize="25sp"
+                    android:textStyle="bold" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="10dp"
-            android:text="Giỏ hàng đang trống"
-            android:textColor="@color/design_default_color_primary_dark"
-            android:textSize="18sp" />
+                <TextView
+                    android:id="@+id/tv_tongtien"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="7"
+                    android:gravity="center"
+                    android:text="Giá"
+                    android:textColor="@color/black"
+                    android:textSize="25sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
 
-    </LinearLayout>
 
-    <!--    truong hop gio hang trong-->
+        <!--    truong hop gio hang trong-->
 
-
-    <RelativeLayout
-
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp">
-
-        <LinearLayout
-            android:id="@+id/linner_gia"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/linner_giohangtrong"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:weightSum="10">
+            android:visibility="gone">
+
+
+            <ImageView
+                android:id="@+id/img_anh"
+                app:layout_constraintVertical_bias="0.3"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_gravity="center_horizontal"
+                android:src="@drawable/cart_empty" />
 
             <TextView
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_weight="3"
-                android:text="Tổng tiền"
-                android:textColor="@color/black"
-                android:textSize="25sp"
-                android:textStyle="bold" />
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/img_anh"
+                android:layout_marginTop="10dp"
+                android:text="Giỏ hàng không có sản phẩm"
+                android:textColor="@color/design_default_color_primary_dark"
+                android:textSize="22sp"/>
 
-            <TextView
-                android:id="@+id/tv_tongtien"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="7"
-                android:gravity="center"
-                android:text="Giá"
-                android:textColor="@color/purple_500"
-                android:textSize="25sp"
-                android:textStyle="bold" />
-        </LinearLayout>
-
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/btn_dathang"
+        </androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/custum_button_themanphamvaogiohang"
         android:layout_alignParentBottom="true"
-        android:text="Đặt hàng"
-        android:textSize="16sp"
-        android:textColor="@color/white"/>
-    </RelativeLayout>
+        android:layout_margin="10dp">
 
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_dathang"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/custum_button_themanphamvaogiohang"
+            android:text="Đặt hàng"
+            android:textSize="16sp"
+            android:textColor="@color/white"/>
+    </RelativeLayout>
+    <!--    truong hop gio hang trong-->
 </LinearLayout>
+    </ScrollView>
+    </LinearLayout>
 
 
 

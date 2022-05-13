@@ -1,66 +1,107 @@
 package com.example.myapplication.Fragment.Custumer;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+import com.example.myapplication.Adapter.LichSuDonHangAdapter;
+import com.example.myapplication.Model.LichSuDonHang;
 import com.example.myapplication.R;
+import com.example.myapplication.Utils.Server;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link AllOrderFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+
+
 public class AllOrderFragment extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
-    public AllOrderFragment() {
-        // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment AllOrderFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static AllOrderFragment newInstance(String param1, String param2) {
-        AllOrderFragment fragment = new AllOrderFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-    }
+    LichSuDonHangAdapter lichSuDonHangAdapter;
+    View view;
+    ArrayList<LichSuDonHang> lichSuDonHangArrayList;
+    public SharedPreferences sharedPreferences;
+    RecyclerView rcv_donhang;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_all_order, container, false);
+        view=inflater.inflate(R.layout.fragment_all_order, container, false);
+        AnhXa();
+        sharedPreferences = this.getActivity().getSharedPreferences("datalogin_custumer", Context.MODE_PRIVATE);
+        LinearLayoutManager linearLayoutManager=new LinearLayoutManager(getActivity());
+        rcv_donhang.setLayoutManager(linearLayoutManager);
+        GetDaTa();
+        return view;
     }
+
+    private void AnhXa() {
+        rcv_donhang=view.findViewById(R.id.all_order_custumer);
+    }
+
+    private void GetDaTa() {
+        lichSuDonHangArrayList=new ArrayList<>();
+        int id = sharedPreferences.getInt("id", 0);
+        StringRequest stringRequest=new StringRequest(Request.Method.POST, Server.all_lichsumuahang, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                try {
+                    JSONArray donhang = new JSONArray(response);
+
+                    for (int i = 0; i < donhang.length(); i++) {
+
+                        JSONObject donhangObject = donhang.getJSONObject(i);
+                        int madonhang=donhangObject.getInt("id_order");
+                        String ngaydathang=donhangObject.getString("Order_date");
+                        String hinhthucthanhtoan=donhangObject.getString("Payments");
+                        String diachigiaohang =donhangObject.getString("Delivery_address");
+                        float tongtien=(float)donhangObject.getInt("Total_money");
+                        String trangthaidonhang=donhangObject.getString("Delivery_status");
+
+                        LichSuDonHang lichSuDonHang =new LichSuDonHang(madonhang,ngaydathang,hinhthucthanhtoan,diachigiaohang
+                        ,trangthaidonhang,tongtien);
+                        lichSuDonHangArrayList.add(lichSuDonHang);
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                lichSuDonHangAdapter =new LichSuDonHangAdapter(getContext(),lichSuDonHangArrayList);
+                rcv_donhang.setAdapter(lichSuDonHangAdapter);
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+        }){
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                HashMap<String, String> hashMap = new HashMap<>();
+                hashMap.put("id", String.valueOf(id));
+                return hashMap;
+            }
+        };
+        RequestQueue queue = Volley.newRequestQueue(getActivity());
+        queue.add(stringRequest);
+    }
+
 }

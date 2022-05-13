@@ -19,7 +19,8 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MyApplication"
         android:usesCleartextTraffic="true">
-        <activity android:name=".Activity.Custumer.DatHangActivity"></activity>
+        <activity android:name=".Activity.Other.ChiTietDonHangActivity"></activity>
+        <activity android:name=".Activity.Custumer.DatHangActivity" />
         <activity android:name=".Activity.Custumer.HistoryOrderActivity" />
         <activity android:name=".Activity.admin.TimKiemSanPham_AdminActivity" />
         <activity android:name=".Activity.admin.ChangeCatalogActivity" />

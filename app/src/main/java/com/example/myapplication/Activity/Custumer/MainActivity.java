@@ -23,7 +23,7 @@ public class MainActivity extends AppCompatActivity {
     //sharedPreferences_Login sharedPreferences_login;
 
 
-    public static ArrayList<GioHang> gioHangArrayList;
+    public static ArrayList<GioHang> gioHangArrayList;//mang gio hang
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

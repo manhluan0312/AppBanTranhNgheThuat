@@ -26,6 +26,11 @@ public class Server {
     public static String add_catalog = "http://" + HOST + "insert_catalog.php";
     public static String update_catalog = "http://" + HOST + "update_catalog.php";
     public static String all_lichsumuahang = "http://" + HOST + "all_lichsumuahang.php";
+    public static String donhangchoxuly = "http://" + HOST + "donhangdangchoxuly.php";
+    public static String donhangdangxuly = "http://" + HOST + "donhangdangxuly.php";
+    public static String donhangdaxuly = "http://" + HOST + "donhangdaxuly.php";
     public static String update_profile_admin = "http://" + HOST + "updateprofileadmin.php";
+    public static String GETDONHANGQUANLY ="http://" + HOST + "quanlydonhang.php";
+    public static String GETDONHANGQUANLYCHITIET ="http://" + HOST + "chitietdonhang.php";
 }
 

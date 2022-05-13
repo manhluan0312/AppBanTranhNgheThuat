@@ -7,6 +7,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -56,8 +58,10 @@ public class GioHangAdapter extends RecyclerView.Adapter<GioHangAdapter.GioHangV
         DecimalFormat decimalFormat = new DecimalFormat("###,###,###");
 
         holder.tv_tensp.setText(gioHang.getTensanpham());
-        holder.tv_giasp.setText(decimalFormat.format(gioHang.getGiasanpham()) + " " + "VND");
+        holder.tv_giasp.setText("Giá sản phẩm:"+decimalFormat.format(gioHang.getGiasanpham()) + " " + "VND");
         holder.tv_slsp.setText(gioHang.getSoluongsanpham() + "");
+        float tongtien_tungitem = gioHang.getSoluongsanpham() * gioHang.getGiasanpham();
+        holder.tv_tongtien_item.setText("Tổng:"+decimalFormat.format(tongtien_tungitem) + " " + "VND");
 
         String anh = "http://" + Server.HOST + "image/Products/" + gioHang.getHinhanhsanpham();
 
@@ -78,12 +82,19 @@ public class GioHangAdapter extends RecyclerView.Adapter<GioHangAdapter.GioHangV
                         int soluongmoi = gioHangArrayList.get(pos).getSoluongsanpham() + 1;///cong sl
                         gioHangArrayList.get(pos).setSoluongsanpham(soluongmoi);//set gia tri
 
+
                     } else if (giatri == 2)//tru sp
                     {
 
                         int soluongmoi = gioHangArrayList.get(pos).getSoluongsanpham() - 1;///tru sl
                         gioHangArrayList.get(pos).setSoluongsanpham(soluongmoi);//set gia tri
 
+                        if (soluongmoi <= 1) {
+                            holder.btn_trusp.setVisibility(View.INVISIBLE);//an nut tru
+                        } else {
+                            holder.btn_trusp.setVisibility(View.VISIBLE);
+                            holder.btn_congsp.setVisibility(View.VISIBLE);
+                        }
 
                     }
                     if (giatri == 3)//xoa sp trong gio hang
@@ -113,19 +124,20 @@ public class GioHangAdapter extends RecyclerView.Adapter<GioHangAdapter.GioHangV
                         alertDialog.show();
                     }
 
-                    holder.tv_slsp.setText(gioHangArrayList.get(pos).getSoluongsanpham() + " ");
-
-                    DecimalFormat decimalFormat = new DecimalFormat("###,###,###");
-                    holder.tv_giasp.setText(decimalFormat.format(gioHangArrayList.get(pos).getSoluongsanpham() * gioHang.getGiasanpham()) + " " + "VND");
-
                     int sl = gioHangArrayList.get(pos).getSoluongsanpham();
-
                     if (sl <= 1) {
                         holder.btn_trusp.setVisibility(View.INVISIBLE);//an nut tru
                     } else {
                         holder.btn_trusp.setVisibility(View.VISIBLE);
                         holder.btn_congsp.setVisibility(View.VISIBLE);
                     }
+
+                    holder.tv_slsp.setText(gioHangArrayList.get(pos).getSoluongsanpham() + " ");
+
+                    DecimalFormat decimalFormat = new DecimalFormat("###,###,###");
+                    holder.tv_tongtien_item.setText("Tổng:"+decimalFormat.format(gioHangArrayList.get(pos).getSoluongsanpham() * gioHang.getGiasanpham()) + " " + "VND");
+
+
                     EventBus.getDefault().postSticky(new TinhTongEvents());//tinh lai tong tien
                 }
             });
@@ -143,7 +155,7 @@ public class GioHangAdapter extends RecyclerView.Adapter<GioHangAdapter.GioHangV
     public class GioHangViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
 
-        TextView tv_tensp, tv_giasp, tv_slsp;
+        TextView tv_tensp, tv_giasp, tv_slsp, tv_tongtien_item;
         ImageView img_anhsp, img_xoasp;
         Button btn_trusp, btn_congsp;
         IClickChangeNumberCart iClickChangeNumberCart;
@@ -158,6 +170,7 @@ public class GioHangAdapter extends RecyclerView.Adapter<GioHangAdapter.GioHangV
             img_anhsp = itemView.findViewById(R.id.anhsp_giohang);
             btn_trusp = itemView.findViewById(R.id.btn_truspgiohang);
             btn_congsp = itemView.findViewById(R.id.btn_congspgiohang);
+            tv_tongtien_item = itemView.findViewById(R.id.tv_tongtien_item);
             img_xoasp = itemView.findViewById(R.id.img_xoagiohang);
 
             btn_congsp.setOnClickListener(this);

@@ -111,6 +111,7 @@ public class ChiTietSanPhamActivity extends AppCompatActivity implements View.On
         }
         sanPham = (SanPham) bundle.get("productdetail");
 
+
     }
 
     private void AnhXa() {
@@ -162,8 +163,6 @@ public class ChiTietSanPhamActivity extends AppCompatActivity implements View.On
                 //xu ly su kien san pham them da co trong gio hang -->cong don
                 if (MainActivity.gioHangArrayList.get(i).getIdsp() == sanPham.getId_product()) {
                     MainActivity.gioHangArrayList.get(i).setSoluongsanpham(soluong + MainActivity.gioHangArrayList.get(i).getSoluongsanpham());
-//                    float giasanphamtungitemdonhang = MainActivity.gioHangArrayList.get(i).getSoluongsanpham() * sanPham.getPrice_product();
-//                    MainActivity.gioHangArrayList.get(i).setGiasanpham(giasanphamtungitemdonhang);
                     sanphamtrung = true;
                 }
             }
@@ -182,7 +181,7 @@ public class ChiTietSanPhamActivity extends AppCompatActivity implements View.On
                 gioHang.setHinhanhsanpham(sanPham.getPoto_product());
                 MainActivity.gioHangArrayList.add(gioHang);
             }
-        } else //chua co sp trong gio hang
+        } else //ko co san pham trong gio hang
         {
             int soluong = 1;
             float giasanphamtungitemdonhang = sanPham.getPrice_product();

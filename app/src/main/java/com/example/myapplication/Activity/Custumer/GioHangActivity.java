@@ -2,6 +2,7 @@ package com.example.myapplication.Activity.Custumer;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -37,7 +38,7 @@ public class GioHangActivity extends AppCompatActivity {
     Button btn_dathang;
     Context context;
     float Tongtien;
-    LinearLayout linner_giohangtrong;
+    ConstraintLayout linner_giohangtrong;
 
     GioHangAdapter gioHangAdapter;
 
@@ -102,13 +103,12 @@ public class GioHangActivity extends AppCompatActivity {
 
         } else {
             linner_giohangtrong.setVisibility(View.VISIBLE);
-            linner_giohangtrong.setGravity(Gravity.CENTER);
             rcv_giohang.setVisibility(View.GONE);
         }
 //        gioHangAdapter.notifyDataSetChanged();
     }
 
-    private void XuLyTongTien() //tat ca cac noi deu xu dung//
+    private void XuLyTongTien() //tinh tong tien mang mua hang
     {
          Tongtien = 0;
 

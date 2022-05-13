@@ -8,45 +8,66 @@
     app:cardElevation="8dp">
 
     <LinearLayout
-        android:id="@+id/linner_lichsudonhang"
+        android:id="@+id/itemdonhang"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:padding="8dp">
 
+
         <TextView
-            android:id="@+id/tv_madonhang_all_order"
+            android:id="@+id/tv_madonhang_mange_order"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
-            android:text="Mã đơn hàng "
+            android:text="Mã đơn hàng"
             android:textColor="@color/red"
             android:textSize="16sp"
             android:textStyle="bold" />
-
         <TextView
-            android:id="@+id/tv_ngaydathang_all_order"
+            android:id="@+id/tv_tenkhachhang_mange_order"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
-            android:text="Ngày đặt hàng"
+            android:text="Tên khách hàng"
             android:textColor="@color/black"
             android:textSize="16sp"
             android:textStyle="bold" />
 
 
         <TextView
-            android:id="@+id/tv_hinhthucthanhtoan_all_order"
+            android:id="@+id/tv_sdtkh_mange_order"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
-            android:text="Hình thức thanh toán"
+            android:text="Số điện thoại"
             android:textColor="@color/black"
             android:textSize="16sp"
             android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/tv_diachigiaohang_all_order"
+            android:id="@+id/tv_hinhthucthanhtoan_mange_order"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:text="Hình thức thanh toán "
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+
+        <TextView
+            android:id="@+id/tv_ngaydathang_mange_order"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:text="Ngày đặt hàng "
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tv_diachigiaohang_mange_order"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
@@ -55,8 +76,19 @@
             android:textSize="16sp"
             android:textStyle="bold" />
 
+
         <TextView
-            android:id="@+id/tv_tongtien_all_order"
+            android:id="@+id/tv_ghichu_mange_order"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:text="Ghi chú"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tv_tongtien_mange_order"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
@@ -80,7 +112,7 @@
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/tv_trangthaidonhang_all_order"
+                android:id="@+id/tv_trangthaidonhang_mange_admin_order"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
@@ -90,5 +122,4 @@
                 android:textStyle="bold" />
         </LinearLayout>
     </LinearLayout>
-
 </androidx.cardview.widget.CardView>
