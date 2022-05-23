@@ -19,7 +19,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MyApplication"
         android:usesCleartextTraffic="true">
-        <activity android:name=".Activity.Other.ChiTietDonHangActivity"></activity>
+        <activity android:name=".Activity.Other.ChITieTDonHangAdminActivity"></activity>
+        <activity android:name=".Activity.admin.SuaSanPhamActivity" />
+        <activity android:name=".Activity.Other.ChiTietDonHangActivity" />
         <activity android:name=".Activity.Custumer.DatHangActivity" />
         <activity android:name=".Activity.Custumer.HistoryOrderActivity" />
         <activity android:name=".Activity.admin.TimKiemSanPham_AdminActivity" />

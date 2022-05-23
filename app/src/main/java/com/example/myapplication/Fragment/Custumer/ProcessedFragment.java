@@ -7,6 +7,7 @@ import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -33,13 +34,14 @@ import java.util.HashMap;
 import java.util.Map;
 
 
-public class ProcessedFragment extends Fragment {
+public class ProcessedFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
 
     LichSuDonHangAdapter lichSuDonHangAdapter;
     View view;
     ArrayList<LichSuDonHang> lichSuDonHangArrayList;
     public SharedPreferences sharedPreferences;
     RecyclerView rcv_donhang;
+    SwipeRefreshLayout swipeRefreshLayout;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -48,6 +50,10 @@ public class ProcessedFragment extends Fragment {
         view = inflater.inflate(R.layout.fragment_processed, container, false);
         AnhXa();
         sharedPreferences = this.getActivity().getSharedPreferences("datalogin_custumer", Context.MODE_PRIVATE);
+
+        swipeRefreshLayout.setOnRefreshListener(this);//ham refest du lieu
+        swipeRefreshLayout.setColorSchemeColors(getResources().getColor(R.color.purple_500));//xet mau load
+
         LinearLayoutManager linearLayoutManager=new LinearLayoutManager(getContext());
         rcv_donhang.setLayoutManager(linearLayoutManager);
         GetDaTa();
@@ -56,6 +62,7 @@ public class ProcessedFragment extends Fragment {
 
     private void AnhXa() {
         rcv_donhang=view.findViewById(R.id.prosed_custumer);
+        swipeRefreshLayout = view.findViewById(R.id.switper_dm);
     }
 
 
@@ -103,5 +110,11 @@ public class ProcessedFragment extends Fragment {
         };
         RequestQueue queue = Volley.newRequestQueue(getActivity());
         queue.add(stringRequest);
+    }
+
+    @Override
+    public void onRefresh() {
+        GetDaTa();
+        swipeRefreshLayout.setRefreshing(false);//tat di
     }
 }

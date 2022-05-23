@@ -29,9 +29,6 @@ public class DanhMucSanPham implements Serializable {
 
     @Override
     public String toString() {
-        return "DanhMucSanPham{" +
-                "iddm=" + iddm +
-                ", tendanhmuc='" + tendanhmuc + '\'' +
-                '}';
+        return tendanhmuc;
     }
 }

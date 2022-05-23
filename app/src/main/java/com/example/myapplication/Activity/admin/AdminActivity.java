@@ -137,7 +137,7 @@ public class AdminActivity extends AppCompatActivity implements NavigationView.O
         if (getSupportActionBar() != null) {
             getSupportActionBar().setTitle(titile);
         }
-        ;
+
     }
 
     private void AnhXa() {

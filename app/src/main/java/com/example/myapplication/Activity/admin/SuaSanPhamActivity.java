@@ -1,13 +1,10 @@
-package com.example.myapplication.Fragment.Admin;
+package com.example.myapplication.Activity.admin;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -22,7 +19,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.example.myapplication.Activity.admin.AdminActivity;
+import com.bumptech.glide.Glide;
 import com.example.myapplication.Model.DanhMucSanPham;
 import com.example.myapplication.Model.SanPham;
 import com.example.myapplication.R;
@@ -37,16 +34,12 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public class AddProductFragment extends Fragment {
-
-    View view;
-    AdminActivity adminActivity;
-
+public class SuaSanPhamActivity extends AppCompatActivity {
 
     TextInputLayout textInputtensp, textInputtenanhsp, textInpugiasp, textInputchatlieu,
             textInputkichco, textInputnamst, textInputmota, textInputtenghichu;
     ImageView imageView;
-    Button btn_themsanpham;
+    Button btn_suasanpham;
 
     SanPham sanPham;
     Spinner spnner_dm;
@@ -54,38 +47,56 @@ public class AddProductFragment extends Fragment {
     ArrayAdapter<DanhMucSanPham> danhMucSanPhamAdapter;
     int iddanhmuc;
 
-
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        view = inflater.inflate(R.layout.fragment_add_product, container, false);
+
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_sua_san_pham);
         AnhXa();
         GetCatalog();
+        Intent intent = getIntent();
+        sanPham = (SanPham) intent.getSerializableExtra("sanpham");
 
-        btn_themsanpham.setOnClickListener(new View.OnClickListener() {
+        textInputtensp.getEditText().setText(sanPham.getName_product());
+        textInputtenanhsp.getEditText().setText(sanPham.getPoto_product());
+        textInpugiasp.getEditText().setText(sanPham.getPrice_product() + "");
+        textInputchatlieu.getEditText().setText(sanPham.getProduct_material());
+        textInputkichco.getEditText().setText(sanPham.getProduct_dimensions());
+        textInputnamst.getEditText().setText(sanPham.getYear_of_creation() + "");
+        textInputmota.getEditText().setText(sanPham.getProduct_description());
+        textInputtenghichu.getEditText().setText(sanPham.getNote_products());
+
+
+        String anh = "http://" + Server.HOST + "image/Products/" + sanPham.getPoto_product();
+
+        Glide.with(this)
+                .load(anh)
+                .centerCrop()
+                .error(R.drawable.ic_launcher_background)
+                .into(imageView);
+
+
+        btn_suasanpham.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 confỉmInput();
             }
         });
 
-        return view;
     }
 
     private void AnhXa() {
-
-        textInputtensp = view.findViewById(R.id.textinput_tensanpham);
-        textInputtenanhsp = view.findViewById(R.id.textinput_anhsanpham);
-        textInpugiasp = view.findViewById(R.id.textinput_giasanpham);
-        textInputchatlieu = view.findViewById(R.id.textinput_chatlieusanpham);
-        textInputkichco = view.findViewById(R.id.textinput_kichcosanpham);
-        textInputnamst = view.findViewById(R.id.textinput_namsangtacsanpham);
-        textInputmota = view.findViewById(R.id.textinput_motasanpham);
-        textInputtenghichu = view.findViewById(R.id.textinput_ghichusanpham);
-        imageView = view.findViewById(R.id.img_anhsp);
-        spnner_dm = view.findViewById(R.id.spnner_dm);
-        btn_themsanpham = view.findViewById(R.id.btn_themsanpham);
+        textInputtensp = findViewById(R.id.textinput_tensanpham);
+        textInputtenanhsp = findViewById(R.id.textinput_anhsanpham);
+        textInpugiasp = findViewById(R.id.textinput_giasanpham);
+        textInputchatlieu = findViewById(R.id.textinput_chatlieusanpham);
+        textInputkichco = findViewById(R.id.textinput_kichcosanpham);
+        textInputnamst = findViewById(R.id.textinput_namsangtacsanpham);
+        textInputmota = findViewById(R.id.textinput_motasanpham);
+        textInputtenghichu = findViewById(R.id.textinput_ghichusanpham);
+        imageView = findViewById(R.id.img_anhsp);
+        spnner_dm = findViewById(R.id.spnner_dm);
+        btn_suasanpham = findViewById(R.id.btn_suasanpham);
     }
 
     //ham check du lieu tensanpham khong de dc trong
@@ -202,7 +213,7 @@ public class AddProductFragment extends Fragment {
         {
             return;
         }
-        ThemSanPham();
+        SuaSanPham();
     }
 
     private void GetCatalog() {
@@ -222,22 +233,23 @@ public class AddProductFragment extends Fragment {
                         JSONObject DanhmucObject = danhmuc.getJSONObject(i);
                         iddanhmuc = DanhmucObject.getInt("id_catalog");
                         String tendanhmuc = DanhmucObject.getString("name_catalog");
+
+
                         tendamhmList.add(new DanhMucSanPham(iddanhmuc, tendanhmuc));
 
-                        danhMucSanPhamAdapter = new ArrayAdapter<DanhMucSanPham>(getActivity(),
+                        danhMucSanPhamAdapter = new ArrayAdapter<DanhMucSanPham>(getApplicationContext(),
                                 android.R.layout.simple_spinner_item, tendamhmList);
                         danhMucSanPhamAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                         spnner_dm.setAdapter(danhMucSanPhamAdapter);
-                        //spnner_dm.setSelection(danhMucSanPhamAdapter.getPosition(sanPham.getName_catalog()));//get vi tri hien tai cua danh muc
-
+                        //spnner_dm.setSelection(sanPham.getId_catlog());//get vi tri hien tai cua danh muc
 
                         spnner_dm.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                             @Override
                             public void onItemSelected(AdapterView<?> adapterView, View view, int postion, long l) {
 
-                                DanhMucSanPham danhMucSanPham = (DanhMucSanPham) adapterView.getItemAtPosition(postion);
-                                iddanhmuc = danhMucSanPham.getIddm();
-
+                                DanhMucSanPham danhMucSanPham=(DanhMucSanPham)adapterView.getItemAtPosition(postion);
+                                iddanhmuc=danhMucSanPham.getIddm();
+                                //Toast.makeText(getApplication(),String.valueOf(danhMucSanPham.getIddm()),Toast.LENGTH_SHORT).show();
                             }
 
                             @Override
@@ -246,8 +258,6 @@ public class AddProductFragment extends Fragment {
                             }
                         });
                     }
-
-
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -260,13 +270,12 @@ public class AddProductFragment extends Fragment {
             }
         });
 
-        RequestQueue requestQueue = Volley.newRequestQueue(getContext());// tạo request len server
+        RequestQueue requestQueue = Volley.newRequestQueue(this);// tạo request len server
         requestQueue.add(StringRequest);
     }
 
-    private void ThemSanPham() {
+    private void SuaSanPham() {
 
-        //int iddanhmuc=;
         String ten = textInputtensp.getEditText().getText().toString().trim();
         String anh = textInputtenanhsp.getEditText().getText().toString().trim();
         String gia = textInpugiasp.getEditText().getText().toString().trim();
@@ -276,17 +285,17 @@ public class AddProductFragment extends Fragment {
         String mota = textInputmota.getEditText().getText().toString().trim();
         String ghichu = textInputtenghichu.getEditText().getText().toString().trim();
 
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, Server.THEMSANPHAM, new Response.Listener<String>() {
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, Server.SUASANPHAM, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 try {
                     JSONObject jsonObject = new JSONObject(response);
                     String suscess = jsonObject.getString("success");
                     if (suscess.equals("1")) {
-                        Toast.makeText(getActivity(), "Thêm thành công", Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent(getActivity(), AdminActivity.class);
+                        Toast.makeText(getApplicationContext(), "Sửa thành công", Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(getApplicationContext(), AdminActivity.class);
                         startActivity(intent);
-                        getActivity().finish();
+                        finish();
                     }
 
                 } catch (JSONException e) {
@@ -297,7 +306,7 @@ public class AddProductFragment extends Fragment {
             @Override
             public void onErrorResponse(VolleyError error) {
 
-                Toast.makeText(getContext(), "Lỗi thêm sản phẩm", Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), "Lỗi thêm sản phẩm", Toast.LENGTH_LONG).show();
 
             }
         }) {
@@ -312,10 +321,13 @@ public class AddProductFragment extends Fragment {
                 hashMap.put("product_description", mota);
                 hashMap.put("note_products", ghichu);
                 hashMap.put("id_catalog", String.valueOf(iddanhmuc));
+                hashMap.put("id_product", String.valueOf(sanPham.getId_product()));
                 return hashMap;
             }
         };
-        RequestQueue queue = Volley.newRequestQueue(getContext());
+        RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
         queue.add(stringRequest);
+
     }
+
 }

@@ -72,7 +72,7 @@ public class SanPham_AdminAdapter extends RecyclerView.Adapter<SanPham_AdminAdap
         holder.imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                iClickProductManageAdmin.OnClickCatalogCatalogManageAdmin();
+                iClickProductManageAdmin.OnClickCatalogCatalogManageAdmin(sanPham);
             }
         });
 

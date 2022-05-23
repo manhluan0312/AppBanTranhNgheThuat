@@ -7,6 +7,7 @@ import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -32,7 +33,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public class WaitingForProgressing_OrderFragment extends Fragment {
+public class WaitingForProgressing_OrderFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener{
 
 
     LichSuDonHangAdapter lichSuDonHangAdapter;
@@ -40,6 +41,7 @@ public class WaitingForProgressing_OrderFragment extends Fragment {
     ArrayList<LichSuDonHang> lichSuDonHangArrayList;
     public SharedPreferences sharedPreferences;
     RecyclerView rcv_donhang;
+    SwipeRefreshLayout swipeRefreshLayout;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -48,6 +50,10 @@ public class WaitingForProgressing_OrderFragment extends Fragment {
         view = inflater.inflate(R.layout.fragment_waiting_for_progressing__order, container, false);
         AnhXa();
         sharedPreferences = this.getActivity().getSharedPreferences("datalogin_custumer", Context.MODE_PRIVATE);
+
+        swipeRefreshLayout.setOnRefreshListener(this);//ham refest du lieu
+        swipeRefreshLayout.setColorSchemeColors(getResources().getColor(R.color.purple_500));//xet mau load
+
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
         rcv_donhang.setLayoutManager(linearLayoutManager);
         GetDaTa();
@@ -56,6 +62,7 @@ public class WaitingForProgressing_OrderFragment extends Fragment {
 
     private void AnhXa() {
         rcv_donhang = view.findViewById(R.id.watting_order_prop_custumer);
+        swipeRefreshLayout = view.findViewById(R.id.switper_dm);
     }
 
 
@@ -103,5 +110,11 @@ public class WaitingForProgressing_OrderFragment extends Fragment {
         };
         RequestQueue queue = Volley.newRequestQueue(getActivity());
         queue.add(stringRequest);
+    }
+
+    @Override
+    public void onRefresh() {
+        GetDaTa();
+        swipeRefreshLayout.setRefreshing(false);//tat di
     }
 }

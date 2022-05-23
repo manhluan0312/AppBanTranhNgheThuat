@@ -5,11 +5,18 @@
     android:layout_height="match_parent"
     tools:context=".Fragment.Custumer.AllOrderFragment">
 
-<androidx.recyclerview.widget.RecyclerView
-    android:id="@+id/all_order_custumer"
-    android:layout_width="match_parent"
-    android:layout_marginLeft="10dp"
-    android:layout_marginBottom="10dp"
-    android:layout_height="match_parent"/>
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/switper_dm"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginBottom="10dp">
 
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/all_order_custumer"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="10dp"
+            android:layout_marginBottom="10dp" />
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 </LinearLayout>

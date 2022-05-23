@@ -141,7 +141,7 @@ public class ViewCatalogFragment extends Fragment implements SwipeRefreshLayout.
                         @Override
                         public void OnClickCatalogCatalogManageAdmin(DanhMucSanPham danhMucSanPham) {
                             //OpenBotomSheetDanhMuc();
-
+                            //mo bottomsheet sua
                             View view = getLayoutInflater().inflate(R.layout.bottom_sheet_dmsp, null);
                             BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(adminActivity);
                             bottomSheetDialog.setContentView(view);

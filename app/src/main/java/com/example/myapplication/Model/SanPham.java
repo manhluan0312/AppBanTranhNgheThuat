@@ -12,6 +12,7 @@ public class SanPham implements Serializable {
     int year_of_creation;
     String product_description;
     String note_products;
+    int id_catlog;
     String name_catalog;
 
     public SanPham(int id_product, String name_product, String poto_product, int
@@ -26,6 +27,29 @@ public class SanPham implements Serializable {
         this.product_description = product_description;
         this.note_products = note_products;
         this.name_catalog = name_catalog;
+    }
+
+    public SanPham(int id_product, String name_product, String poto_product, int price_product, String product_material, String product_dimensions,
+                   int year_of_creation, String product_description, String note_products, int id_catlog, String name_catalog) {
+        this.id_product = id_product;
+        this.name_product = name_product;
+        this.poto_product = poto_product;
+        this.price_product = price_product;
+        this.product_material = product_material;
+        this.product_dimensions = product_dimensions;
+        this.year_of_creation = year_of_creation;
+        this.product_description = product_description;
+        this.note_products = note_products;
+        this.id_catlog = id_catlog;
+        this.name_catalog = name_catalog;
+    }
+
+    public int getId_catlog() {
+        return id_catlog;
+    }
+
+    public void setId_catlog(int id_catlog) {
+        this.id_catlog = id_catlog;
     }
 
     public int getId_product() {
@@ -90,6 +114,14 @@ public class SanPham implements Serializable {
 
     public void setProduct_description(String product_description) {
         this.product_description = product_description;
+    }
+
+    public String getNote_products() {
+        return note_products;
+    }
+
+    public void setNote_products(String note_products) {
+        this.note_products = note_products;
     }
 
     public String getName_catalog() {

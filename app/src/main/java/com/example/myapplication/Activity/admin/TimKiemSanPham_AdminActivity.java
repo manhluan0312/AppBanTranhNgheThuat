@@ -130,7 +130,7 @@ public class TimKiemSanPham_AdminActivity extends AppCompatActivity {
 
                                 SanPham_AdminAdapter sanPhamAdapter = new SanPham_AdminAdapter(context, SanPhamArrayList, new IClickProductManageAdmin() {
                                     @Override
-                                    public void OnClickCatalogCatalogManageAdmin() {
+                                    public void OnClickCatalogCatalogManageAdmin(SanPham sanPham) {
                                         OpenBottomSheet();
                                     }
 

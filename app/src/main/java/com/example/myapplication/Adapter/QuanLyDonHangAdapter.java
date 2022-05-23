@@ -11,6 +11,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.myapplication.Activity.Other.ChITieTDonHangAdminActivity;
 import com.example.myapplication.Activity.Other.ChiTietDonHangActivity;
 import com.example.myapplication.Activity.admin.AdminActivity;
 import com.example.myapplication.Model.QuanLyDonHang;
@@ -61,11 +62,11 @@ public class QuanLyDonHangAdapter extends  RecyclerView.Adapter<QuanLyDonHangAda
         holder.trangthaidonhang.setText(trangthaidonhang);
 
         if(trangthaidonhang.equals("Đang chờ xử lý")){
-            holder.trangthaidonhang.setBackgroundColor(Color.red(R.color.red));
+            holder.trangthaidonhang.setBackgroundResource(R.color.red);
         } if((trangthaidonhang.equals("Đang xử lý"))){
-            holder.trangthaidonhang.setBackgroundColor(Color.blue(R.color.purple_200));
+            holder.trangthaidonhang.setBackgroundResource(R.color.purple_200);
         }if((trangthaidonhang.equals("Đã xử lý"))){
-            holder.trangthaidonhang.setBackgroundColor(Color.green(R.color.teal_700));
+            holder.trangthaidonhang.setBackgroundResource(R.color.LimeGreen);
         }
 
         DecimalFormat decimalFormat = new DecimalFormat("###,###,###");
@@ -75,8 +76,9 @@ public class QuanLyDonHangAdapter extends  RecyclerView.Adapter<QuanLyDonHangAda
         holder.linearLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent =new Intent(adminActivity, ChiTietDonHangActivity.class);
+                Intent intent =new Intent(adminActivity, ChITieTDonHangAdminActivity.class);
                 intent.putExtra("madonhang",quanLyDonHangArrayList.get(position).getMadonhang());
+                intent.putExtra("tinhtrangdonhang",quanLyDonHangArrayList.get(position).getTrangthaidonhang());
                 adminActivity.startActivity(intent);
             }
         });

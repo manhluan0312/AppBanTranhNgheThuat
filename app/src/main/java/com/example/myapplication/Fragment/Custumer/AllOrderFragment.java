@@ -7,6 +7,7 @@ import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -33,12 +34,13 @@ import java.util.HashMap;
 import java.util.Map;
 
 
-public class AllOrderFragment extends Fragment {
+public class AllOrderFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
 
     LichSuDonHangAdapter lichSuDonHangAdapter;
     View view;
     ArrayList<LichSuDonHang> lichSuDonHangArrayList;
     public SharedPreferences sharedPreferences;
+    SwipeRefreshLayout swipeRefreshLayout;
     RecyclerView rcv_donhang;
 
     @Override
@@ -48,6 +50,10 @@ public class AllOrderFragment extends Fragment {
         view=inflater.inflate(R.layout.fragment_all_order, container, false);
         AnhXa();
         sharedPreferences = this.getActivity().getSharedPreferences("datalogin_custumer", Context.MODE_PRIVATE);
+
+        swipeRefreshLayout.setOnRefreshListener(this);//ham refest du lieu
+        swipeRefreshLayout.setColorSchemeColors(getResources().getColor(R.color.purple_500));//xet mau load
+
         LinearLayoutManager linearLayoutManager=new LinearLayoutManager(getActivity());
         rcv_donhang.setLayoutManager(linearLayoutManager);
         GetDaTa();
@@ -56,6 +62,7 @@ public class AllOrderFragment extends Fragment {
 
     private void AnhXa() {
         rcv_donhang=view.findViewById(R.id.all_order_custumer);
+        swipeRefreshLayout = view.findViewById(R.id.switper_dm);
     }
 
     private void GetDaTa() {
@@ -104,4 +111,9 @@ public class AllOrderFragment extends Fragment {
         queue.add(stringRequest);
     }
 
+    @Override
+    public void onRefresh() {
+        GetDaTa();
+        swipeRefreshLayout.setRefreshing(false);//tat di
+    }
 }

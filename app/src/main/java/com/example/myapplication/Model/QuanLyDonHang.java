@@ -18,6 +18,9 @@ public class QuanLyDonHang {
         this.tongtien = tongtien;
     }
 
+    public QuanLyDonHang() {
+    }
+
     public int getMadonhang() {
         return madonhang;
     }
