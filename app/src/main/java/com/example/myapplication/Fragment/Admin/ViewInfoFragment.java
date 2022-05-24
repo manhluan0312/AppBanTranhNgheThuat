@@ -18,11 +18,13 @@ import androidx.appcompat.widget.AppCompatButton;
 import androidx.fragment.app.Fragment;
 
 import android.provider.MediaStore;
+import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
@@ -45,6 +47,7 @@ import com.gun0912.tedpermission.normal.TedPermission;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
@@ -56,11 +59,14 @@ import java.util.Map;
 public class ViewInfoFragment<adminActivity> extends Fragment {
 
     View mView;
+    TextView tv_chinhsuaanh;
     AdminActivity adminActivity;
     TextInputLayout textInputUsername,textInpuEmail, textInpuhoten, textInpusodienthoai, textInpudiachi;
     AppCompatButton btn_chinhsua;
     ImageView imageView_avartar;
     sharedPreferences_Login sharedPreferences_login;
+    String encodeImageString;//ten anh sau khi covert
+    int id;
 
     public SharedPreferences sharedPreferences;
 
@@ -81,7 +87,7 @@ public class ViewInfoFragment<adminActivity> extends Fragment {
         textInpusodienthoai.getEditText().setText((sharedPreferences.getString("sdt", "")));
         textInpudiachi.getEditText().setText((sharedPreferences.getString("diachi", "")));
 
-        String anh = sharedPreferences.getString("anh", "");
+        String anh ="http://" + Server.HOST + "upload/"+ sharedPreferences.getString("anh", "");
 
         Glide.with(this)
                 .load(anh)
@@ -104,6 +110,13 @@ public class ViewInfoFragment<adminActivity> extends Fragment {
             }
         });
 
+        tv_chinhsuaanh.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                UploadAnh();
+            }
+        });
+
         return mView;
 
     }
@@ -116,6 +129,7 @@ public class ViewInfoFragment<adminActivity> extends Fragment {
         btn_chinhsua = mView.findViewById(R.id.btn_chinhsua);
         imageView_avartar = mView.findViewById(R.id.image_avartar);
         textInputUsername=mView.findViewById(R.id.textinput_username);
+        tv_chinhsuaanh=mView.findViewById(R.id.tv_chinhsuaanh);
     }
 
 
@@ -209,7 +223,7 @@ public class ViewInfoFragment<adminActivity> extends Fragment {
 
     private void UpdateInfoProfile() {
 
-        int id = sharedPreferences.getInt("id", 0);
+        id = sharedPreferences.getInt("id", 0);
         String username = textInputUsername.getEditText().getText().toString().trim();
         String hoten = textInpuhoten.getEditText().getText().toString().trim();
         String sdt = textInpusodienthoai.getEditText().getText().toString().trim();
@@ -296,7 +310,8 @@ public class ViewInfoFragment<adminActivity> extends Fragment {
                         Uri uri =data.getData();// uri la du lieu anh ma nguoi dung chon
                         try {
                             Bitmap bitmap =MediaStore.Images.Media.getBitmap(adminActivity.getContentResolver(),uri);
-                            imageView_avartar.setImageBitmap(bitmap);//set anh len bitmap
+                            imageView_avartar.setImageBitmap(bitmap);//set anh len
+                            getStringImage(bitmap);
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
@@ -306,10 +321,56 @@ public class ViewInfoFragment<adminActivity> extends Fragment {
 }
     );
 
+    public void  getStringImage(Bitmap bitmap){
+        ByteArrayOutputStream byteArrayOutputStream=new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.JPEG,100,byteArrayOutputStream);
+
+        byte[] image =byteArrayOutputStream.toByteArray();
+        encodeImageString=android.util.Base64.encodeToString(image, Base64.DEFAULT);
+    }
+
     private void OpenGlary() {
         Intent intent =new Intent();
         intent.setType("image/*");
         intent.setAction(Intent.ACTION_GET_CONTENT);
         activityResultLauncher.launch(Intent.createChooser(intent,"Chọn ảnh"));
+    }
+
+    private  void UploadAnh(){
+        RequestQueue queue = Volley.newRequestQueue(adminActivity);
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, Server.CAPNHATANHADMIN, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                try {
+                    JSONObject jsonObject =new JSONObject(response);
+                    String sucess=jsonObject.getString("success");
+                    Log.d("tagconvertstr", "["+response+"]");
+
+
+                    if (sucess.equals("1")) {
+                        Toast.makeText(getActivity(), "Cập nhật thành công", Toast.LENGTH_LONG).show();
+                    }
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(getActivity(), "Lỗi cập nhật", Toast.LENGTH_LONG).show();
+            }
+        }) {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                HashMap<String, String> hashMap = new HashMap<>();
+                hashMap.put("id", String.valueOf(id));
+                hashMap.put("photo",encodeImageString);
+                return hashMap;
+            }
+        };
+
+        queue.add(stringRequest);
     }
 }

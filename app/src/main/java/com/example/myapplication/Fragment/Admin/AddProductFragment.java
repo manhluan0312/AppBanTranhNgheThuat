@@ -1,10 +1,20 @@
 package com.example.myapplication.Fragment.Admin;
 
+import android.Manifest;
+import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
 
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.fragment.app.Fragment;
 
+import android.provider.MediaStore;
+import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,19 +32,25 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.bumptech.glide.Glide;
 import com.example.myapplication.Activity.admin.AdminActivity;
 import com.example.myapplication.Model.DanhMucSanPham;
 import com.example.myapplication.Model.SanPham;
 import com.example.myapplication.R;
 import com.example.myapplication.Utils.Server;
 import com.google.android.material.textfield.TextInputLayout;
+import com.gun0912.tedpermission.PermissionListener;
+import com.gun0912.tedpermission.normal.TedPermission;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class AddProductFragment extends Fragment {
@@ -43,7 +59,7 @@ public class AddProductFragment extends Fragment {
     AdminActivity adminActivity;
 
 
-    TextInputLayout textInputtensp, textInputtenanhsp, textInpugiasp, textInputchatlieu,
+    TextInputLayout textInputtensp, textInpugiasp, textInputchatlieu,
             textInputkichco, textInputnamst, textInputmota, textInputtenghichu;
     ImageView imageView;
     Button btn_themsanpham;
@@ -53,6 +69,7 @@ public class AddProductFragment extends Fragment {
     ArrayList<DanhMucSanPham> tendamhmList;
     ArrayAdapter<DanhMucSanPham> danhMucSanPhamAdapter;
     int iddanhmuc;
+    String encodeImageString;//ten anh sau khi covert
 
 
     @Override
@@ -70,13 +87,19 @@ public class AddProductFragment extends Fragment {
             }
         });
 
+        imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                RequestPermissons();//check quyen nguoi dung
+            }
+        });
+
         return view;
     }
 
     private void AnhXa() {
 
         textInputtensp = view.findViewById(R.id.textinput_tensanpham);
-        textInputtenanhsp = view.findViewById(R.id.textinput_anhsanpham);
         textInpugiasp = view.findViewById(R.id.textinput_giasanpham);
         textInputchatlieu = view.findViewById(R.id.textinput_chatlieusanpham);
         textInputkichco = view.findViewById(R.id.textinput_kichcosanpham);
@@ -103,20 +126,6 @@ public class AddProductFragment extends Fragment {
         }
     }
 
-    //ham check du lieu anh khong de dc trong
-
-    private boolean validateAnhSanpham() {
-        String anh = textInputtenanhsp.getEditText().getText().toString().trim();
-        if (anh.isEmpty()) {
-            textInputtenanhsp.setError("Tên ảnh sản phẩm không để trống");
-            return false;
-        } else {
-            textInputtenanhsp.setError(null);
-            textInputtenanhsp.setErrorEnabled(false);
-            textInputtenanhsp.setHelperTextEnabled(false);//dong goi y se bien mat neu co nhap du lieu
-            return true;
-        }
-    }
 
     //ham check du lieu gia khong de dc trong
 
@@ -197,13 +206,77 @@ public class AddProductFragment extends Fragment {
     }
 
     private void confỉmInput() {
-        if (!validateTenSanpham() | !validateMoTaSanpham() | !validateAnhSanpham() | !validateGiaSanpham() | !validateKichCoSanpham() |
+        if (!validateTenSanpham() | !validateMoTaSanpham() | !validateGiaSanpham() | !validateKichCoSanpham() |
                 !validateChatlieuSanpham() | !validateNam())//du lieu khong con trong
         {
             return;
         }
         ThemSanPham();
     }
+
+    private void RequestPermissons() {
+        PermissionListener permissionlistener = new PermissionListener() {
+
+            // nguoi dung  cho phep truy cap vao permission
+            @Override
+            public void onPermissionGranted() {
+                OpenGlary();//ham cho nguoi dung chon anh tu thiet bi
+            }
+
+            // nguoi dung khong  cho phep truy cap vao permission
+            @Override
+            public void onPermissionDenied(List<String> deniedPermissions) {
+                Toast.makeText(getActivity(), "Permission Denied\n" + deniedPermissions.toString(), Toast.LENGTH_SHORT).show();
+            }
+        };
+        TedPermission.create()
+                .setPermissionListener(permissionlistener)
+                .setDeniedMessage("If you reject permission,you can not use this service\n\nPlease turn on permissions at [Setting] > [Permission]")//neu nguoi dung tu choi thi no vao muc setting
+                .setPermissions(Manifest.permission.CAMERA, Manifest.permission.READ_EXTERNAL_STORAGE)
+                .check();
+    }
+
+    private ActivityResultLauncher<Intent> activityResultLauncher = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(),
+            new ActivityResultCallback<ActivityResult>() {
+                @Override
+                public void onActivityResult(ActivityResult result) {
+                    if (result.getResultCode() == Activity.RESULT_OK) {
+                        Intent data = result.getData();
+                        if (data == null) {
+                            return;
+                        }
+                        Uri uri = data.getData();// uri la du lieu anh ma nguoi dung chon
+                        try {
+                            Bitmap bitmap = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), uri);
+                            imageView.setImageBitmap(bitmap);//set anh len bitmap
+                            getStringImage(bitmap);
+                            //getStringImage(bitmap);
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+            }
+    );
+
+    private void OpenGlary() {
+        Intent intent = new Intent();
+        intent.setType("image/*");
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+        activityResultLauncher.launch(Intent.createChooser(intent, "Chọn ảnh"));
+
+    }
+
+    //ham chuyen bitmap sang string
+    public void getStringImage(Bitmap bitmap) {
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream);
+
+        byte[] image = byteArrayOutputStream.toByteArray();
+        encodeImageString = android.util.Base64.encodeToString(image, Base64.DEFAULT);
+    }
+
 
     private void GetCatalog() {
         tendamhmList = new ArrayList<DanhMucSanPham>();
@@ -268,7 +341,6 @@ public class AddProductFragment extends Fragment {
 
         //int iddanhmuc=;
         String ten = textInputtensp.getEditText().getText().toString().trim();
-        String anh = textInputtenanhsp.getEditText().getText().toString().trim();
         String gia = textInpugiasp.getEditText().getText().toString().trim();
         String chatlieu = textInputchatlieu.getEditText().getText().toString().trim();
         String kichco = textInputkichco.getEditText().getText().toString().trim();
@@ -304,7 +376,7 @@ public class AddProductFragment extends Fragment {
             protected Map<String, String> getParams() throws AuthFailureError {
                 HashMap<String, String> hashMap = new HashMap<>();
                 hashMap.put("name_product", ten);
-                hashMap.put("poto_product", anh);
+                hashMap.put("poto_product",encodeImageString);
                 hashMap.put("price_product", gia);
                 hashMap.put("product_material", chatlieu);
                 hashMap.put("product_dimensions", kichco);

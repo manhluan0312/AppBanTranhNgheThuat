@@ -15,9 +15,11 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
@@ -44,6 +46,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
@@ -54,13 +57,15 @@ import java.util.Map;
 public class UpdateInfoProfileActivity extends AppCompatActivity {
 
     Toolbar toolbar;
-    TextView mTitle;
+    TextView mTitle,tv_chinhsuaanh;
     TextInputLayout textInputUsername, textInpuEmail, textInpuhoten, textInpusodienthoai, textInpudiachi;
     AppCompatButton btn_chinhsua;
     ImageView imageView_avartar;
     sharedPreferences_Login sharedPreferences_login;
     public SharedPreferences sharedPreferences;
     Context context;
+    int id;
+    String encodeImageString;//ten anh sau khi covert
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,7 +75,7 @@ public class UpdateInfoProfileActivity extends AppCompatActivity {
         AnhXa();
         setToolbar();
         sharedPreferences = getSharedPreferences("datalogin_custumer", Context.MODE_PRIVATE);
-        int id = sharedPreferences.getInt("id", 0);
+        id = sharedPreferences.getInt("id", 0);
 
         String username=sharedPreferences.getString("Username", "");
         String hoten=sharedPreferences.getString("hoten", "");
@@ -84,7 +89,7 @@ public class UpdateInfoProfileActivity extends AppCompatActivity {
         textInpusodienthoai.getEditText().setText(sdt);
         textInpudiachi.getEditText().setText(diachi);
 
-        String anh = sharedPreferences.getString("anh", "");
+        String anh ="http://" + Server.HOST + "upload/"+ sharedPreferences.getString("anh", "");
 
         Glide.with(this)
                 .load(anh)
@@ -102,7 +107,14 @@ public class UpdateInfoProfileActivity extends AppCompatActivity {
         imageView_avartar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                RequestPermissons();
+                RequestPermissons();//check quyen nguoi dung
+            }
+        });
+
+        tv_chinhsuaanh.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                UploadAnh();
             }
         });
     }
@@ -117,6 +129,7 @@ public class UpdateInfoProfileActivity extends AppCompatActivity {
         textInputUsername = findViewById(R.id.textinput_username);
         btn_chinhsua = findViewById(R.id.btn_chinhsua);
         imageView_avartar = findViewById(R.id.image_avartar);
+        tv_chinhsuaanh=findViewById(R.id.tv_chinhsuaanh);
     }
 
     private void setToolbar() {
@@ -282,7 +295,7 @@ public class UpdateInfoProfileActivity extends AppCompatActivity {
             // nguoi dung  cho phep truy cap vao permission
             @Override
             public void onPermissionGranted() {
-                OpenGlary();//ham cho nguoi dung chon anh
+                OpenGlary();//ham cho nguoi dung chon anh tu thiet bi
             }
 
             // nguoi dung khong  cho phep truy cap vao permission
@@ -312,10 +325,10 @@ public class UpdateInfoProfileActivity extends AppCompatActivity {
                         try {
                             Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), uri);
                             imageView_avartar.setImageBitmap(bitmap);//set anh len bitmap
+                            getStringImage(bitmap);
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
-
                     }
                 }
             }
@@ -328,4 +341,49 @@ public class UpdateInfoProfileActivity extends AppCompatActivity {
         activityResultLauncher.launch(Intent.createChooser(intent, "Chọn ảnh"));
     }
 
-}
+    public void  getStringImage(Bitmap bitmap){
+        ByteArrayOutputStream byteArrayOutputStream=new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.JPEG,100,byteArrayOutputStream);
+
+        byte[] image =byteArrayOutputStream.toByteArray();
+        encodeImageString=android.util.Base64.encodeToString(image, Base64.DEFAULT);
+    }
+
+    private  void UploadAnh(){
+        RequestQueue queue = Volley.newRequestQueue(this);
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, Server.CAPNHATANHKHACHHANG, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                try {
+                    JSONObject jsonObject =new JSONObject(response);
+                    String sucess=jsonObject.getString("success");
+                    Log.d("tagconvertstr", "["+response+"]");
+
+
+                    if (sucess.equals("1")) {
+                        Toast.makeText(UpdateInfoProfileActivity.this, "Cập nhật thành công", Toast.LENGTH_LONG).show();
+                    }
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(getApplicationContext(), "Lỗi cập nhật", Toast.LENGTH_LONG).show();
+            }
+        }) {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                HashMap<String, String> hashMap = new HashMap<>();
+                hashMap.put("id_customer", String.valueOf(id));
+                hashMap.put("photo",encodeImageString);
+                return hashMap;
+            }
+        };
+
+        queue.add(stringRequest);
+    }
+    }

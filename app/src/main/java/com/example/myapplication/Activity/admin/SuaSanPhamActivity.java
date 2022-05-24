@@ -1,9 +1,19 @@
 package com.example.myapplication.Activity.admin;
 
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.Manifest;
+import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
+import android.util.Base64;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -25,18 +35,23 @@ import com.example.myapplication.Model.SanPham;
 import com.example.myapplication.R;
 import com.example.myapplication.Utils.Server;
 import com.google.android.material.textfield.TextInputLayout;
+import com.gun0912.tedpermission.PermissionListener;
+import com.gun0912.tedpermission.normal.TedPermission;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class SuaSanPhamActivity extends AppCompatActivity {
 
-    TextInputLayout textInputtensp, textInputtenanhsp, textInpugiasp, textInputchatlieu,
+    TextInputLayout textInputtensp, textInpugiasp, textInputchatlieu,
             textInputkichco, textInputnamst, textInputmota, textInputtenghichu;
     ImageView imageView;
     Button btn_suasanpham;
@@ -46,6 +61,7 @@ public class SuaSanPhamActivity extends AppCompatActivity {
     ArrayList<DanhMucSanPham> tendamhmList;
     ArrayAdapter<DanhMucSanPham> danhMucSanPhamAdapter;
     int iddanhmuc;
+    String encodeImageString;//ten anh sau khi covert
 
     @Override
 
@@ -58,7 +74,6 @@ public class SuaSanPhamActivity extends AppCompatActivity {
         sanPham = (SanPham) intent.getSerializableExtra("sanpham");
 
         textInputtensp.getEditText().setText(sanPham.getName_product());
-        textInputtenanhsp.getEditText().setText(sanPham.getPoto_product());
         textInpugiasp.getEditText().setText(sanPham.getPrice_product() + "");
         textInputchatlieu.getEditText().setText(sanPham.getProduct_material());
         textInputkichco.getEditText().setText(sanPham.getProduct_dimensions());
@@ -75,6 +90,13 @@ public class SuaSanPhamActivity extends AppCompatActivity {
                 .error(R.drawable.ic_launcher_background)
                 .into(imageView);
 
+        imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                RequestPermissons();//check quyen nguoi dung
+            }
+        });
+
 
         btn_suasanpham.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -87,7 +109,6 @@ public class SuaSanPhamActivity extends AppCompatActivity {
 
     private void AnhXa() {
         textInputtensp = findViewById(R.id.textinput_tensanpham);
-        textInputtenanhsp = findViewById(R.id.textinput_anhsanpham);
         textInpugiasp = findViewById(R.id.textinput_giasanpham);
         textInputchatlieu = findViewById(R.id.textinput_chatlieusanpham);
         textInputkichco = findViewById(R.id.textinput_kichcosanpham);
@@ -110,21 +131,6 @@ public class SuaSanPhamActivity extends AppCompatActivity {
             textInputtensp.setError(null);
             textInputtensp.setErrorEnabled(false);
             textInputtensp.setHelperTextEnabled(false);//dong goi y se bien mat neu co nhap du lieu
-            return true;
-        }
-    }
-
-    //ham check du lieu anh khong de dc trong
-
-    private boolean validateAnhSanpham() {
-        String anh = textInputtenanhsp.getEditText().getText().toString().trim();
-        if (anh.isEmpty()) {
-            textInputtenanhsp.setError("Tên ảnh sản phẩm không để trống");
-            return false;
-        } else {
-            textInputtenanhsp.setError(null);
-            textInputtenanhsp.setErrorEnabled(false);
-            textInputtenanhsp.setHelperTextEnabled(false);//dong goi y se bien mat neu co nhap du lieu
             return true;
         }
     }
@@ -208,12 +214,81 @@ public class SuaSanPhamActivity extends AppCompatActivity {
     }
 
     private void confỉmInput() {
-        if (!validateTenSanpham() | !validateMoTaSanpham() | !validateAnhSanpham() | !validateGiaSanpham() | !validateKichCoSanpham() |
+        if (!validateTenSanpham() | !validateMoTaSanpham() | !validateGiaSanpham() | !validateKichCoSanpham() |
                 !validateChatlieuSanpham() | !validateNam())//du lieu khong con trong
         {
             return;
         }
         SuaSanPham();
+    }
+
+    private void RequestPermissons() {
+        PermissionListener permissionlistener = new PermissionListener() {
+
+            // nguoi dung  cho phep truy cap vao permission
+            @Override
+            public void onPermissionGranted() {
+                OpenGlary();//ham cho nguoi dung chon anh tu thiet bi
+            }
+
+            // nguoi dung khong  cho phep truy cap vao permission
+            @Override
+            public void onPermissionDenied(List<String> deniedPermissions) {
+                Toast.makeText(getApplicationContext(), "Permission Denied\n" + deniedPermissions.toString(), Toast.LENGTH_SHORT).show();
+            }
+        };
+        TedPermission.create()
+                .setPermissionListener(permissionlistener)
+                .setDeniedMessage("If you reject permission,you can not use this service\n\nPlease turn on permissions at [Setting] > [Permission]")//neu nguoi dung tu choi thi no vao muc setting
+                .setPermissions(Manifest.permission.CAMERA, Manifest.permission.READ_EXTERNAL_STORAGE)
+                .check();
+    }
+
+    private ActivityResultLauncher<Intent> activityResultLauncher = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(),
+            new ActivityResultCallback<ActivityResult>() {
+                @Override
+                public void onActivityResult(ActivityResult result) {
+                    if (result.getResultCode() == Activity.RESULT_OK) {
+                        Intent data = result.getData();
+                        if (data == null) {
+                            return;
+                        }
+                        Uri uri = data.getData();// uri la du lieu anh ma nguoi dung chon
+                        try {
+                            Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), uri);
+                            imageView.setImageBitmap(bitmap);//set anh len bitmap
+                            getStringImage(bitmap);
+                            //getStringImage(bitmap);
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+            }
+    );
+    private void OpenGlary() {
+        Intent intent = new Intent();
+        intent.setType("image/*");
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+        activityResultLauncher.launch(Intent.createChooser(intent, "Chọn ảnh"));
+
+        String anh = "http://" + Server.HOST + "image/Products/" + sanPham.getPoto_product();
+
+        Glide.with(this)
+                .load(anh)
+                .centerCrop()
+                .error(R.drawable.ic_launcher_background)
+                .into(imageView);
+    }
+
+    //ham chuyen bitmap sang string
+    public void  getStringImage(Bitmap bitmap){
+        ByteArrayOutputStream byteArrayOutputStream=new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.JPEG,100,byteArrayOutputStream);
+
+        byte[] image =byteArrayOutputStream.toByteArray();
+        encodeImageString=android.util.Base64.encodeToString(image, Base64.DEFAULT);
     }
 
     private void GetCatalog() {
@@ -277,7 +352,6 @@ public class SuaSanPhamActivity extends AppCompatActivity {
     private void SuaSanPham() {
 
         String ten = textInputtensp.getEditText().getText().toString().trim();
-        String anh = textInputtenanhsp.getEditText().getText().toString().trim();
         String gia = textInpugiasp.getEditText().getText().toString().trim();
         String chatlieu = textInputchatlieu.getEditText().getText().toString().trim();
         String kichco = textInputkichco.getEditText().getText().toString().trim();
@@ -306,14 +380,14 @@ public class SuaSanPhamActivity extends AppCompatActivity {
             @Override
             public void onErrorResponse(VolleyError error) {
 
-                Toast.makeText(getApplicationContext(), "Lỗi thêm sản phẩm", Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), "Lỗi sửa sản phẩm", Toast.LENGTH_LONG).show();
 
             }
         }) {
             protected Map<String, String> getParams() throws AuthFailureError {
                 HashMap<String, String> hashMap = new HashMap<>();
                 hashMap.put("name_product", ten);
-                hashMap.put("poto_product", anh);
+                hashMap.put("poto_product",encodeImageString);
                 hashMap.put("price_product", gia);
                 hashMap.put("product_material", chatlieu);
                 hashMap.put("product_dimensions", kichco);

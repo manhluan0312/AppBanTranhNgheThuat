@@ -76,11 +76,11 @@ public class AdminActivity extends AppCompatActivity implements NavigationView.O
         tv_ten.setText(sharedPreferences.getString("hoten", ""));
         tv_sdt.setText(sharedPreferences.getString("sdt", ""));
 
-        String anh = sharedPreferences.getString("anh", "");
+        String anh ="http://" + Server.HOST + "upload/"+ sharedPreferences.getString("anh", "");
 
         Glide.with(this)
                 .load(anh)
-                .error(Server.IMAGE_AVARTAR)
+                .error(anh)
                 .centerCrop()
                 .into(imageView_avartar);
 

@@ -35,7 +35,8 @@ public class Server {
     public static String THEMSANPHAM ="http://" + HOST + "add_products.php";
     public static String SUASANPHAM ="http://" + HOST + "change_product.php";
     public static String CAPNHATTINHTRANGDONHANG ="http://" + HOST +"change_tinhtrangdonhang.php";
-
+    public static String CAPNHATANHKHACHHANG="http://" + HOST +"upload_avartar.php";
+    public static String CAPNHATANHADMIN="http://" + HOST +"upload_avartar_admin.php";
 
 }
 

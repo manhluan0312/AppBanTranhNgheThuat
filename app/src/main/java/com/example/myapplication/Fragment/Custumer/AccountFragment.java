@@ -71,9 +71,10 @@ public class AccountFragment extends Fragment implements View.OnClickListener {
        username.setText(sharedPreferences.getString("Username",""));
        sdt.setText(sharedPreferences.getString("sdt",""));
 
+        String anh ="http://" + Server.HOST + "upload/"+ sharedPreferences.getString("anh", "");
 
         Glide.with(mainActivity)
-                .load(Server.IMAGE_AVARTAR)
+                .load(anh)
                 .error(username)
                 .centerCrop()
                 .into(imageView);

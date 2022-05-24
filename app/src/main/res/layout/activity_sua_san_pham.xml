@@ -39,34 +39,21 @@
                 android:inputType="text" />
         </com.google.android.material.textfield.TextInputLayout>
 
+<TextView
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center"
+    android:layout_margin="10dp"
+    android:text="Ảnh sản phẩm"/>
 
         <ImageView
             android:id="@+id/img_anhsp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="150dp"
+            android:layout_height="100dp"
             android:layout_gravity="center"
             android:layout_margin="10dp"
             android:scaleType="centerCrop"
             android:src="@drawable/ic_launcher_background"></ImageView>
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/textinput_anhsanpham"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_margin="10dp"
-            app:endIconMode="clear_text"
-            app:helperText="*Nội dung bắt buộc phải điền"
-            app:helperTextTextColor="@color/purple_500"
-            app:startIconDrawable="@drawable/user">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Nhập tên hình ảnh "
-                android:inputType="text" />
-        </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/textinput_giasanpham"
