@@ -100,6 +100,8 @@ public class GioHangActivity extends AppCompatActivity {
             rcv_giohang.setLayoutManager(linearLayoutManager);
             gioHangAdapter = new GioHangAdapter(context, MainActivity.gioHangArrayList);
             rcv_giohang.setAdapter(gioHangAdapter);
+            rcv_giohang.setVisibility(View.VISIBLE);
+            linner_giohangtrong.setVisibility(View.GONE);
 
         } else {
             linner_giohangtrong.setVisibility(View.VISIBLE);
