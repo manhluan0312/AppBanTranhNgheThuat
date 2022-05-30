@@ -166,7 +166,6 @@ public class DatHangActivity extends AppCompatActivity {
 
                     }
                 }) {
-
                     @Override
                     protected Map<String, String> getParams() throws AuthFailureError {
                         JSONArray jsonArray = new JSONArray();

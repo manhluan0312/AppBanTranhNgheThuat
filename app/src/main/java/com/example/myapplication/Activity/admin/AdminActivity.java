@@ -28,6 +28,7 @@ import com.example.myapplication.Fragment.Admin.AddProductFragment;
 import com.example.myapplication.Fragment.Admin.ChangePasswordFragment;
 import com.example.myapplication.Fragment.Admin.HomeFragment;
 import com.example.myapplication.Fragment.Admin.OrderManagementFragment;
+import com.example.myapplication.Fragment.Admin.STATISTICS_turnover_Fragment;
 import com.example.myapplication.Fragment.Admin.ViewCatalogFragment;
 import com.example.myapplication.Fragment.Admin.ViewInfoFragment;
 import com.example.myapplication.Fragment.Admin.ViewProductFragment;
@@ -59,6 +60,7 @@ public class AdminActivity extends AppCompatActivity implements NavigationView.O
     private static final int FRAGMENT_VIEW_INFO = 6;
     private static final int FRAGMENT_CHANGE_PASS = 7;
     private static final int FRAGMENT_VIEW_STATISTICS_CATALOG = 8;
+    private static final int FRAGMENT_VIEW_STATISTICS_turnover = 9;
 
     private int CurrentFrament = FRAGMENT_HOME;// gan vi tri mo trang admin la mo trang home
 
@@ -76,7 +78,7 @@ public class AdminActivity extends AppCompatActivity implements NavigationView.O
         tv_ten.setText(sharedPreferences.getString("hoten", ""));
         tv_sdt.setText(sharedPreferences.getString("sdt", ""));
 
-        String anh ="http://" + Server.HOST + "upload/"+ sharedPreferences.getString("anh", "");
+        String anh = "http://" + Server.HOST + "upload/" + sharedPreferences.getString("anh", "");
 
         Glide.with(this)
                 .load(anh)
@@ -133,11 +135,12 @@ public class AdminActivity extends AppCompatActivity implements NavigationView.O
                 break;
             case FRAGMENT_VIEW_STATISTICS_CATALOG:
                 titile = "Thống kê sản phẩm theo danh mục";
+            case FRAGMENT_VIEW_STATISTICS_turnover:
+                titile = "Thống kê doanh thu";
         }
         if (getSupportActionBar() != null) {
             getSupportActionBar().setTitle(titile);
         }
-
     }
 
     private void AnhXa() {
@@ -243,6 +246,14 @@ public class AdminActivity extends AppCompatActivity implements NavigationView.O
                     replaceFragment(new ViewStatistics_CatalogFragment());//replace frament thong ke
                     CurrentFrament = FRAGMENT_VIEW_STATISTICS_CATALOG;//gan ve fragment thong ke
                 }
+                break;
+            case R.id.menu_xemthongke_doanhthu:
+                if (CurrentFrament != FRAGMENT_VIEW_STATISTICS_turnover)//vi tri hien tai ko phai fragment xem thong ke doanh thu
+                {
+                    replaceFragment(new STATISTICS_turnover_Fragment());//replace frament thong ke doanh thu
+                    CurrentFrament = FRAGMENT_VIEW_STATISTICS_turnover;//gan ve fragment thong ke doanh thu
+                }
+                break;
         }
         setToorBar();
         drawerLayout.closeDrawer(GravityCompat.START);

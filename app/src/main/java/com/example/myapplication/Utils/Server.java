@@ -37,6 +37,6 @@ public class Server {
     public static String CAPNHATTINHTRANGDONHANG ="http://" + HOST +"change_tinhtrangdonhang.php";
     public static String CAPNHATANHKHACHHANG="http://" + HOST +"upload_avartar.php";
     public static String CAPNHATANHADMIN="http://" + HOST +"upload_avartar_admin.php";
-
+    public static String THONGKEDOANHTHU="http://" + HOST +"thongkedoanhthu.php";
 }
 

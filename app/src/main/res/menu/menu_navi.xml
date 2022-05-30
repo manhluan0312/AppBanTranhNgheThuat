@@ -71,8 +71,8 @@
 
                 <item
                     android:id="@+id/menu_dangxuat"
-                    android:orderInCategory="9"
                     android:icon="@drawable/ic_logout"
+                    android:orderInCategory="9"
                     android:title="@string/menu_navi_danngxuat" />
 
                 <item
@@ -84,12 +84,16 @@
     </item>
     <item android:title="Xem thống kê">
         <menu>
-        <group android:checkableBehavior="single">
-            <item
-                android:id="@+id/menu_xemthongke"
-                android:orderInCategory="5"
-                android:title="Thống kê theo danh mục" />
-        </group>
+            <group android:checkableBehavior="single">
+                <item
+                    android:id="@+id/menu_xemthongke"
+                    android:orderInCategory="5"
+                    android:title="Thống kê theo danh mục" />
+                <item
+                    android:id="@+id/menu_xemthongke_doanhthu"
+                    android:orderInCategory="6"
+                    android:title="Thống kê doanh thu" />
+            </group>
         </menu>
     </item>
 </menu>
