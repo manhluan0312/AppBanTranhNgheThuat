@@ -1,7 +1,8 @@
 package com.example.myapplication.Utils;
 
 public class Server {
-    public static String HOST = "192.168.1.59/API_Appbantranhnghethuat/";
+    //public static String HOST = "192.168.1.59/API_Appbantranhnghethuat/";
+    public static String HOST = "manhluan0312.000webhostapp.com/";
     public static String GET_SILDER = "http://" + HOST + "get_slider.php";
     public static String GETDANHMUC = "http://" + HOST + "get_catalog.php";
     public static String IMAGE_AVARTAR = "http://" + HOST + "image/avatar.png";
